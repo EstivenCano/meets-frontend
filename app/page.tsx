@@ -61,7 +61,7 @@ const LoginSection = () => {
       </div>
       <button className='flex flex-row items-center justify-center space-x-2 px-4 py-2 rounded-md bg-violet-600 text-white font-semibold'>
         <svg
-          enable-background='new 0 0 32 32'
+          enableBackground='new 0 0 32 32'
           version='1.1'
           viewBox='0 0 32 32'
           width={24}
