@@ -4,6 +4,7 @@ import { LoadingBar } from "@/components/LoadingBar";
 import { Button } from "@/components/Button";
 import Image from "next/image";
 import { TextField } from "@/components/TextField";
+import { Link } from "@/components/Link";
 
 const TitleSection = () => {
   return (
@@ -42,7 +43,7 @@ const LoginSection = () => {
   return (
     <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6'>
       <h2 className='text-lg font-semibold'>Sign in with your account</h2>
-      <form className='flex flex-col items-center justify-center space-y-4'>
+      <form className='flex flex-col items-center justify-center space-y-4 w-72'>
         <TextField
           label='email'
           type='email'
@@ -60,9 +61,9 @@ const LoginSection = () => {
         </Button>
       </form>
       <div className='flex items-center space-x-4'>
-        <path className='w-20 h-0.5 bg-violet-600' />
+        <div className='w-20 h-0.5 bg-violet-600' />
         <p className='text-lg font-semibold'>Or</p>
-        <path className='w-20 h-0.5 bg-violet-600' />
+        <div className='w-20 h-0.5 bg-violet-600' />
       </div>
       <Button size='md'>
         <Image src='google.svg' alt='Google icon' width={20} height={20} />
@@ -70,11 +71,10 @@ const LoginSection = () => {
       </Button>
       <p className='text-lg font-semibold'>
         {"Don't have an account? "}
-        <a
-          href='#'
-          className='text-violet-600 hover:underline hover:text-violet-800'>
-          Sign up
-        </a>
+        <Link href='/signup'>Sign up</Link>
+      </p>
+      <p className='text-lg font-semibold'>
+        <Link href='/reset-password'>Forgot password?</Link>
       </p>
     </section>
   );
