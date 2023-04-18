@@ -3,6 +3,7 @@ import { MeetsTitle } from "@/components/MeetsTitle";
 import { LoadingBar } from "@/components/LoadingBar";
 import { Button } from "@/components/Button";
 import Image from "next/image";
+import { TextField } from "@/components/TextField";
 
 const TitleSection = () => {
   return (
@@ -42,15 +43,17 @@ const LoginSection = () => {
     <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6'>
       <h2 className='text-lg font-semibold'>Sign in with your account</h2>
       <form className='flex flex-col items-center justify-center space-y-4'>
-        <input
+        <TextField
+          label='email'
           type='email'
           placeholder='Email'
-          className='w-64 px-4 py-2 rounded-md border-2 border-violet-600 focus:outline-none focus:border-violet-600 text-black'
+          inputSize='auto'
         />
-        <input
+        <TextField
+          label='password'
           type='password'
           placeholder='Password'
-          className='w-64 px-4 py-2 rounded-md border-2 border-violet-600 focus:outline-none focus:border-violet-600 text-black'
+          inputSize='auto'
         />
         <Button color='green' size='auto'>
           Sign in
