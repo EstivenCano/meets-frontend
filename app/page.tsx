@@ -1,6 +1,8 @@
 import { ProfileImage } from "@/components/ProfileImage";
 import { MeetsTitle } from "@/components/MeetsTitle";
 import { LoadingBar } from "@/components/LoadingBar";
+import { Button } from "@/components/Button";
+import Image from "next/image";
 
 const TitleSection = () => {
   return (
@@ -50,45 +52,19 @@ const LoginSection = () => {
           placeholder='Password'
           className='w-64 px-4 py-2 rounded-md border-2 border-violet-600 focus:outline-none focus:border-violet-600 text-black'
         />
-        <button className='w-64 px-4 py-2 rounded-md bg-violet-600 text-white font-semibold'>
+        <Button color='green' size='auto'>
           Sign in
-        </button>
+        </Button>
       </form>
       <div className='flex items-center space-x-4'>
         <path className='w-20 h-0.5 bg-violet-600' />
         <p className='text-lg font-semibold'>Or</p>
         <path className='w-20 h-0.5 bg-violet-600' />
       </div>
-      <button className='flex flex-row items-center justify-center space-x-2 px-4 py-2 rounded-md bg-violet-600 text-white font-semibold'>
-        <svg
-          enableBackground='new 0 0 32 32'
-          version='1.1'
-          viewBox='0 0 32 32'
-          width={24}
-          xmlSpace='preserve'
-          xmlns='http://www.w3.org/2000/svg'
-          xmlnsXlink='http://www.w3.org/1999/xlink'>
-          <g id='Flat_copy'>
-            <g>
-              <g>
-                <path
-                  d='M16.005,31.625C7.39,31.625,0.38,24.615,0.38,16S7.39,0.375,16.005,0.375S31.63,7.385,31.63,16     S24.62,31.625,16.005,31.625z'
-                  fill='#FFFFFF'
-                />
-                <path
-                  d='M16.005,0.75c8.409,0,15.25,6.841,15.25,15.25s-6.841,15.25-15.25,15.25S0.755,24.409,0.755,16     S7.596,0.75,16.005,0.75 M16.005,0c-8.837,0-16,7.163-16,16c0,8.836,7.163,16,16,16s16-7.164,16-16     C32.005,7.163,24.842,0,16.005,0L16.005,0z'
-                  fill='#E5E5E5'
-                />
-              </g>
-            </g>
-            <path
-              d='M24.482,14.344c0.111,0.59,0.171,1.209,0.171,1.854c0,5.044-3.377,8.631-8.476,8.631   c-4.878,0-8.83-3.952-8.83-8.83s3.952-8.83,8.83-8.83c2.384,0,4.376,0.877,5.905,2.301l-2.489,2.489v-0.006   c-0.927-0.883-2.102-1.336-3.416-1.336c-2.914,0-5.281,2.461-5.281,5.375c0,2.913,2.368,5.381,5.281,5.381   c2.644,0,4.442-1.512,4.813-3.587h-4.813v-3.444L24.482,14.344L24.482,14.344z'
-              fill='#333333'
-            />
-          </g>
-        </svg>
+      <Button size='md'>
+        <Image src='google.svg' alt='Google icon' width={20} height={20} />
         <span>Sign in with Google</span>
-      </button>
+      </Button>
       <p className='text-lg font-semibold'>
         {"Don't have an account? "}
         <a

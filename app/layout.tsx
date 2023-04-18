@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={monserrat.className}>{children}</body>
+      <body className={`${monserrat.className} text-text`}>{children}</body>
     </html>
   );
 }
