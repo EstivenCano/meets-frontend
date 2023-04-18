@@ -41,7 +41,7 @@ const TitleSection = () => {
 
 const LoginSection = () => {
   return (
-    <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6'>
+    <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6 py-10'>
       <h2 className='text-lg font-semibold'>Sign in with your account</h2>
       <form className='flex flex-col items-center justify-center space-y-4 w-72'>
         <TextField
@@ -76,6 +76,7 @@ const LoginSection = () => {
       <p className='text-lg font-semibold'>
         <Link href='/reset-password'>Forgot password?</Link>
       </p>
+      <p className='text-xs'>@2023 Meets. All rights reserved.</p>
     </section>
   );
 };
