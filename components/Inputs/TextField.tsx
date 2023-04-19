@@ -2,7 +2,8 @@ import { FC, InputHTMLAttributes } from "react";
 import { match } from "ts-pattern";
 
 interface TextFieldProps {
-  label: string;
+  name: string;
+  error?: string;
   placeholder: string;
   className?: string;
   inputSize?: "sm" | "md" | "lg" | "auto";
@@ -10,7 +11,7 @@ interface TextFieldProps {
 
 export const TextField: FC<
   TextFieldProps & InputHTMLAttributes<HTMLInputElement>
-> = ({ label, placeholder, className, inputSize = "auto", ...props }) => {
+> = ({ name, error, placeholder, className, inputSize = "auto", ...props }) => {
   const sizeClass = match(inputSize)
     .with("sm", () => "px-2 py-1 text-sm")
     .with("md", () => "px-4 py-2 text-base")
@@ -19,13 +20,15 @@ export const TextField: FC<
     .otherwise(() => null);
 
   return (
-    <>
-      <label className='text-text hidden'>{label}</label>
+    <div className='w-full h-full'>
+      <label className='text-text hidden'>{name}</label>
       <input
-        className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black ${sizeClass}`}
+        name={name}
+        className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black [&:not(:placeholder-shown):not(:focus):invalid]:border-red-600 ${sizeClass}`}
         placeholder={placeholder}
         {...props}
       />
-    </>
+      {error && <p className='text-red-600 text-sm mt-1'>{error}</p>}
+    </div>
   );
 };

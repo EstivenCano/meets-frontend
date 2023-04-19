@@ -30,16 +30,9 @@ const LoginSection = () => {
           login();
         }}
         className='flex flex-col items-center justify-center space-y-4 w-72'>
-        <TextField
-          name='email'
-          label='email'
-          type='email'
-          placeholder='Email'
-          required
-        />
+        <TextField name='email' type='email' placeholder='Email' required />
         <TextField
           name='password'
-          label='password'
           type='password'
           placeholder='Password'
           required
