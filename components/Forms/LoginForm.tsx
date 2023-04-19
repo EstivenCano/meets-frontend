@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/Inputs/Button";
 import Image from "next/image";
-import { TextField } from "@/components/TextField";
-import { Link } from "@/components/Link";
-import { post } from "../services/api/serviceClient";
+import { TextField } from "@/components/Inputs/TextField";
+import { Link } from "@/components/Navigation/Link";
+import { post } from "../../services/api/serviceClient";
 import { useRef } from "react";
 
 const LoginSection = () => {
@@ -12,14 +12,8 @@ const LoginSection = () => {
 
   const login = async () => {
     const formData = new FormData(formRef.current as HTMLFormElement);
-    const email = formData.get("email");
-    const password = formData.get("password");
     try {
-      const response = await post("/auth/signin", {
-        email,
-        password,
-      });
-
+      const response = await post("/auth/signin", formData);
       console.log("LoginForm: ", response);
     } catch (error) {
       console.log("LoginForm Error: ", error);

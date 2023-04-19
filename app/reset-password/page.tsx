@@ -1,6 +1,6 @@
-import { Button } from "@/components/Button";
-import { TextField } from "@/components/TextField";
-import { Link } from "@/components/Link";
+import { Button } from "@/components/Inputs/Button";
+import { TextField } from "@/components/Inputs/TextField";
+import { Link } from "@/components/Navigation/Link";
 
 export default function ResetPassword() {
   return (

@@ -1,9 +1,9 @@
-import { ProfileImage } from "@/components/ProfileImage";
-import { MeetsTitle } from "@/components/MeetsTitle";
-import { LoadingBar } from "@/components/LoadingBar";
+import { ProfileImage } from "@/components/Display/ProfileImage";
+import { MeetsTitle } from "@/components/Display/MeetsTitle";
+import { LoadingBar } from "@/components/Feedback/LoadingBar";
 import dynamic from "next/dynamic";
 
-const LoginSection = dynamic(() => import("@/components/LoginForm"));
+const LoginSection = dynamic(() => import("@/components/Forms/LoginForm"));
 
 const TitleSection = () => {
   return (
