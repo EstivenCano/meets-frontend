@@ -9,12 +9,18 @@ export default function Signup() {
       <div className='flex flex-col items-center justify-center space-y-4 px-20 py-10'>
         <h2 className='text-lg font-semibold'>Sign up with your account</h2>
         <form className='flex flex-col items-center justify-center space-y-4 w-72'>
-          <TextField label='email' type='email' placeholder='Email' />
-          <TextField label='password' type='password' placeholder='Password' />
+          <TextField label='email' type='email' placeholder='Email' required />
+          <TextField
+            label='password'
+            type='password'
+            placeholder='Password'
+            required
+          />
           <TextField
             label='confirm password'
             type='password'
             placeholder='Confirm password'
+            required
           />
           <Button color='green' size='auto'>
             Sign up

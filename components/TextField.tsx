@@ -22,7 +22,7 @@ export const TextField: FC<
     <>
       <label className='text-text hidden'>{label}</label>
       <input
-        className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black invalid:border-red-500 ${sizeClass}`}
+        className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black ${sizeClass}`}
         placeholder={placeholder}
         {...props}
       />

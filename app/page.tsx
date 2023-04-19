@@ -44,17 +44,12 @@ const LoginSection = () => {
     <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6 py-10'>
       <h2 className='text-lg font-semibold'>Sign in with your account</h2>
       <form className='flex flex-col items-center justify-center space-y-4 w-72'>
-        <TextField
-          label='email'
-          type='email'
-          placeholder='Email'
-          inputSize='auto'
-        />
+        <TextField label='email' type='email' placeholder='Email' required />
         <TextField
           label='password'
           type='password'
           placeholder='Password'
-          inputSize='auto'
+          required
         />
         <Button color='green' size='auto'>
           Sign in
