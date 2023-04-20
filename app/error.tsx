@@ -1,26 +1,34 @@
 "use client";
 
+import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import { Button } from "@/components/Inputs/Button";
-import { useEffect } from "react";
 
 interface ErrorStateProps {
   error: Error;
-  refresh?: () => void;
 }
 
-const ErrorState: React.FC<ErrorStateProps> = ({ error, refresh }) => {
-  useEffect(() => {
-    console.log(error);
-    console.error(error);
-  }, [error]);
-
-  console.log(error.message);
+const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
+  // Refresh the page
+  const refresh = () => {
+    window.location.reload();
+  };
 
   return (
-    <main className='flex flex-col items-center justify-center h-screen gap-y-4'>
-      <h1 className='text-4xl font-bold'>Error</h1>
-      <p className='text-xl'>{error.message}</p>
-      {refresh && <Button onClick={refresh}>Refresh</Button>}
+    <main className='flex flex-col items-left justify-center h-screen gap-y-8 max-w-lg m-auto'>
+      <MeetsTitle className='text-center' />
+      <h1 className='text-2xl font-bold'>
+        Something went wrong, please try again later.
+      </h1>
+      <p className='text-lg font-semibold'>
+        If the problem persists, contact us.
+      </p>
+      <div className='w-70 border-2 border-red-600/30 p-2'>
+        <p className='text-sm'>{"Here's the error message:"}</p>
+        <p className='text-xl text-red-600'>{error.message}</p>
+      </div>
+      <Button onClick={refresh} size='md'>
+        Refresh
+      </Button>
     </main>
   );
 };
