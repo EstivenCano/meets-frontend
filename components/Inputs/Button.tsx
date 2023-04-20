@@ -6,6 +6,7 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg" | "auto";
   color?: "violet" | "green";
   variant?: "solid" | "outline";
+  loading?: boolean;
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export const Button: FC<
   size = "auto",
   color = "violet",
   variant = "solid",
+  loading = false,
   className,
   ...props
 }) => {
@@ -52,9 +54,13 @@ export const Button: FC<
     .with("outline", () => "border-2 text-text")
     .exhaustive();
 
+  const loadingClasses = match(loading)
+    .with(true, () => "opacity-50 animate-pulse")
+    .otherwise(() => "");
+
   return (
     <button
-      className={`flex flex-row items-center justify-center space-x-2 px-4 py-2 font-semibold rounded-md hover:text-white ${sizeClasses} ${colorClasses} ${variantClasses} ${className}`}
+      className={`flex flex-row items-center justify-center space-x-2 px-4 py-2 font-semibold rounded-md hover:text-white ${sizeClasses} ${colorClasses} ${variantClasses} ${loadingClasses} ${className}`}
       {...props}>
       {children}
     </button>

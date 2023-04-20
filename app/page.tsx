@@ -2,8 +2,11 @@ import { ProfileImage } from "@/components/Display/ProfileImage";
 import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import { LoadingBar } from "@/components/Feedback/LoadingBar";
 import dynamic from "next/dynamic";
+import { Button } from "@/components/Inputs/Button";
+import { Link } from "@/components/Navigation/Link";
+import Image from "next/image";
 
-const LoginSection = dynamic(() => import("@/components/Forms/LoginForm"));
+const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
 const TitleSection = () => {
   return (
@@ -34,6 +37,32 @@ const TitleSection = () => {
         <span className='text-green-600'>#</span>Share
         <span className='text-violet-600'>#</span>Connect
       </p>
+    </section>
+  );
+};
+
+const LoginSection = () => {
+  return (
+    <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6 py-10'>
+      <h2 className='text-lg font-semibold'>Sign in with your account</h2>
+      <LoginForm />
+      <div className='flex items-center space-x-4'>
+        <div className='w-20 h-0.5 bg-violet-600' />
+        <p className='text-lg font-semibold'>Or</p>
+        <div className='w-20 h-0.5 bg-violet-600' />
+      </div>
+      <Button size='md' type='submit'>
+        <Image src='google.svg' alt='Google icon' width={20} height={20} />
+        <span>Sign in with Google</span>
+      </Button>
+      <p className='text-lg font-semibold'>
+        {"Don't have an account? "}
+        <Link href='/signup'>Sign up</Link>
+      </p>
+      <p className='text-lg font-semibold'>
+        <Link href='/reset-password'>Forgot password?</Link>
+      </p>
+      <p className='text-xs'>@2023 Meets. All rights reserved.</p>
     </section>
   );
 };
