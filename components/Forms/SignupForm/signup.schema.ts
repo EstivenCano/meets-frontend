@@ -1,8 +1,8 @@
 import * as z from "zod";
 
-export type LoginSchemaType = z.infer<typeof loginSchema>;
+export type SignupSchemaType = z.infer<typeof signupSchema>;
 
-export const loginSchema = z
+export const signupSchema = z
   .object({
     email: z.string().email("Invalid email").min(1, "Email is required"),
     password: z

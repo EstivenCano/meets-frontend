@@ -2,11 +2,10 @@
 
 import { Button } from "@/components/Inputs/Button";
 import { TextField } from "@/components/Inputs/TextField";
-import { useRef } from "react";
 import { login } from "@/services/auth.service";
 import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginSchemaType, loginSchema } from "./login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alertStore } from "@/stores/useAlert.store";
@@ -22,24 +21,18 @@ const LoginSection = () => {
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
   });
-
-  const formRef = useRef<HTMLFormElement>(null);
   const addAlert = alertStore((state) => state.addAlert);
 
-  const onSubmit = () => {
-    const formData = new FormData(formRef.current as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    trigger({ email, password })
+  const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
+    trigger({ ...data })
       .then((response) => {
         if (response) {
           addAlert({
             message: response.message,
             status: response.status,
           });
+          router.push("/feed");
         }
-        router.push("/feed");
       })
       .catch((error) => {
         addAlert({
@@ -52,7 +45,6 @@ const LoginSection = () => {
 
   return (
     <form
-      ref={formRef}
       onSubmit={handleSubmit(onSubmit)}
       className='flex flex-col items-center justify-center space-y-4 w-72'>
       <TextField
