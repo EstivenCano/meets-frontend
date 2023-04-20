@@ -4,19 +4,24 @@ import { Button } from "@/components/Inputs/Button";
 import Image from "next/image";
 import { TextField } from "@/components/Inputs/TextField";
 import { Link } from "@/components/Navigation/Link";
-import { post } from "../../services/api/serviceClient";
 import { useRef } from "react";
+import { login } from "@/services/auth.service";
+import useSWRMutation from "swr/mutation";
 
 const LoginSection = () => {
+  const { trigger } = useSWRMutation("/auth/signin", login);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const login = async () => {
+  const onSubmit = async () => {
     const formData = new FormData(formRef.current as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
     try {
-      const response = await post("/auth/signin", formData);
-      console.log("LoginForm: ", response);
+      const response = await trigger({ email, password });
+      console.log(response);
     } catch (error) {
-      console.log("LoginForm Error: ", error);
+      console.error(error);
     }
   };
 
@@ -27,7 +32,7 @@ const LoginSection = () => {
         ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
-          login();
+          onSubmit();
         }}
         className='flex flex-col items-center justify-center space-y-4 w-72'>
         <TextField name='email' type='email' placeholder='Email' required />
