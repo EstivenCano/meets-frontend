@@ -48,7 +48,7 @@ const LoginSection = () => {
         type='password'
         placeholder='Password'
         error={formErrors.password?.message}
-        {...register("email")}
+        {...register("password")}
       />
       <Button color='green' size='auto' loading={isMutating}>
         {match(isMutating)

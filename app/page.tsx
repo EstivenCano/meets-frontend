@@ -7,6 +7,7 @@ import { Link } from "@/components/Navigation/Link";
 import Image from "next/image";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
+const SnackBar = dynamic(() => import("@/components/Feedback/Snackbar"));
 
 const TitleSection = () => {
   return (
@@ -72,6 +73,11 @@ export default function Home() {
     <main className='relative flex overflow-x-hidden max-w-screen min-h-screen md:flex-row flex-col'>
       <TitleSection />
       <LoginSection />
+      <SnackBar>
+        <p className='text-sm font-semibold'>
+          Hello world! This is a snackbar component.
+        </p>
+      </SnackBar>
     </main>
   );
 }
