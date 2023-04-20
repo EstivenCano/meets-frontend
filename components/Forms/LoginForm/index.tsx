@@ -2,19 +2,17 @@
 
 import { Button } from "@/components/Inputs/Button";
 import { TextField } from "@/components/Inputs/TextField";
-import { ChangeEventHandler, useRef } from "react";
+import { useRef } from "react";
 import { login } from "@/services/auth.service";
 import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
 import { useForm } from "react-hook-form";
 import { LoginSchemaType, loginSchema } from "./login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { alertStore } from "@/stores/useAlert.store";
 
 const LoginSection = () => {
-  const { data, error, trigger, isMutating } = useSWRMutation(
-    "/auth/signin",
-    login
-  );
+  const { trigger, isMutating } = useSWRMutation("/auth/signin", login);
   const {
     register,
     handleSubmit,
@@ -24,13 +22,29 @@ const LoginSection = () => {
   });
 
   const formRef = useRef<HTMLFormElement>(null);
+  const addAlert = alertStore((state) => state.addAlert);
 
   const onSubmit = () => {
     const formData = new FormData(formRef.current as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    trigger({ email, password });
+    trigger({ email, password })
+      .then((response) => {
+        if (response) {
+          addAlert({
+            message: response.message,
+            status: response.status,
+          });
+        }
+      })
+      .catch((error) => {
+        addAlert({
+          message: error.message,
+          errorList: error.errorList,
+          status: error.statusCode,
+        });
+      });
   };
 
   return (

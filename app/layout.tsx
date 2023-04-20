@@ -1,5 +1,6 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import AlertsProvider from "@/components/Feedback/AlertsProvider";
 
 export const metadata = {
   title: "Meets - Share what you are",
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${monserrat.className} text-text`}>{children}</body>
+      <body className={`${monserrat.className} text-text`}>
+        <AlertsProvider />
+        {children}
+      </body>
     </html>
   );
 }

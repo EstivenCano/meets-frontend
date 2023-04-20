@@ -1,11 +1,14 @@
-export class ServiceError {
-  message: string[] = [];
+export class ServiceError extends Error {
+  errorList: string | string[];
   statusCode: number;
-  error: string;
 
-  constructor(error: ServiceError) {
-    this.message = error.message;
-    this.statusCode = error.statusCode;
-    this.error = error.error;
+  constructor(
+    message: string,
+    statusCode: number,
+    errorList: string | string[]
+  ) {
+    super(message);
+    this.errorList = errorList;
+    this.statusCode = statusCode;
   }
 }

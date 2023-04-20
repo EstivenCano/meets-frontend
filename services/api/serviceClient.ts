@@ -1,3 +1,4 @@
+import { ServerError } from "../dto/server-error.dto";
 import { ServiceError } from "../model/serviceError";
 
 const defaultHeaders = {
@@ -35,9 +36,14 @@ export async function get(url: string, headers?: Headers) {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new ServiceError(error);
+      const error: ServerError = await response.json();
+      throw new ServiceError(error.error, error.statusCode, error.message);
     }
+
+    return {
+      data: await response.json(),
+      status: response.status,
+    };
   } catch (error) {
     return Promise.reject(error);
   }
@@ -52,11 +58,14 @@ export async function post(url: string, body: any, headers?: Headers) {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new ServiceError(error);
+      const error: ServerError = await response.json();
+      throw new ServiceError(error.error, error.statusCode, error.message);
     }
 
-    return response.json();
+    return {
+      data: await response.json(),
+      status: response.status,
+    };
   } catch (error) {
     return Promise.reject(error);
   }
@@ -72,10 +81,13 @@ export async function put(url: string, body: any, headers?: Headers) {
 
     if (!response.ok) {
       const error = await response.json();
-      throw new ServiceError(error);
+      throw new ServiceError(error.error, error.statusCode, error.message);
     }
 
-    return response.json();
+    return {
+      data: await response.json(),
+      status: response.status,
+    };
   } catch (error) {
     return Promise.reject(error);
   }
@@ -89,10 +101,13 @@ export async function deleteRequest(url: string, headers?: Headers) {
     });
     if (!response.ok) {
       const error = await response.json();
-      throw new ServiceError(error);
+      throw new ServiceError(error.error, error.statusCode, error.message);
     }
 
-    return response.json();
+    return {
+      data: await response.json(),
+      status: response.status,
+    };
   } catch (error) {
     return Promise.reject(error);
   }

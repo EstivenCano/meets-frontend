@@ -6,12 +6,18 @@ export const login = async (
   { arg }: { arg: { email: string; password: string } }
 ) => {
   try {
-    const response: LoginResponse = await post(url, arg);
+    const response: { data: LoginResponse; status: number } = await post(
+      url,
+      arg
+    );
 
-    localStorage.setItem("access_token", response.access_token);
-    localStorage.setItem("refresh_token", response.refresh_token);
+    localStorage.setItem("access_token", response.data.access_token);
+    localStorage.setItem("refresh_token", response.data.refresh_token);
 
-    return response;
+    return {
+      ...response,
+      message: "Login successful",
+    };
   } catch (error) {
     throw error;
   }
