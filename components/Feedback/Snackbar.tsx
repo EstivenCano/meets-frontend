@@ -80,7 +80,7 @@ const SnackBar: FC<SnackBarProps> = ({
           transition={{ duration: 0.4 }}
           className={`flex flex-col z-10 absolute max-w-md items-center space-x-2 text-white p-3 rounded-md shadow-lg shadow-black/30 ${positionClasses} ${statusClasses} ${className}`}
           {...props}>
-          <div className='flex items-center justify-between w-full'>
+          <div className='flex items-center justify-between w-full space-x-4'>
             <p className='text-sm font-semibold'>{message}</p>
             <button
               onClick={handleClose}
