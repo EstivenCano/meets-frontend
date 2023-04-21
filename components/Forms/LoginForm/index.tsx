@@ -59,7 +59,7 @@ const LoginSection = () => {
         error={formErrors.password?.message}
         {...register("password")}
       />
-      <Button color='green' size='auto' loading={isMutating}>
+      <Button color='green' size='auto' type='submit' loading={isMutating}>
         {match(isMutating)
           .with(true, () => "Signing in...")
           .otherwise(() => "Sign in")}

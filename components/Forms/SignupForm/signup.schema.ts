@@ -5,6 +5,7 @@ export type SignupSchemaType = z.infer<typeof signupSchema>;
 export const signupSchema = z
   .object({
     email: z.string().email("Invalid email").min(1, "Email is required"),
+    name: z.string().min(1, "Name is required"),
     password: z
       .string()
       .min(1, "Password is required")

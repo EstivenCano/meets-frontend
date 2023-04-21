@@ -26,7 +26,7 @@ export const login = async (
 
 export const signup = async (
   url: string,
-  { arg }: { arg: { email: string; password: string } }
+  { arg }: { arg: { email: string; name: string; password: string } }
 ) => {
   try {
     const response: { data: SignupResponse; status: number } = await post(
@@ -41,6 +41,24 @@ export const signup = async (
       ...response,
       message: "Signup successful",
     };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const requestResetPassword = async (
+  url: string,
+  { arg }: { arg: { email: string } }
+) => {
+  try {
+    const response = await post(url, arg);
+
+    if (response) {
+      return {
+        ...response,
+        message: "Request successful",
+      };
+    }
   } catch (error) {
     throw error;
   }

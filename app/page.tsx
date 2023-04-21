@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
 import Image from "next/image";
+import GoogleIcon from "@/public/google.svg";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
@@ -52,15 +53,15 @@ const LoginSection = () => {
         <div className='w-20 h-0.5 bg-violet-600' />
       </div>
       <Button size='md' type='submit'>
-        <Image src='google.svg' alt='Google icon' width={20} height={20} />
+        <Image src={GoogleIcon} alt='Google icon' width={20} height={20} />
         <span>Sign in with Google</span>
       </Button>
       <p className='text-lg font-semibold'>
         {"Don't have an account? "}
-        <Link href='/signup'>Sign up</Link>
+        <Link href='/auth/signup'>Sign up</Link>
       </p>
       <p className='text-lg font-semibold'>
-        <Link href='/reset-password'>Forgot password?</Link>
+        <Link href='/auth/request-reset-password'>Forgot password?</Link>
       </p>
       <p className='text-xs'>@2023 Meets. All rights reserved.</p>
     </section>

@@ -60,6 +60,7 @@ export const Button: FC<
 
   return (
     <button
+      disabled={loading}
       className={`flex flex-row items-center justify-center space-x-2 px-4 py-2 font-semibold rounded-md hover:text-white ${sizeClasses} ${colorClasses} ${variantClasses} ${loadingClasses} ${className}`}
       {...props}>
       {children}

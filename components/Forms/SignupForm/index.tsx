@@ -55,6 +55,12 @@ const SignupForm = () => {
         {...register("email")}
       />
       <TextField
+        type='text'
+        placeholder='Name'
+        error={formErrors.name?.message}
+        {...register("name")}
+      />
+      <TextField
         type='password'
         placeholder='Password'
         error={formErrors.password?.message}
