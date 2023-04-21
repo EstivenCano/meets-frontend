@@ -6,7 +6,7 @@ const RequestResetPasswordForm = dynamic(
   () => import("@/components/Forms/RequestResetPasswordForm")
 );
 
-export default function ResetPassword() {
+export default function RequestResetPassword() {
   return (
     <div className='flex flex-col items-center justify-center space-y-4 px-20 py-10'>
       <h2 className='text-lg font-semibold'>Reset your password</h2>
