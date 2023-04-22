@@ -9,7 +9,14 @@ const defaultHeaders = {
   Credentials: "include",
 };
 
+type Headers = Record<string, string>;
+type RequestOpions = Omit<RequestInit, "headers">;
+
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+function isOnClient() {
+  return typeof window != "undefined" && window.document;
+}
 
 const getHeaders = (headers?: Headers) => {
   const headersObject = {
@@ -17,22 +24,30 @@ const getHeaders = (headers?: Headers) => {
     ...(headers || []),
   };
 
-  const accessToken = localStorage.getItem("accessToken");
+  if (isOnClient()) {
+    const accessToken = localStorage.getItem("accessToken");
 
-  if (accessToken) {
-    return {
-      ...headersObject,
-      Authorization: `Bearer ${accessToken}`,
-    };
+    if (accessToken) {
+      return {
+        ...headersObject,
+        Authorization: `Bearer ${accessToken}`,
+      };
+    }
   }
+
   return headersObject;
 };
 
-export async function get(url: string, headers?: Headers) {
+export async function get(
+  url: string,
+  headers?: Headers,
+  options?: RequestOpions
+) {
   try {
     const response = await fetch(baseUrl + url, {
       method: "GET",
       headers: getHeaders(headers),
+      ...options,
     });
 
     if (!response.ok) {
@@ -49,12 +64,18 @@ export async function get(url: string, headers?: Headers) {
   }
 }
 
-export async function post(url: string, body: any, headers?: Headers) {
+export async function post(
+  url: string,
+  body: any,
+  headers?: Headers,
+  options?: RequestOpions
+) {
   try {
     const response = await fetch(baseUrl + url, {
       method: "POST",
       headers: getHeaders(headers),
       body: JSON.stringify(body),
+      ...options,
     });
 
     if (!response.ok) {
@@ -71,12 +92,18 @@ export async function post(url: string, body: any, headers?: Headers) {
   }
 }
 
-export async function put(url: string, body: any, headers?: Headers) {
+export async function put(
+  url: string,
+  body: any,
+  headers?: Headers,
+  options?: RequestOpions
+) {
   try {
     const response = await fetch(baseUrl + url, {
       method: "PUT",
       headers: getHeaders(headers),
       body: JSON.stringify(body),
+      ...options,
     });
 
     if (!response.ok) {
@@ -93,11 +120,16 @@ export async function put(url: string, body: any, headers?: Headers) {
   }
 }
 
-export async function deleteRequest(url: string, headers?: Headers) {
+export async function deleteRequest(
+  url: string,
+  headers?: Headers,
+  options?: RequestOpions
+) {
   try {
     const response = await fetch(baseUrl + url, {
       method: "DELETE",
       headers: getHeaders(headers),
+      ...options,
     });
     if (!response.ok) {
       const error = await response.json();

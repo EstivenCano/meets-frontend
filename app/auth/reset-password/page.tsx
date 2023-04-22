@@ -1,16 +1,23 @@
 import { Button } from "@/components/Inputs/Button";
-import { TextField } from "@/components/Inputs/TextField";
 import { Link } from "@/components/Navigation/Link";
+import { verifyResetToken } from "@/services/auth.service";
+import dynamic from "next/dynamic";
 
-export default function ResetPassword({
+const ResetPasswordForm = dynamic(
+  () => import("@/components/Forms/ResetPasswordForm")
+);
+
+export default async function ResetPassword({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const token = searchParams?.token;
-  const id = searchParams?.id;
+  const token = searchParams?.token as string;
+  const id = searchParams?.id as string;
 
-  if (!token && !id) {
+  const isValidLink = await verifyResetToken(token, id);
+
+  if (!isValidLink) {
     return (
       <div className='flex flex-col space-y-4 justify-center items-center'>
         <h2>
@@ -31,26 +38,7 @@ export default function ResetPassword({
   return (
     <div className='flex flex-col items-center justify-center space-y-4 px-20 py-10'>
       <h2 className='text-lg font-semibold'>Reset your password</h2>
-
-      <form className='flex flex-col items-center justify-center space-y-4 w-72'>
-        <TextField
-          name='newPassword'
-          type='password'
-          placeholder='New Password'
-          // error={formErrors.password?.message}
-          // {...register("password")}
-        />
-        <TextField
-          name='confirmPassword'
-          type='password'
-          placeholder='Confirm Password'
-          // error={formErrors.confirmPassword?.message}
-          // {...register("confirmPassword")}
-        />
-        <Button color='green' type='submit'>
-          Reset password
-        </Button>
-      </form>
+      <ResetPasswordForm token={token} userId={id} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { post } from "./api/serviceClient";
+import { get, post } from "./api/serviceClient";
 import { LoginResponse } from "./dto/login.dto";
 import { SignupResponse } from "./dto/signup.dto";
 
@@ -57,6 +57,47 @@ export const requestResetPassword = async (
       return {
         ...response,
         message: "Request successful",
+      };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const verifyResetToken = async (
+  token: string = "",
+  userId: string = ""
+) => {
+  try {
+    const response = await get(
+      `/auth/verify-reset-token/${token}/${userId}`,
+      {},
+      {
+        cache: "no-cache",
+      }
+    ).catch((error) => {
+      throw error;
+    });
+    if (response.data) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const resetPassword = async (
+  url: string,
+  { arg }: { arg: { password: string; token: string; userId: string } }
+) => {
+  try {
+    const response = await post(url, arg);
+
+    if (response) {
+      return {
+        ...response,
+        message: "Reset successful",
       };
     }
   } catch (error) {
