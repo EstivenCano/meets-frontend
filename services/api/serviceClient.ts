@@ -25,12 +25,12 @@ const getHeaders = (headers?: Headers) => {
   };
 
   if (isOnClient()) {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("access_token");
 
     if (accessToken) {
       return {
-        ...headersObject,
         Authorization: `Bearer ${accessToken}`,
+        ...headersObject,
       };
     }
   }

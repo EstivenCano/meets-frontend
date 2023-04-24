@@ -1,3 +1,5 @@
+import { getTokens } from "@/utils/getTokens";
+import { setTokens } from "@/utils/setTokens";
 import { get, post } from "./api/serviceClient";
 import { LoginResponse } from "./dto/login.dto";
 import { SignupResponse } from "./dto/signup.dto";
@@ -100,6 +102,36 @@ export const resetPassword = async (
         message: "Reset successful",
       };
     }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const refreshToken = async (url: string) => {
+  const tokens = await getTokens();
+
+  console.log("Tokens: ", tokens);
+
+  try {
+    if (!tokens.refreshToken) {
+      throw new Error("No refresh token found");
+    }
+
+    const response = await get(url, {
+      Authorization: `Bearer ${tokens.refreshToken}`,
+    })
+      .then((res) => {
+        setTokens(res.data.access_token, res.data.refresh_token);
+        return res;
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    return {
+      ...response,
+      message: "Refresh successful",
+    };
   } catch (error) {
     throw error;
   }
