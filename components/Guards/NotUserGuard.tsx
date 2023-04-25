@@ -16,7 +16,7 @@ const NotUserGuard: FC<NotUserGuardProps> = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      return redirect("/feed");
+      return redirect("/social/feed");
     }
   }, [user]);
 

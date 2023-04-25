@@ -22,7 +22,7 @@ export const LogoutItem = () => {
   };
   return (
     <li
-      className='flex gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer'
+      className='flex gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer hover:text-white'
       onClick={match(isMutating)
         .with(false, () => handleLogout)
         .otherwise(() => () => {})}>
