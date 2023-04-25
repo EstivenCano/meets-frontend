@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import AlertsProvider from "@/components/Feedback/AlertsProvider";
 import AuthProvider from "@/components/Providers/AuthProvider";
+import { getUserFromServer } from "@/services/user.service";
 
 export const metadata = {
   title: "Meets - Share what you are",
@@ -14,16 +15,18 @@ const monserrat = Montserrat({
   weight: "500",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getUserFromServer();
+
   return (
     <html lang='en'>
       <body className={`${monserrat.className} text-text`}>
         <AlertsProvider />
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider user={user}>{children}</AuthProvider>
       </body>
     </html>
   );

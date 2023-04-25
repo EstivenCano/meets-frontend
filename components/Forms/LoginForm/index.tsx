@@ -9,10 +9,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginSchemaType, loginSchema } from "./login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alertStore } from "@/stores/useAlert.store";
-import { useRouter } from "next/navigation";
+import { userStore } from "@/stores/useUser.store";
 
 const LoginSection = () => {
-  const router = useRouter();
+  const setUser = userStore((state) => state.setUser);
   const { trigger, isMutating } = useSWRMutation("/auth/signin", login);
   const {
     register,
@@ -31,7 +31,7 @@ const LoginSection = () => {
             message: response.message,
             status: response.status,
           });
-          router.push("/feed");
+          setUser(response.user);
         }
       })
       .catch((error) => {

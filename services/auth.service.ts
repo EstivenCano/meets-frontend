@@ -3,6 +3,8 @@ import { setTokens } from "@/utils/setTokens";
 import { get, post } from "./api/serviceClient";
 import { LoginResponse } from "./dto/login.dto";
 import { SignupResponse } from "./dto/signup.dto";
+import { removeTokens } from "@/utils/removeTokens";
+import { getUser } from "./user.service";
 
 export const login = async (
   url: string,
@@ -14,11 +16,17 @@ export const login = async (
       arg
     );
 
-    localStorage.setItem("access_token", response.data.access_token);
-    localStorage.setItem("refresh_token", response.data.refresh_token);
+    setTokens(response.data.access_token, response.data.refresh_token);
+
+    const user = await getUser("/users/current-user")
+      .then((response) => response)
+      .catch((error) => {
+        throw error;
+      });
 
     return {
       ...response,
+      user,
       message: "Login successful",
     };
   } catch (error) {
@@ -36,8 +44,7 @@ export const signup = async (
       arg
     );
 
-    localStorage.setItem("access_token", response.data.access_token);
-    localStorage.setItem("refresh_token", response.data.refresh_token);
+    setTokens(response.data.access_token, response.data.refresh_token);
 
     return {
       ...response,
@@ -110,8 +117,6 @@ export const resetPassword = async (
 export const refreshToken = async (url: string) => {
   const tokens = await getTokens();
 
-  console.log("Tokens: ", tokens);
-
   try {
     if (!tokens.refreshToken) {
       throw new Error("No refresh token found");
@@ -131,6 +136,21 @@ export const refreshToken = async (url: string) => {
     return {
       ...response,
       message: "Refresh successful",
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const logout = async (url: string) => {
+  try {
+    const response = await post(url, {});
+
+    removeTokens();
+
+    return {
+      ...response,
+      message: "Logout successful",
     };
   } catch (error) {
     throw error;

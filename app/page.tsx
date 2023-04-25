@@ -6,6 +6,7 @@ import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
 import Image from "next/image";
 import GoogleIcon from "@/public/google.svg";
+import NotUserGuard from "@/components/Guards/NotUserGuard";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
@@ -68,11 +69,13 @@ const LoginSection = () => {
   );
 };
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className='relative flex overflow-x-hidden max-w-screen min-h-screen md:flex-row flex-col'>
-      <TitleSection />
-      <LoginSection />
-    </main>
+    <NotUserGuard>
+      <main className='relative flex overflow-x-hidden max-w-screen min-h-screen md:flex-row flex-col'>
+        <TitleSection />
+        <LoginSection />
+      </main>
+    </NotUserGuard>
   );
 }
