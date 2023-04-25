@@ -7,11 +7,17 @@ export const metadata = {
 };
 
 const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"));
+const AppBar = dynamic(() => import("@/components/Surfaces/AppBar"));
 
 export default async function FeedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthGuard>{children}</AuthGuard>;
+  return (
+    <AuthGuard>
+      <AppBar />
+      {children}
+    </AuthGuard>
+  );
 }

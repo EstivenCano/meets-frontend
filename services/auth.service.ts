@@ -1,15 +1,12 @@
 import { getTokens } from "@/utils/getTokens";
 import { setTokens } from "@/utils/setTokens";
 import { get, post } from "./api/serviceClient";
-import { LoginResponse } from "./dto/login.dto";
-import { SignupResponse } from "./dto/signup.dto";
+import { LoginRequest, LoginResponse } from "./dto/login.dto";
+import { SignupRequest, SignupResponse } from "./dto/signup.dto";
 import { removeTokens } from "@/utils/removeTokens";
 import { getUser } from "./user.service";
 
-export const login = async (
-  url: string,
-  { arg }: { arg: { email: string; password: string } }
-) => {
+export const login = async (url: string, { arg }: { arg: LoginRequest }) => {
   try {
     const response: { data: LoginResponse; status: number } = await post(
       url,
@@ -34,10 +31,7 @@ export const login = async (
   }
 };
 
-export const signup = async (
-  url: string,
-  { arg }: { arg: { email: string; name: string; password: string } }
-) => {
+export const signup = async (url: string, { arg }: { arg: SignupRequest }) => {
   try {
     const response: { data: SignupResponse; status: number } = await post(
       url,

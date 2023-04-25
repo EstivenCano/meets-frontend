@@ -3,7 +3,7 @@
 import { FC, useEffect, useMemo } from "react";
 import { userStore } from "@/stores/useUser.store";
 import useSWRMutation from "swr/mutation";
-import { refreshToken } from "@/services/auth.service";
+import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { User } from "@/services/model/User";
 import { setTokens } from "@/utils/setTokens";
@@ -26,6 +26,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
     refreshToken,
     {
       onError(err) {
+        logout("/auth/logout");
         addAlert({
           message: err.message,
           errorList: "You must log in again",
@@ -36,6 +37,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
       onSuccess(response) {
         const { accessToken, refreshToken } = response.data;
         setTokens(accessToken, refreshToken);
+        console.log("Refreshed token");
       },
     }
   );
@@ -45,7 +47,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
     if (user) {
       const interval = setInterval(() => {
         triggerRefresh();
-      }, 300000);
+      }, 270000);
       return () => clearInterval(interval);
     }
   }, [user, triggerRefresh]);

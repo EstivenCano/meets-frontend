@@ -1,13 +1,7 @@
-import dynamic from "next/dynamic";
-
-const Logout = dynamic(() => import("@/components/Inputs/Logout"));
-
-//It will display all the posts from the users that the current user is following
 export default function Feed() {
   return (
-    <div>
+    <main className='h-[calc(100vh-80px)] bg-gradient-to-tr from-violet-600/20 via-background to-violet-600/20 shadow-inner shadow-gray-400 dark:shadow-gray-600 py-5 px-2'>
       <h1>Feed</h1>
-      <Logout />
-    </div>
+    </main>
   );
 }

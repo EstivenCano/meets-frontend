@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         background: "rgb(var(--background-rgb))",
+        foreground: "rgb(var(--foreground-rgb))",
         text: "rgb(var(--foreground-rgb))",
       },
     },
