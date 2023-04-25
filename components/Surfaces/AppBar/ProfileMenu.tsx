@@ -37,7 +37,7 @@ const ProfileMenu = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className='absolute right-0 w-48 py-2 mt-2 bg-background rounded-md shadow-sm shadow-foreground top-16 select-none'>
+            className='absolute right-0 w-48 py-2 mt-2 bg-background rounded-md shadow-sm shadow-gray-400 dark:shadow-gray-600 top-16 select-none'>
             <ProfileItem />
             <li className='flex gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer hover:text-white'>
               <Image
