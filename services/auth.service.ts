@@ -46,8 +46,15 @@ export const signup = async (
 
     setTokens(response.data.access_token, response.data.refresh_token);
 
+    const user = await getUser("/users/current-user")
+      .then((response) => response)
+      .catch((error) => {
+        throw error;
+      });
+
     return {
       ...response,
+      user,
       message: "Signup successful",
     };
   } catch (error) {

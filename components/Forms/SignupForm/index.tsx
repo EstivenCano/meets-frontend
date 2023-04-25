@@ -8,11 +8,11 @@ import { SignupSchemaType, signupSchema } from "./signup.schema";
 import useSWRMutation from "swr/mutation";
 import { signup } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
-import { useRouter } from "next/navigation";
 import { match } from "ts-pattern";
+import { userStore } from "@/stores/useUser.store";
 
 const SignupForm = () => {
-  const router = useRouter();
+  const setUser = userStore((state) => state.setUser);
   const { trigger, isMutating } = useSWRMutation("/auth/signup", signup);
   const addAlert = alertStore((state) => state.addAlert);
 
@@ -32,7 +32,7 @@ const SignupForm = () => {
             message: response.message,
             status: response.status,
           });
-          router.push("/feed");
+          setUser(response.user);
         }
       })
       .catch((error) => {
