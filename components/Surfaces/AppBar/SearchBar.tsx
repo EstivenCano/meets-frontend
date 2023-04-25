@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const SearchBar = () => {
   return (
-    <div className='flex w-full px-8'>
+    <div className='flex w-full px-4 text-sm'>
       <TextField
         placeholder='Search...'
         icon={
@@ -16,7 +16,7 @@ export const SearchBar = () => {
             className='dark:invert'
           />
         }
-        className='bg-gray-300/10 border-violet-500/30 text-text max-w-lg'
+        className='bg-gray-300/10 border-violet-500/40 text-text max-w-lg'
         name='search'
       />
     </div>

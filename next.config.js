@@ -4,7 +4,8 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["i.pravatar.cc"],
+    dangerouslyAllowSVG: true,
+    domains: ["i.pravatar.cc", "api.dicebear.com", "www.canva.com"],
   },
 };
 

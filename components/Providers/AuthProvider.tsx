@@ -34,9 +34,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
         });
         setUser(null);
       },
-      onSuccess(response) {
-        const { accessToken, refreshToken } = response.data;
-        setTokens(accessToken, refreshToken);
+      onSuccess() {
         console.log("Refreshed token");
       },
     }

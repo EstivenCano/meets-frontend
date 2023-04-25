@@ -8,10 +8,11 @@ import SettingsIcon from "@/public/settings.svg";
 import { LogoutItem } from "./LogoutItem";
 import { ProfileItem } from "./ProfileItem";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
+import { userStore } from "@/stores/useUser.store";
 
-//Place menu content relative to the button
 const ProfileMenu = () => {
   const ref = useRef(null);
+  const user = userStore((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenMenu = () => setIsOpen(true);
@@ -21,10 +22,13 @@ const ProfileMenu = () => {
   useOnClickOutside(ref, handleCloseMenu);
 
   return (
-    <nav ref={ref} className='relative'>
+    <nav ref={ref} className='relative z-10'>
       <button className='flex items-center space-x-4' onClick={handleOpenMenu}>
         <ProfileImage
-          src='https://i.pravatar.cc/1000?img=38'
+          src={
+            user?.picture ||
+            "https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Mia"
+          }
           size='xxs'
           state='online'
           alt="User's profile image"
