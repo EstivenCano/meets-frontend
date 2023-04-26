@@ -1,9 +1,14 @@
 "use client";
 
-import { ProfileImage } from "./ProfileImage";
+import { ProfileImage } from "../ProfileImage";
 import Image from "next/image";
 import { Profile } from "@/services/model/Profile";
 import { FC } from "react";
+import { userStore } from "@/stores/useUser.store";
+import { match } from "ts-pattern";
+import dynamic from "next/dynamic";
+
+const EditProfile = dynamic(() => import("./EditProfile"));
 
 interface ProfileCardProps {
   profile: Profile;
@@ -11,6 +16,8 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
+  const user = userStore((state) => state.user);
+
   return (
     <section
       title='Profile'
@@ -29,8 +36,11 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
           }}
         />
       </div>
+      {match(id === String(user?.id))
+        .with(true, () => <EditProfile profile={profile} />)
+        .otherwise(() => null)}
       <ProfileImage
-        src={profile?.picture || ""}
+        src={profile.picture || ""}
         size='lg'
         state='online'
         alt="User's profile image"
@@ -38,8 +48,8 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
       />
       <div className='absolute bottom-0 flex flex-col items-start gap-y-4 md:flex-row md:items-end w-full px-4 py-4 md:justify-between h-44 md:h-24 self-end'>
         <div className='flex ml-0 md:ml-32 flex-col justify-end z-10'>
-          <h1 className='text-xl font-bold'>{profile?.name}</h1>
-          <p className='text-md'>Short description with a lot of details</p>
+          <h1 className='text-xl font-bold'>{profile.name}</h1>
+          <p className='text-md'>{profile.bio || "---"}</p>
         </div>
         <div className='flex flex-row gap-x-6 justify-end z-10'>
           <span>

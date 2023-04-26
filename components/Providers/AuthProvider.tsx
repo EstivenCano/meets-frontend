@@ -36,12 +36,11 @@ const AuthProvider: FC<AuthProviderProps> = ({
     }
   );
 
-  //Refresh token every 5 minutes
   useEffect(() => {
     if (user) {
       const interval = setInterval(() => {
         triggerRefresh();
-      }, 870000);
+      }, 720000);
       return () => clearInterval(interval);
     }
   }, [user, triggerRefresh]);
