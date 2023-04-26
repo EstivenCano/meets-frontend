@@ -3,13 +3,14 @@ import Image, { ImageProps } from "next/image";
 import { match } from "ts-pattern";
 
 interface ProfileImageProps {
-  src: string;
-  alt: string;
   className?: string;
   size?: "xxs" | "xs" | "sm" | "md" | "lg";
   props?: ImageProps;
   state?: "online" | "offline";
 }
+
+const defaultProfileImage =
+  "https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Mia";
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -55,7 +56,7 @@ export const ProfileImage: FC<ProfileImageProps & ImageProps> = ({
     <span className={`relative ${sizeClass}`}>
       <Image
         {...props}
-        src={src}
+        src={src || defaultProfileImage}
         alt={alt}
         fill
         sizes='100vw'

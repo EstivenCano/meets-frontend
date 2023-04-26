@@ -1,12 +1,18 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ProfileIcon from "@/public/profile.svg";
+import { FC } from "react";
 
-export const ProfileItem = () => {
+interface ProfileItemProps {
+  id?: string;
+}
+
+export const ProfileItem: FC<ProfileItemProps> = ({ id }) => {
   const router = useRouter();
 
   const handleNavigate = () => {
-    router.push("/social/profile");
+    if (!id) return;
+    router.push(`/social/profile/${id}`);
   };
 
   return (

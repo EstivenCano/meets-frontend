@@ -1,4 +1,4 @@
-import { setCookies } from "cookies-next";
+import { setCookie } from "cookies-next";
 
 export const setTokens = (accessToken: string, refreshToken: string) => {
   if (typeof window !== "undefined" && window.localStorage) {
@@ -6,6 +6,6 @@ export const setTokens = (accessToken: string, refreshToken: string) => {
     window.localStorage.setItem("refresh_token", refreshToken);
   }
 
-  setCookies("access_token", accessToken);
-  setCookies("refresh_token", refreshToken);
+  setCookie("access_token", accessToken);
+  setCookie("refresh_token", refreshToken);
 };

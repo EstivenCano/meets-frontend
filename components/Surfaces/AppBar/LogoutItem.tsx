@@ -4,20 +4,27 @@ import Image from "next/image";
 import LogoutIcon from "@/public/logout.svg";
 import LoadingIcon from "@/public/loading.svg";
 import { match } from "ts-pattern";
+import { alertStore } from "@/stores/useAlert.store";
 
 export const LogoutItem = () => {
   const { trigger: triggerLogout, isMutating } = useSWRMutation(
     "/auth/logout",
     logout
   );
+  const addAlert = alertStore((state) => state.addAlert);
 
   const handleLogout = () => {
     triggerLogout()
       .then(() => {
         window.location.href = "/";
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        addAlert({
+          message: error.message,
+          errorList: error.errorList,
+          status: error.statusCode,
+        });
+        window.location.reload();
       });
   };
   return (

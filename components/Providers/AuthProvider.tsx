@@ -6,7 +6,6 @@ import useSWRMutation from "swr/mutation";
 import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { User } from "@/services/model/User";
-import { setTokens } from "@/utils/setTokens";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -34,9 +33,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
         });
         setUser(null);
       },
-      onSuccess() {
-        console.log("Refreshed token");
-      },
     }
   );
 
@@ -45,7 +41,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
     if (user) {
       const interval = setInterval(() => {
         triggerRefresh();
-      }, 270000);
+      }, 870000);
       return () => clearInterval(interval);
     }
   }, [user, triggerRefresh]);

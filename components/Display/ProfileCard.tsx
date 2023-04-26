@@ -13,7 +13,7 @@ const ProfileCard = () => {
       className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
       <div className='absolute bg-gray-400/30 h-40 w-full rounded-xl'>
         <Image
-          src='https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Willow'
+          src='https://res.cloudinary.com/dwlgyffvu/image/upload/v1682524818/meets/MeetsCover7_wswckd.webp'
           fill
           style={{
             objectFit: "cover",
@@ -23,10 +23,7 @@ const ProfileCard = () => {
         />
       </div>
       <ProfileImage
-        src={
-          user?.picture ||
-          "https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Mia"
-        }
+        src={user?.picture || ""}
         size='lg'
         state='online'
         alt="User's profile image"
