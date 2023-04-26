@@ -1,7 +1,10 @@
+import Skeleton from "@/components/Feedback/Skeleton";
 import { getUserProfileFromServer } from "@/services/user.service";
 import dynamic from "next/dynamic";
 
-const ProfileCard = dynamic(() => import("@/components/Display/ProfileCard"));
+const ProfileCard = dynamic(() => import("@/components/Display/ProfileCard"), {
+  loading: () => <Skeleton type='profile' />,
+});
 
 export default async function Profile({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -10,9 +13,7 @@ export default async function Profile({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {profile && <h1>{profile.name}</h1>}
-
-      <ProfileCard />
+      <ProfileCard profile={profile} id={id} />
     </>
   );
 }
