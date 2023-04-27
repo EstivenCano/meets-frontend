@@ -3,7 +3,7 @@
 import { FC, useEffect, useMemo } from "react";
 import { userStore } from "@/stores/useUser.store";
 import useSWRMutation from "swr/mutation";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { User } from "@/services/model/User";
@@ -30,7 +30,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
 
   const { trigger: triggerLogout } = useSWRMutation("/auth/logout", logout);
 
-  const { mutate: triggerRefresh } = useSWR(
+  const { mutate: triggerRefresh } = useSWRImmutable(
     user ? "/auth/refresh" : null,
     refreshToken,
     {
@@ -40,6 +40,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
       onSuccess() {
         handleRefreshSuccess();
       },
+      focusThrottleInterval: 70000,
       refreshInterval: 720000,
     }
   );

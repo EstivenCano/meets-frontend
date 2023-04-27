@@ -36,6 +36,9 @@ export const getUserProfileFromServer = async (id: string) => {
       `/users/${id}/profile`,
       {
         Authorization: `Bearer ${token?.value}`,
+      },
+      {
+        cache: "no-cache",
       }
     );
 

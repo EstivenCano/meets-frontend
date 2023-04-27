@@ -26,8 +26,8 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${monserrat.className} text-text`}>
         <div id='modal-root' />
-        <AlertsProvider />
         <AuthProvider user={user}>{children}</AuthProvider>
+        <AlertsProvider />
       </body>
     </html>
   );
