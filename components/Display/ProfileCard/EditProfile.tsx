@@ -16,21 +16,26 @@ interface EditProfileProps {
 const EditProfile: FC<EditProfileProps> = ({ profile }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <>
+    <div className='absolute top-4 right-4'>
       <IconButton
+        size='sm'
         icon={EditIcon}
         name='Edit profile'
-        className='absolute top-4 right-4'
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
       />
-      <Modal
-        open={isOpen}
-        title='Update profile'
-        onClose={() => setIsOpen(false)}>
-        <UpdateProfileForm profile={profile} />
+      <Modal open={isOpen} title='Update profile' onClose={handleClose}>
+        <UpdateProfileForm profile={profile} closeForm={handleClose} />
       </Modal>
-    </>
+    </div>
   );
 };
 

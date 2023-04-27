@@ -1,4 +1,5 @@
-import { get } from "./api/serviceClient";
+import { get, put } from "./api/serviceClient";
+import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
 
 export const getUser = async (url: string) => {
@@ -41,5 +42,17 @@ export const getUserProfileFromServer = async (id: string) => {
     return response.data;
   } catch (err) {
     throw err;
+  }
+};
+
+export const updateUserProfile = async (
+  url: string,
+  { arg }: { arg: UpdateUserProfileRequest }
+) => {
+  try {
+    const response = await put(url, arg);
+    return { ...response, message: "Profile updated successfully" };
+  } catch (error) {
+    throw error;
   }
 };

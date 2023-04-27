@@ -1,4 +1,4 @@
-const coverImages = [
+export const coverImages = [
   "https://res.cloudinary.com/dwlgyffvu/image/upload/v1682525093/meets/MeetsCover7_unfymr.webp",
   "https://res.cloudinary.com/dwlgyffvu/image/upload/v1682524818/meets/MeetsCover7_wswckd.webp",
   "https://res.cloudinary.com/dwlgyffvu/image/upload/v1682524762/meets/MeetsCover3_fzsohd.webp",

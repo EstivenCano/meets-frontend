@@ -16,7 +16,7 @@ export const SearchBar = () => {
             className='dark:invert'
           />
         }
-        className='bg-gray-300/10 border-violet-500/40 text-text max-w-lg'
+        className='max-w-lg'
         name='search'
       />
     </div>

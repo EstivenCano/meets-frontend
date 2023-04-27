@@ -52,7 +52,7 @@ export const TextField = forwardRef<
           <input
             ref={ref}
             name={name}
-            className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black [&:not(:placeholder-shown):not(:focus):invalid]:border-red-600 ${sizeClass} ${iconClass} ${className}`}
+            className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black [&:not(:placeholder-shown):not(:focus):invalid]:border-red-600 dark:bg-gray-300/10 dark:border-violet-500/40 dark:text-text  ${sizeClass} ${iconClass} ${className}`}
             placeholder={placeholder}
             {...props}
           />

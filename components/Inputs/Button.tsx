@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 interface ButtonProps {
   children: React.ReactNode;
   size?: "sm" | "md" | "lg" | "auto";
-  color?: "violet" | "green";
+  color?: "violet" | "green" | "red";
   variant?: "solid" | "outline";
   loading?: boolean;
   className?: string;
@@ -46,6 +46,15 @@ export const Button: FC<
             ? "bg-transparent text-text"
             : "bg-green-700 text-white"
         } border-green-700 hover:bg-green-600`
+    )
+    .with(
+      "red",
+      () =>
+        `${
+          variant === "outline"
+            ? "bg-transparent text-text"
+            : "bg-red-600 text-white"
+        } border-red-600 hover:bg-red-500`
     )
     .exhaustive();
 
