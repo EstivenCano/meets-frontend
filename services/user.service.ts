@@ -16,15 +16,9 @@ export const getUserFromServer = async () => {
   const token = nextCookies.get("access_token");
 
   try {
-    const response = await get(
-      "/users/current-user",
-      {
-        Authorization: `Bearer ${token?.value}`,
-      },
-      {
-        cache: "no-cache",
-      }
-    );
+    const response = await get("/users/current-user", {
+      Authorization: `Bearer ${token?.value}`,
+    });
     return response.data;
   } catch (err: any) {
     return null;
@@ -41,9 +35,6 @@ export const getUserProfileFromServer = async (id: string) => {
       `/users/${id}/profile`,
       {
         Authorization: `Bearer ${token?.value}`,
-      },
-      {
-        cache: "no-cache",
       }
     );
 

@@ -7,6 +7,7 @@ import { Modal } from "@/components/Surfaces/Modal";
 import { Profile } from "@/services/model/Profile";
 import EditIcon from "@/public/edit.svg";
 import { IconButton } from "@/components/Inputs/IconButton";
+import UpdateProfileForm from "@/components/Forms/UpdateProfile";
 
 interface EditProfileProps {
   profile: Profile;
@@ -27,8 +28,7 @@ const EditProfile: FC<EditProfileProps> = ({ profile }) => {
         open={isOpen}
         title='Update profile'
         onClose={() => setIsOpen(false)}>
-        Hello modal
-        <button>Close</button>
+        <UpdateProfileForm profile={profile} />
       </Modal>
     </>
   );

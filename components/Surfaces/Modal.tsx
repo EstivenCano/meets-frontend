@@ -32,7 +32,7 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
                 className='fixed top-0 left-0 w-screen h-screen bg-black/50 z-50 flex justify-center items-center'>
                 <div
                   ref={ref}
-                  className='relative bg-background h-screen w-screen min-h-[250px] max-w-4xl md:h-fit md:w-full p-4 md:rounded-xl flex flex-col items-start'>
+                  className='relative bg-background h-screen w-screen min-h-[250px] max-w-4xl md:h-fit md:w-full p-4 gap-y-4 md:rounded-xl flex flex-col items-start'>
                   <IconButton
                     icon='/close.svg'
                     name='Close'
@@ -40,7 +40,7 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
                     onClick={onClose}
                   />
                   <h1 className='text-xl font-bold'>{title}</h1>
-                  <div className='flex-grow w-full mt-4 overflow-y-auto'>
+                  <div className='flex flex-col h-full w-full items-center justify-start py-4 overflow-y-auto'>
                     {children}
                   </div>
                 </div>
