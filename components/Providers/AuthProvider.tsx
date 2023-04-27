@@ -8,7 +8,6 @@ import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { User } from "@/services/model/User";
 import { getUser } from "@/services/user.service";
-import { match } from "ts-pattern";
 import { ServiceError } from "@/services/model/serviceError";
 
 interface AuthProviderProps {
@@ -36,11 +35,9 @@ const AuthProvider: FC<AuthProviderProps> = ({
     refreshToken,
     {
       onError(err) {
-        console.log("Refresh error");
         handleRefreshError(err);
       },
       onSuccess() {
-        console.log("Refresh success");
         handleRefreshSuccess();
       },
       refreshInterval: 720000,
@@ -65,22 +62,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
       });
     }
   };
-
-  // useEffect(() => {
-  //   console.log("Refresh use effect");
-  //   if (user) {
-  //     const interval = setInterval(() => {
-  //       triggerRefresh();
-  //     }, 720000);
-  //     return () => clearInterval(interval);
-  //   } else {
-  //     triggerRefresh().then(() => {
-  //       triggerGetUser().then((user) => {
-  //         setUser(user);
-  //       });
-  //     });
-  //   }
-  // }, [user, triggerRefresh, triggerGetUser, setUser]);
 
   useEffect(() => {
     if (initialUser) {

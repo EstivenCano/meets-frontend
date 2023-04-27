@@ -7,6 +7,7 @@ import { FC } from "react";
 import { userStore } from "@/stores/useUser.store";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
+import { shimmerToBase64 } from "@/utils/shimmer";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
 
@@ -29,6 +30,9 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
             "https://res.cloudinary.com/dwlgyffvu/image/upload/v1682524818/meets/MeetsCover7_wswckd.webp"
           }
           fill
+          quality={100}
+          placeholder='blur'
+          blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(1000, 20)}`}
           className='rounded-xl'
           alt='Cover image'
           style={{
