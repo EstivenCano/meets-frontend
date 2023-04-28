@@ -28,10 +28,18 @@ const AuthProvider: FC<AuthProviderProps> = ({
     getUser
   );
 
-  const { trigger: triggerLogout } = useSWRMutation("/auth/logout", logout);
+  const { trigger: triggerLogout } = useSWRMutation("/auth/logout", logout, {
+    onError(err) {
+      addAlert({
+        message: err.message,
+        errorList: err.errorList,
+        status: err.statusCode,
+      });
+    },
+  });
 
-  const { mutate: triggerRefresh } = useSWRImmutable(
-    user ? "/auth/refresh" : null,
+  const { trigger: triggerRefresh } = useSWRMutation(
+    "/auth/refresh",
     refreshToken,
     {
       onError(err) {
@@ -40,14 +48,24 @@ const AuthProvider: FC<AuthProviderProps> = ({
       onSuccess() {
         handleRefreshSuccess();
       },
-      focusThrottleInterval: 70000,
-      refreshInterval: 720000,
     }
   );
 
+  useSWRImmutable(user ? "/auth/refresh" : null, refreshToken, {
+    onError(err) {
+      handleRefreshError(err);
+    },
+    onSuccess() {
+      handleRefreshSuccess();
+    },
+    focusThrottleInterval: 70000,
+    refreshInterval: 72000,
+  });
+
   const handleRefreshError = (err: ServiceError) => {
     setUser(null);
-    triggerLogout().then(() => {
+    triggerLogout().then((res) => {
+      if (!res) return;
       addAlert({
         message: err.message,
         errorList: "You must log in again",
@@ -56,9 +74,9 @@ const AuthProvider: FC<AuthProviderProps> = ({
     });
   };
 
-  const handleRefreshSuccess = () => {
+  const handleRefreshSuccess = async () => {
     if (!user) {
-      triggerGetUser().then((user) => {
+      await triggerGetUser().then((user) => {
         setUser(user);
       });
     }
@@ -68,6 +86,9 @@ const AuthProvider: FC<AuthProviderProps> = ({
     if (initialUser) {
       setUser(initialUser);
     } else {
+      const refresh = localStorage.getItem("refresh_token");
+
+      if (!refresh) return;
       triggerRefresh();
     }
   }, [initialUser, setUser, triggerRefresh]);

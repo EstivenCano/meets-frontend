@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { shimmerToBase64 } from "@/utils/shimmer";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
+const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 
 interface ProfileCardProps {
   profile: Profile;
@@ -42,7 +43,9 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
       </div>
       {match(id === String(user?.id))
         .with(true, () => <EditProfile profile={profile} />)
-        .otherwise(() => null)}
+        .otherwise(() => (
+          <FollowForm id={id || ""} />
+        ))}
       <ProfileImage
         src={profile.picture || ""}
         size='lg'

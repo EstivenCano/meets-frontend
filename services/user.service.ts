@@ -1,4 +1,4 @@
-import { get, put } from "./api/serviceClient";
+import { get, post, put } from "./api/serviceClient";
 import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
 
@@ -57,5 +57,25 @@ export const updateUserProfile = async (
     return { ...response, message: "Profile updated successfully" };
   } catch (error) {
     throw error;
+  }
+};
+
+export const isFollowingUser = async (url: string) => {
+  try {
+    const response: { data: boolean; status: number } = await get(url);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const followUnfollowUser = async (url: string) => {
+  const action = url.split("/").pop();
+
+  try {
+    const response = await post(url, {});
+    return { ...response, message: `User ${action}ed` };
+  } catch (error) {
+    return Promise.reject(error);
   }
 };

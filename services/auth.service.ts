@@ -145,6 +145,12 @@ export const refreshToken = async (url: string) => {
 
 export const logout = async (url: string) => {
   try {
+    const tokens = await getTokens();
+
+    if (!tokens.refreshToken || !tokens.accessToken) {
+      return false;
+    }
+
     const response = await post(url, {});
 
     removeTokens();
