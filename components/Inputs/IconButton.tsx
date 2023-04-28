@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import { FC } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
 import { match } from "ts-pattern";
 
 interface IconButtonProps {
@@ -10,13 +10,13 @@ interface IconButtonProps {
   onClick?: () => void;
 }
 
-export const IconButton: FC<IconButtonProps> = ({
-  icon,
-  name,
-  size = "md",
-  className,
-  onClick,
-}) => {
+export const IconButton: FC<
+  IconButtonProps &
+    DetailedHTMLProps<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >
+> = ({ icon, name, size = "md", className, onClick, ...props }) => {
   const sizeClass = match(size)
     .with("xs", () => "w-6 h-6")
     .with("sm", () => "w-8 h-8")
@@ -28,7 +28,8 @@ export const IconButton: FC<IconButtonProps> = ({
     <button
       data-tooltip={name}
       className={`relative rounded-full flex items-center justify-center w-10 h-10 bg-gray-500/40 hover:bg-gray-500/80 active:scale-90 ${sizeClass} ${className}`}
-      onClick={onClick}>
+      onClick={onClick}
+      {...props}>
       <Image src={icon} alt={name} fill className='invert p-1' />
     </button>
   );

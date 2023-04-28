@@ -29,9 +29,9 @@ export const TextField = forwardRef<
     ref
   ) => {
     const sizeClass = match(inputSize)
-      .with("sm", () => "px-2 py-1 text-sm")
-      .with("md", () => "px-4 py-2 text-base")
-      .with("lg", () => "px-6 py-3 text-lg")
+      .with("sm", () => "px-2 py-1 text-sm w-full")
+      .with("md", () => "px-4 py-2 text-base w-full")
+      .with("lg", () => "px-6 py-3 text-lg w-full")
       .with("auto", () => "px-4 py-2 text-auto w-full")
       .otherwise(() => null);
 

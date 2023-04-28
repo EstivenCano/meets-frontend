@@ -1,8 +1,10 @@
+import useEventListener from "@/hooks/useEventListener";
 import {
   ChangeEventHandler,
   ReactNode,
   TextareaHTMLAttributes,
   forwardRef,
+  useMemo,
   useState,
 } from "react";
 import { match } from "ts-pattern";
@@ -55,6 +57,11 @@ export const TextArea = forwardRef<
       .with(true, () => "pl-8")
       .otherwise(() => null);
 
+    useEventListener("reset", (e) => {
+      console.log(e.type);
+      setCharacterCount(0);
+    });
+
     return (
       <div className='w-full h-full'>
         <label
@@ -68,21 +75,25 @@ export const TextArea = forwardRef<
           <textarea
             ref={ref}
             name={name}
-            onChangeCapture={handleCharacterCount}
+            onInputCapture={handleCharacterCount}
             className={`rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-black [&:not(:placeholder-shown):not(:focus):invalid]:border-red-600 dark:bg-gray-300/10 dark:border-violet-500/40 dark:text-text resize-none ${sizeClass} ${iconClass} ${className}`}
             placeholder={placeholder}
             {...props}
           />
         </div>
-        <p
-          className={`text-right text-sm ${
-            characterCount > maxCharacters ? "text-red-600" : "text-text"
-          }`}>
-          {characterCount}
-          {" / "}
-          <span className='text-text'>{maxCharacters}</span>
-        </p>
-        {error && <p className='text-red-600 text-sm mt-1'>{error}</p>}
+        <span className='flex justify-end items-center w-full'>
+          {error && (
+            <p className='text-red-600 text-sm mr-auto self-end'>{error}</p>
+          )}
+          <p
+            className={`text-right text-sm ${
+              characterCount > maxCharacters ? "text-red-600" : "text-text"
+            }`}>
+            {characterCount}
+            {" / "}
+            <span className='text-text'>{maxCharacters}</span>
+          </p>
+        </span>
       </div>
     );
   }

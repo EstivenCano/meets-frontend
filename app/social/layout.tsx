@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 
 export const metadata = {
-  title: "Meets - Feed",
+  title: "Meets - Social",
   description:
-    "Recopilation of interesting posts from the users that you follow.",
+    "Social media platform to share your thoughts and ideas with the world.",
 };
 
 const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"));

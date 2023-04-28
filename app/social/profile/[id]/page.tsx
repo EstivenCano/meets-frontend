@@ -6,6 +6,8 @@ const ProfileCard = dynamic(() => import("@/components/Display/ProfileCard"), {
   loading: () => <Skeleton type='profile' />,
 });
 
+const NewPostForm = dynamic(() => import("@/components/Forms/NewPostForm"));
+
 export default async function Profile({ params }: { params: { id: string } }) {
   const { id } = params;
 
