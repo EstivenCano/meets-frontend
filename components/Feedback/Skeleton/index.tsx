@@ -2,6 +2,7 @@ import { match } from "ts-pattern";
 import { ProfileCardLoading } from "./ProfileCard";
 
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
+import { PostCard } from "./PostCard";
 
 interface SkeletonProps {
   type: "profile" | "post" | "comment";
@@ -13,7 +14,7 @@ const Skeleton: FC<
 > = ({ type, ...props }) => {
   return match(type)
     .with("profile", () => <ProfileCardLoading {...props} />)
-    .with("post", () => <div {...props} />)
+    .with("post", () => <PostCard {...props} />)
     .with("comment", () => <div {...props} />)
     .exhaustive();
 };

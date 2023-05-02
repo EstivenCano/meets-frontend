@@ -57,8 +57,7 @@ export const TextArea = forwardRef<
       .with(true, () => "pl-8")
       .otherwise(() => null);
 
-    useEventListener("reset", (e) => {
-      console.log(e.type);
+    useEventListener("reset", () => {
       setCharacterCount(0);
     });
 

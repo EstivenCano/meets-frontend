@@ -121,7 +121,11 @@ const NewPostForm = () => {
                 Do you want to publish this post?
               </legend>
               <label className='text-xs'>Publish</label>
-              <input type='checkbox' {...register("publish")} />
+              <input
+                type='checkbox'
+                className='checked:accent-violet-400'
+                {...register("publish")}
+              />
             </fieldset>
             <span className='flex w-full justify-end gap-x-2 overflow-visible'>
               <Button color='red' size='sm' type='reset' loading={savingDraft}>

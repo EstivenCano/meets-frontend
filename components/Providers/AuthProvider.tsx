@@ -58,8 +58,8 @@ const AuthProvider: FC<AuthProviderProps> = ({
     onSuccess() {
       handleRefreshSuccess();
     },
-    focusThrottleInterval: 70000,
-    refreshInterval: 72000,
+    focusThrottleInterval: 780000,
+    refreshInterval: 840000,
   });
 
   const handleRefreshError = (err: ServiceError) => {

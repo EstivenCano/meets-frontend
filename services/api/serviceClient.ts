@@ -1,5 +1,6 @@
 import { ServerError } from "../dto/server-error.dto";
 import { ServiceError } from "../model/serviceError";
+import { isOnClient } from "@/utils/isOnClient";
 
 const defaultHeaders = {
   "Content-Type": "application/json",
@@ -10,13 +11,9 @@ const defaultHeaders = {
 };
 
 type Headers = Record<string, string>;
-type RequestOpions = Omit<RequestInit, "headers">;
+type RequestOptions = Omit<RequestInit, "headers">;
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-function isOnClient() {
-  return typeof window != "undefined" && window.document;
-}
 
 const getHeaders = (headers?: Headers) => {
   const headersObject = {
@@ -41,7 +38,7 @@ const getHeaders = (headers?: Headers) => {
 export async function get(
   url: string,
   headers?: Headers,
-  options?: RequestOpions
+  options?: RequestOptions
 ) {
   try {
     const response = await fetch(baseUrl + url, {
@@ -68,7 +65,7 @@ export async function post(
   url: string,
   body: any,
   headers?: Headers,
-  options?: RequestOpions
+  options?: RequestOptions
 ) {
   try {
     const response = await fetch(baseUrl + url, {
@@ -96,7 +93,7 @@ export async function put(
   url: string,
   body: any,
   headers?: Headers,
-  options?: RequestOpions
+  options?: RequestOptions
 ) {
   try {
     const response = await fetch(baseUrl + url, {
@@ -123,7 +120,7 @@ export async function put(
 export async function deleteRequest(
   url: string,
   headers?: Headers,
-  options?: RequestOpions
+  options?: RequestOptions
 ) {
   try {
     const response = await fetch(baseUrl + url, {

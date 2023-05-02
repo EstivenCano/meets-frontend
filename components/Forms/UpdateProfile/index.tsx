@@ -69,7 +69,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex flex-col h-fit space-y-4 w-full max-w-sm'>
+      className='flex flex-col h-fit space-y-4 w-full max-w-sm px-1 md:px-0'>
       <TextField
         type='text'
         placeholder='Name'
@@ -102,7 +102,6 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
           <RadioImage
             key={cover}
             shape='rectangle'
-            size='md'
             src={cover}
             defaultChecked={profile?.cover === cover}
             {...register("cover")}

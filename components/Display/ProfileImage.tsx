@@ -44,7 +44,7 @@ export const ProfileImage: FC<ProfileImageProps & ImageProps> = ({
         sizes='100vw'
         placeholder='blur'
         blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(100, 100)}`}
-        className={`rounded-full border-2 ${colorClass} shadow-md shadow-violet-200 hover:scale-105 transform transition-all duration-500 ease-in-out ${className}`}
+        className={`select-none rounded-full border-2 ${colorClass} shadow-md shadow-violet-200 hover:scale-105 transform transition-all duration-500 ease-in-out ${className}`}
       />
     </span>
   );

@@ -71,15 +71,24 @@
   }
 
   input:-webkit-autofill {
-    box-shadow: 0 0 0 50px theme("colors.foreground/50") inset;
-    -webkit-box-shadow: 0 0 0 50px theme("colors.foreground/50") inset;
+    box-shadow: none;
+    -webkit-box-shadow: none;
     -webkit-text-fill-color: theme("colors.text");
     transition: background-color 5000s ease-in-out 0s;
   }
 
   input:-webkit-autofill:focus {
-    box-shadow: 0 0 0 50px theme("colors.foreground/50") inset;
-    -webkit-box-shadow: 0 0 0 50px theme("colors.foreground/50") inset;
+    box-shadow: none;
+    -webkit-box-shadow: 0;
     -webkit-text-fill-color: theme("colors.text");
+  }
+
+  ::-moz-selection {
+    /* Code for Firefox */
+    @apply text-text bg-violet-300 dark:bg-violet-700;
+  }
+
+  ::selection {
+    @apply text-text bg-violet-300 dark:bg-violet-700;
   }
 }

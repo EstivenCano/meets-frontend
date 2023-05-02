@@ -12,7 +12,7 @@ const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
 const TitleSection = () => {
   return (
-    <section className='w-full md:w-2/3 min-h-screen flex flex-col items-center justify-center space-y-1 py-4 bg-gradient-to-b md:bg-gradient-to-tr from-background via-violet-600/20 to-background shadow-lg shadow-violet-500 lg:rounded-r-full'>
+    <section className='hidden md:flex w-full md:w-2/3 min-h-screen flex-col items-center justify-center space-y-1 py-4 bg-gradient-to-b md:bg-gradient-to-tr from-background via-violet-600/20 to-background shadow-lg shadow-violet-500 lg:rounded-r-full'>
       <MeetsTitle size='lg' />
       <h2 className='text-lg font-semibold text-center'>Share what you are</h2>
       <LoadingBar />
@@ -45,7 +45,8 @@ const TitleSection = () => {
 
 const LoginSection = () => {
   return (
-    <section className='w-full md:w-1/2 min-h-screen flex flex-col items-center justify-center space-y-6 py-10'>
+    <section className='flex w-full md:w-1/2 min-h-screen flex-col items-center justify-center space-y-6 py-10'>
+      <MeetsTitle size='lg' className='visible md:hidden' />
       <h2 className='text-lg font-semibold'>Sign in with your account</h2>
       <LoginForm />
       <div className='flex items-center space-x-4'>
