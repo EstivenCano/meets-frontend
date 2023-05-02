@@ -17,7 +17,7 @@ export default async function FeedLayout({
   return (
     <AuthGuard>
       <AppBar />
-      <main className='flex flex-col items-center h-[calc(100vh-80px)] bg-gradient-to-tr from-violet-600/20 via-background to-violet-600/20 shadow-inner shadow-gray-400 dark:shadow-gray-600 py-4 px-2'>
+      <main className='flex flex-col items-center h-[calc(100vh-80px)] bg-gradient-to-tr from-violet-600/20 via-background to-violet-600/20 shadow-inner shadow-gray-400 dark:shadow-gray-600'>
         {children}
       </main>
     </AuthGuard>

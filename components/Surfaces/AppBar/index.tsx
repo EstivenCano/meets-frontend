@@ -6,7 +6,7 @@ const SearchBar = dynamic(() => import("./SearchBar"));
 
 const AppBar = () => {
   return (
-    <div className='flex items-center justify-between w-full h-20 px-4'>
+    <div className='flex items-center justify-between w-full h-20 px-4 z-10 border-b-[1px] border-b-gray-400/20'>
       <Title />
       <SearchBar />
       <ProfileMenu />
