@@ -1,4 +1,4 @@
-import { get, post } from "./api/serviceClient";
+import { post } from "./api/serviceClient";
 import { GetFeedRequest, GetFeedResponse } from "./dto/get-feed.dto";
 import { NewPostResponse, NewPostType } from "./dto/new-post.dto";
 
@@ -48,7 +48,7 @@ export const GetFirstFeed = async () => {
       {
         searchString: "",
         page: 1,
-        perPage: 20,
+        perPage: 3,
       },
       {
         Authorization: `Bearer ${token?.value}`,

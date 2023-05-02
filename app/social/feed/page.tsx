@@ -22,9 +22,7 @@ export default async function Feed() {
       </h1>
       <NewPostForm />
       <hr className='border-violet-400 w-full my-4' />
-      <div className='flex flex-col items-center w-full pb-2'>
-        <FeedList post={post.data} />
-      </div>
+      <FeedList initialFeed={post.data} />
     </>
   );
 }

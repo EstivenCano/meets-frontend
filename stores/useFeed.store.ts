@@ -15,9 +15,15 @@ interface feedStore {
 export const feedStore = create<feedStore>()((set, get) => ({
   feed: [],
   page: 1,
-  perPage: 20,
+  perPage: 3,
   searchString: "",
-  setFeed: (feed) => set(() => ({ feed: [...get().feed, ...feed] })),
+  setFeed: (feed) =>
+    set(() => ({
+      feed: [
+        ...get().feed,
+        ...feed.filter((f) => !get().feed.some((p) => p.id === f.id)),
+      ],
+    })),
   setPage: (page) => set(() => ({ page })),
   setPerPage: (perPage) => set(() => ({ perPage })),
   setSearchString: (searchString) => set(() => ({ searchString })),

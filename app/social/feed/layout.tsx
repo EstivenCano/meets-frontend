@@ -10,7 +10,7 @@ export default async function FeedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className='flex flex-col items-center max-w-6xl w-full h-auto overflow-y-auto px-2 py-4'>
+    <main className='flex flex-col items-center max-w-6xl w-full h-auto px-2 py-4'>
       {children}
     </main>
   );

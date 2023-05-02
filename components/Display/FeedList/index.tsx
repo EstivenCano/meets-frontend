@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import { feedStore } from "@/stores/useFeed.store";
 import { Feed } from "@/services/model/Feed";
@@ -14,10 +14,11 @@ import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
 
 interface PostListProps {
-  post: Feed[];
+  initialFeed: Feed[];
 }
 
-const FeedList: FC<PostListProps> = ({ post }) => {
+const FeedList: FC<PostListProps> = ({ initialFeed }) => {
+  const feedLayout = document.getElementById("main-layout");
   const { feed, searchString, perPage, page, setFeed, setPage } = feedStore();
   const user = userStore((state) => state.user);
   const addAlert = alertStore((state) => state.addAlert);
@@ -27,6 +28,7 @@ const FeedList: FC<PostListProps> = ({ post }) => {
     {
       onSuccess(response) {
         setFeed(response.data);
+        setPage(page + 1);
       },
       onError(err) {
         addAlert({
@@ -39,34 +41,27 @@ const FeedList: FC<PostListProps> = ({ post }) => {
   );
 
   useEffect(() => {
-    setFeed(post);
-  }, [post, setFeed]);
+    setFeed(initialFeed);
+  }, [initialFeed, setFeed]);
 
-  useEffect(() => {
-    if (feed.length < perPage * page) return;
-
-    setPage(page + 1);
-  }, [feed, page, perPage, setPage]);
-
-  const loadMoreFeed = async () => {
-    console.log("loadMoreFeed");
+  const loadMoreFeed = useCallback(async () => {
     if (feed.length < perPage * page || loadingFeed) return;
 
-    // trigger({
-    //   page,
-    //   perPage,
-    //   searchString,
-    // });
-  };
+    await trigger({
+      page: page + 1,
+      perPage,
+      searchString,
+    });
+  }, [feed, page, perPage, searchString, trigger, loadingFeed]);
 
-  useScrolledToBottom(loadMoreFeed);
+  useScrolledToBottom(loadMoreFeed, feedLayout);
 
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto'>
-      {post.map((post) => (
+      {feed.map((post) => (
         <PostCard key={post.id} post={post} userId={user?.id} />
       ))}
-      {post.length === 0 && <NoFeed />}
+      {feed.length === 0 && <NoFeed />}
       {loadingFeed && (
         <div className='relative'>
           <Skeleton type='post' />
