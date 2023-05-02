@@ -22,7 +22,10 @@ export const feedStore = create<feedStore>()((set, get) => ({
       feed: [
         ...get().feed,
         ...feed.filter((f) => !get().feed.some((p) => p.id === f.id)),
-      ],
+      ].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ),
     })),
   setPage: (page) => set(() => ({ page })),
   setPerPage: (perPage) => set(() => ({ perPage })),

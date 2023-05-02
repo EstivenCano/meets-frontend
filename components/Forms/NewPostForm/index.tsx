@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/Inputs/Button";
 import { TextField } from "@/components/Inputs/TextField";
-import { login } from "@/services/auth.service";
 import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -15,8 +14,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { createDraft } from "@/services/post.service";
+import { useRouter } from "next/navigation";
 
 const NewPostForm = () => {
+  const router = useRouter();
   const user = userStore((state) => state.user);
   const [open, setOpen] = useState(false);
   const {
@@ -48,6 +49,7 @@ const NewPostForm = () => {
             message: response.message,
             status: response.status,
           });
+          router.refresh();
         }
       })
       .catch((error) => {
