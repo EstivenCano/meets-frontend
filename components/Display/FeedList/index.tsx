@@ -11,6 +11,7 @@ import { PostCard } from "./PostCard";
 import Skeleton from "@/components/Feedback/Skeleton";
 import Image from "next/image";
 import { userStore } from "@/stores/useUser.store";
+import { NoFeed } from "./NoFeed";
 
 interface PostListProps {
   post: Feed[];
@@ -65,6 +66,7 @@ const FeedList: FC<PostListProps> = ({ post }) => {
       {post.map((post) => (
         <PostCard key={post.id} post={post} userId={user?.id} />
       ))}
+      {post.length === 0 && <NoFeed />}
       {loadingFeed && (
         <div className='relative'>
           <Skeleton type='post' />

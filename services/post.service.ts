@@ -37,3 +37,28 @@ export const GetFeed = async (
     return Promise.reject(error);
   }
 };
+
+export const GetFirstFeed = async () => {
+  const nextCookies = (await import("next/headers")).cookies();
+
+  const token = nextCookies.get("access_token");
+  try {
+    const response: { data: GetFeedResponse[]; status: number } = await post(
+      "/posts/feed",
+      {
+        searchString: "",
+        page: 1,
+        perPage: 20,
+      },
+      {
+        Authorization: `Bearer ${token?.value}`,
+      }
+    );
+    return {
+      ...response,
+      message: "Feed retrieved",
+    };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
