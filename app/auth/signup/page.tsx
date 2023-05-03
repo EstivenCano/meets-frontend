@@ -1,8 +1,7 @@
 import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import GoogleIcon from "@/public/google.svg";
+import { Google } from "@/public/icons";
 
 const SignupForm = dynamic(() => import("@/components/Forms/SignupForm"));
 const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"));
@@ -20,7 +19,7 @@ export default function Signup() {
             <div className='w-20 h-0.5 bg-violet-600' />
           </div>
           <Button size='md'>
-            <Image src={GoogleIcon} alt='Google icon' width={20} height={20} />
+            <Google className='w-5 h-5' />
             <span>Sign up with Google</span>
           </Button>
           <p className='text-lg font-semibold'>

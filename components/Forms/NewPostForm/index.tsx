@@ -15,6 +15,7 @@ import { useState } from "react";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { createDraft } from "@/services/post.service";
 import { useRouter } from "next/navigation";
+import { ArrowDown, ArrowUp } from "@/public/icons";
 
 const NewPostForm = () => {
   const router = useRouter();
@@ -97,8 +98,10 @@ const NewPostForm = () => {
           type='button'
           className='mt-1'
           icon={match(open)
-            .with(true, () => "/arrow-up.svg")
-            .otherwise(() => "/arrow-down.svg")}
+            .with(true, () => <ArrowUp className='p-1' />)
+            .otherwise(() => (
+              <ArrowDown className='p-1' />
+            ))}
           name={match(open)
             .with(true, () => "Close")
             .otherwise(() => "Open")}

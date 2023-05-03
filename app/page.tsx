@@ -4,9 +4,8 @@ import { LoadingBar } from "@/components/Feedback/LoadingBar";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
-import Image from "next/image";
-import GoogleIcon from "@/public/google.svg";
 import NotUserGuard from "@/components/Guards/NotUserGuard";
+import { Google } from "@/public/icons";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
@@ -55,7 +54,7 @@ const LoginSection = () => {
         <div className='w-20 h-0.5 bg-violet-600' />
       </div>
       <Button size='md' type='submit'>
-        <Image src={GoogleIcon} alt='Google icon' width={20} height={20} />
+        <Google className='w-5 h-5' />
         <span>Sign in with Google</span>
       </Button>
       <p className='text-lg font-semibold'>

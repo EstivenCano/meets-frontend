@@ -3,12 +3,11 @@
 import { ProfileImage } from "@/components/Display/ProfileImage";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import SettingsIcon from "@/public/settings.svg";
 import { LogoutItem } from "./LogoutItem";
 import { ProfileItem } from "./ProfileItem";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { userStore } from "@/stores/useUser.store";
+import { Settings } from "@/public/icons";
 
 const ProfileMenu = () => {
   const ref = useRef(null);
@@ -42,13 +41,7 @@ const ProfileMenu = () => {
             className='absolute right-0 w-48 py-2 mt-2 bg-background rounded-md shadow-sm shadow-gray-400 dark:shadow-gray-600 top-16 select-none'>
             <ProfileItem id={user?.id} />
             <li className='flex gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer hover:text-white'>
-              <Image
-                src={SettingsIcon}
-                alt='Settings icon'
-                width={20}
-                height={20}
-                className='dark:invert'
-              />
+              <Settings className='w-5 h-5' />
               Settings
             </li>
             <LogoutItem />

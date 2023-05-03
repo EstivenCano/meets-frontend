@@ -1,9 +1,9 @@
 import Image, { StaticImageData } from "next/image";
-import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 import { match } from "ts-pattern";
 
 interface IconButtonProps {
-  icon: StaticImageData | string;
+  icon: ReactNode;
   size?: "xs" | "sm" | "md" | "lg";
   name: string;
   className?: string;
@@ -30,7 +30,7 @@ export const IconButton: FC<
       className={`relative rounded-full flex items-center justify-center w-10 h-10 bg-gray-500/40 hover:bg-gray-500/80 active:scale-90 ${sizeClass} ${className}`}
       onClick={onClick}
       {...props}>
-      <Image src={icon} alt={name} fill className='invert p-1' />
+      {icon}
     </button>
   );
 };

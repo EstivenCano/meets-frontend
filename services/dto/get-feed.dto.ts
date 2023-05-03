@@ -2,6 +2,7 @@ import { Post } from "../model/Post";
 
 interface UserInfo {
   name: string;
+  id: number;
   profile: {
     picture: string;
   };

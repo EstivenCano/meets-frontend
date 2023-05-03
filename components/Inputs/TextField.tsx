@@ -36,7 +36,7 @@ export const TextField = forwardRef<
       .otherwise(() => null);
 
     const iconClass = match(!!icon)
-      .with(true, () => "pl-8")
+      .with(true, () => "pl-9")
       .otherwise(() => null);
 
     return (
@@ -48,7 +48,11 @@ export const TextField = forwardRef<
           {name}
         </label>
         <div className='flex relative'>
-          {icon && <div className='absolute flex inset-y-0 left-2'>{icon}</div>}
+          {icon && (
+            <div className='absolute flex items-center h-full left-2'>
+              {icon}
+            </div>
+          )}
           <input
             ref={ref}
             name={name}

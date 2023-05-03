@@ -1,21 +1,12 @@
 import { TextField } from "@/components/Inputs/TextField";
-import SearchIcon from "@/public/search.svg";
-import Image from "next/image";
+import { Search } from "@/public/icons";
 
 export const SearchBar = () => {
   return (
     <div className='flex w-full px-4 text-sm'>
       <TextField
         placeholder='Search...'
-        icon={
-          <Image
-            src={SearchIcon}
-            alt='Search icon'
-            width={20}
-            height={20}
-            className='dark:invert'
-          />
-        }
+        icon={<Search className='w-4 h-4' />}
         className='max-w-lg'
         name='search'
       />

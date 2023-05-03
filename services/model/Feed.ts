@@ -2,6 +2,7 @@ import { Post } from "./Post";
 
 interface UserInfo {
   name: string;
+  id: number;
   profile: {
     picture: string;
   };

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { FC } from "react";
 import { match } from "ts-pattern";
+import { Like, Comment, Delete } from "@/public/icons";
 
 interface PostCardProps {
   post: Feed;
@@ -36,10 +37,10 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
         {match(post.authorId === Number(userId))
           .with(true, () => (
             <IconButton
-              icon='/delete.svg'
+              icon={<Delete className='p-1' />}
               size='xs'
               name='Delete'
-              className='ml-auto self-start hover:bg-red-600'
+              className='ml-auto self-start hover:bg-red-600 hover:text-white'
               onClick={() => {}}
             />
           ))
@@ -51,25 +52,19 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
       <p className='text-sm py-2'>{post.content}</p>
       <hr className='border-violet-500 w-full' />
       <div className='flex items-center gap-x-4 justify-end md:justify-between w-full'>
-        <button className='flex items-center gap-x-2'>
-          <Image
-            src='/like.svg'
-            alt='Like icon'
-            width={20}
-            height={20}
-            className='dark:invert'
+        <span className='flex items-center gap-x-2'>
+          <Like
+            liked={post.likedBy.some((user) => user.id === Number(userId))}
           />
           <span className='text-xs text-gray-500 dark:text-gray-400'>
             {post._count.likedBy} Likes
           </span>
-        </button>
+        </span>
         <button className='flex items-center gap-x-2'>
-          <Image
-            src='/comment.svg'
-            alt='Comment icon'
-            width={20}
-            height={20}
-            className='dark:invert'
+          <Comment
+            commented={post.comments.some(
+              (comment) => comment.author.id === Number(userId)
+            )}
           />
           <span className='text-xs text-gray-500 dark:text-gray-400'>
             {post._count.comments} Comments

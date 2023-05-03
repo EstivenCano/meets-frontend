@@ -12,6 +12,7 @@ import Skeleton from "@/components/Feedback/Skeleton";
 import Image from "next/image";
 import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
+import { Loading } from "@/public/icons";
 
 interface PostListProps {
   initialFeed: Feed[];
@@ -64,13 +65,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
       {loadingFeed && (
         <div className='relative'>
           <Skeleton type='post' />
-          <Image
-            src='/loading.svg'
-            alt='Loading icon'
-            width={40}
-            height={40}
-            className='absolute top-1/2 left-1/2'
-          />
+          <Loading className='absolute top-1/2 left-1/2 w-10 h-10 stroke-violet-500' />
         </div>
       )}
     </div>

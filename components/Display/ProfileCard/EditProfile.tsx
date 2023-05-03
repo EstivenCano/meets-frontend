@@ -5,9 +5,9 @@ import { FC, useState } from "react";
 import { Modal } from "@/components/Surfaces/Modal";
 
 import { Profile } from "@/services/model/Profile";
-import EditIcon from "@/public/edit.svg";
 import { IconButton } from "@/components/Inputs/IconButton";
 import UpdateProfileForm from "@/components/Forms/UpdateProfile";
+import { Edit } from "@/public/icons";
 
 interface EditProfileProps {
   profile: Profile;
@@ -28,7 +28,7 @@ const EditProfile: FC<EditProfileProps> = ({ profile }) => {
     <div className='absolute top-4 right-4'>
       <IconButton
         size='sm'
-        icon={EditIcon}
+        icon={<Edit className='w-5 h-5' />}
         name='Edit profile'
         onClick={handleOpen}
       />

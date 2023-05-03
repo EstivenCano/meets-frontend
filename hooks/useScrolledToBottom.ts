@@ -15,13 +15,15 @@ export const useScrolledToBottom = (
   }, [elementId]);
 
   const handleScroll = useCallback(() => {
-    const scrollTop = window.scrollY;
-    const scrollHeight = document.body.scrollHeight;
-    const clientHeight = document.body.clientHeight;
+    const scrollTop = scrollRef.current?.scrollTop ?? window.scrollY;
+    const scrollHeight =
+      scrollRef.current?.scrollHeight ?? document.body.scrollHeight;
+    const clientHeight =
+      scrollRef.current?.clientHeight ?? document.body.clientHeight;
 
     if (!scrollHeight || !clientHeight) return;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + 2 + clientHeight >= scrollHeight) {
       setIsScrolledToBottom(true);
       callback();
     } else {
