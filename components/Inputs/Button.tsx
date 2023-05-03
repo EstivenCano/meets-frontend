@@ -3,7 +3,7 @@ import { match } from "ts-pattern";
 
 interface ButtonProps {
   children: React.ReactNode;
-  size?: "sm" | "md" | "lg" | "auto";
+  size?: "xs" | "sm" | "md" | "lg" | "auto";
   color?: "violet" | "green" | "red";
   variant?: "solid" | "outline";
   loading?: boolean;
@@ -22,6 +22,7 @@ export const Button: FC<
   ...props
 }) => {
   const sizeClasses = match(size)
+    .with("xs", () => "px-1 py-1 text-xs")
     .with("sm", () => "px-2 py-1 text-sm")
     .with("md", () => "px-4 py-2 text-base")
     .with("lg", () => "px-6 py-3 text-lg")

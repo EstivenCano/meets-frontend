@@ -1,4 +1,3 @@
-import Image, { StaticImageData } from "next/image";
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 import { match } from "ts-pattern";
 

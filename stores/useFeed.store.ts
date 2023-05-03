@@ -15,6 +15,7 @@ interface feedStore {
   setPerPage: (perPage: number) => void;
   setSearchString: (searchString: string) => void;
   updateLike: (id: number, like: boolean) => void;
+  deletePost: (id: number) => void;
 }
 
 export const feedStore = create<feedStore>()((set, get) => ({
@@ -64,6 +65,10 @@ export const feedStore = create<feedStore>()((set, get) => ({
       }
       return post;
     });
+    set(() => ({ feed }));
+  },
+  deletePost: (id) => {
+    const feed = get().feed.filter((post) => post.id !== id);
     set(() => ({ feed }));
   },
 }));

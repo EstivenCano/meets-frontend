@@ -8,12 +8,12 @@ import { likeUnlikePost } from "@/services/post.service";
 import { Like } from "@/public/icons";
 import { feedStore } from "@/stores/useFeed.store";
 
-interface FollowFormProps {
+interface LikeFormProps {
   id: number;
   liked: boolean;
 }
 
-const FollowForm: FC<FollowFormProps> = ({ id, liked = false }) => {
+const LikeForm: FC<LikeFormProps> = ({ id, liked = false }) => {
   const { trigger: triggerFollow, isMutating } = useSWRMutation(
     `/posts/${id}/${liked ? "unlike" : "like"}`,
     likeUnlikePost
@@ -48,4 +48,4 @@ const FollowForm: FC<FollowFormProps> = ({ id, liked = false }) => {
   );
 };
 
-export default FollowForm;
+export default LikeForm;

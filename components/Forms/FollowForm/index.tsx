@@ -13,9 +13,10 @@ import { useRouter } from "next/navigation";
 
 interface FollowFormProps {
   id: string;
+  className?: string;
 }
 
-const FollowForm: FC<FollowFormProps> = ({ id }) => {
+const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
   const router = useRouter();
   const {
     data: following,
@@ -53,9 +54,9 @@ const FollowForm: FC<FollowFormProps> = ({ id }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className='absolute top-4 right-4'>
+    <form onSubmit={onSubmit} className={className}>
       <Button
-        size='sm'
+        size='xs'
         color={following ? "green" : "violet"}
         type='submit'
         loading={isMutating || isValidating || isLoading}>

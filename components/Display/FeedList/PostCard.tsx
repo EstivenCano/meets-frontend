@@ -2,14 +2,15 @@
 
 import { Feed } from "@/services/model/Feed";
 import { ProfileImage } from "../ProfileImage";
-import { IconButton } from "@/components/Inputs/IconButton";
 import { FC } from "react";
 import { match } from "ts-pattern";
-import { Comment, Delete } from "@/public/icons";
+import { Comment } from "@/public/icons";
 import { dateToLongString } from "@/utils/dateToLongString";
 import dynamic from "next/dynamic";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
+const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
+const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 
 interface PostCardProps {
   post: Feed;
@@ -19,7 +20,7 @@ interface PostCardProps {
 export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
   return (
     <div className='max-h-72 flex flex-col items-start justify-center w-full bg-background p-4 max-w-6xl rounded-xl shadow-sm shadow-gray-400 dark:shadow-gray-600 gap-y-2'>
-      <span className='flex items-center gap-x-2 w-full'>
+      <span className='relative flex items-center gap-x-2 w-full'>
         <ProfileImage
           size='xxs'
           src={post.author.profile.picture}
@@ -33,16 +34,13 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
           </p>
         </span>
         {match(post.authorId === Number(userId))
-          .with(true, () => (
-            <IconButton
-              icon={<Delete className='p-1' />}
-              size='xs'
-              name='Delete'
-              className='ml-auto self-start hover:bg-red-600 hover:text-white'
-              onClick={() => {}}
+          .with(true, () => <DeleteForm id={post.id} />)
+          .otherwise(() => (
+            <FollowForm
+              id={String(post.authorId)}
+              className='ml-auto self-center'
             />
-          ))
-          .otherwise(() => null)}
+          ))}
       </span>
       <span className='mt-4'>
         <h2 className='text-md font-bold'>{post.title}</h2>

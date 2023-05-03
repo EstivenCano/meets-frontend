@@ -117,7 +117,7 @@ export async function put(
   }
 }
 
-export async function deleteRequest(
+export async function remove(
   url: string,
   headers?: Headers,
   options?: RequestOptions

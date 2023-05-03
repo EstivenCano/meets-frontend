@@ -44,7 +44,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
       {match(id === String(user?.id))
         .with(true, () => <EditProfile profile={profile} />)
         .otherwise(() => (
-          <FollowForm id={id || ""} />
+          <FollowForm id={id || ""} className='absolute top-4 right-4' />
         ))}
       <ProfileImage
         src={profile.picture || ""}

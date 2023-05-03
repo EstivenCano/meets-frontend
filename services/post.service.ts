@@ -1,4 +1,4 @@
-import { post } from "./api/serviceClient";
+import { post, remove } from "./api/serviceClient";
 import { GetFeedRequest, GetFeedResponse } from "./dto/get-feed.dto";
 import { NewPostResponse, NewPostType } from "./dto/new-post.dto";
 
@@ -67,6 +67,15 @@ export const likeUnlikePost = async (url: string) => {
   try {
     const response = await post(url, {});
     return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const deletePostById = async (url: string) => {
+  try {
+    const response = await remove(url);
+    return { ...response, message: "Post deleted" };
   } catch (error) {
     return Promise.reject(error);
   }
