@@ -8,13 +8,17 @@ export interface UserInfo {
   };
 }
 
+export interface Comment {
+  id: number;
+  author: UserInfo;
+  content: string;
+  createdAt: string;
+}
+
 export interface Feed extends Post {
   author: UserInfo;
   likedBy: UserInfo[];
-  comments: {
-    author: UserInfo;
-    content: string;
-  }[];
+  comments: Comment[];
   _count: {
     likedBy: number;
     comments: number;

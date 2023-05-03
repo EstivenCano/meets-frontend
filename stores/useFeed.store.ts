@@ -2,6 +2,7 @@ import { Feed } from "@/services/model/Feed";
 import { create } from "zustand";
 import { userStore } from "./useUser.store";
 import { match } from "ts-pattern";
+import { dateSort } from "@/utils/dateSort";
 
 const user = userStore.getState().user;
 
@@ -28,10 +29,7 @@ export const feedStore = create<feedStore>()((set, get) => ({
       feed: [
         ...get().feed,
         ...feed.filter((f) => !get().feed.some((p) => p.id === f.id)),
-      ].sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      ),
+      ].sort((a, b) => dateSort(a.createdAt, b.createdAt)),
     })),
   setPage: (page) => set(() => ({ page })),
   setPerPage: (perPage) => set(() => ({ perPage })),

@@ -8,6 +8,7 @@ import { Comment } from "@/public/icons";
 import { dateToLongString } from "@/utils/dateToLongString";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import ListOfComments from "./ListOfComments";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
@@ -64,16 +65,17 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
           />
           <ListOfLikes likedBy={post.likedBy} count={post._count.likedBy} />
         </span>
-        <button className='flex items-center gap-x-2'>
+        <span className='flex items-center gap-x-2'>
           <Comment
             commented={post.comments.some(
               (comment) => comment.author.id === Number(userId)
             )}
           />
-          <span className='text-xs text-gray-500 dark:text-gray-400'>
-            {post._count.comments} Comments
-          </span>
-        </button>
+          <ListOfComments
+            comments={post.comments}
+            count={post._count.comments}
+          />
+        </span>
       </div>
     </div>
   );
