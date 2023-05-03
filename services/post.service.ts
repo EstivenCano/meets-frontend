@@ -80,3 +80,12 @@ export const deletePostById = async (url: string) => {
     return Promise.reject(error);
   }
 };
+
+export const incrementViews = async (url: string) => {
+  try {
+    const response = await post(url, {});
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

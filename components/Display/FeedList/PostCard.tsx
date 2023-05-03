@@ -7,6 +7,7 @@ import { match } from "ts-pattern";
 import { Comment } from "@/public/icons";
 import { dateToLongString } from "@/utils/dateToLongString";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
@@ -18,6 +19,12 @@ interface PostCardProps {
 }
 
 export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    router.push(`/social/profile/${post.authorId}`);
+  };
+
   return (
     <div className='max-h-72 flex flex-col items-start justify-center w-full bg-background p-4 max-w-6xl rounded-xl shadow-sm shadow-gray-400 dark:shadow-gray-600 gap-y-2'>
       <span className='relative flex items-center gap-x-2 w-full'>
@@ -25,7 +32,8 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
           size='xxs'
           src={post.author.profile.picture}
           alt={post.author.name}
-          className='w-8 h-8 rounded-full'
+          className='w-8 h-8 rounded-full cursor-pointer'
+          onClick={handleProfileClick}
         />
         <span className='block'>
           <p className='text-sm'>{post.author.name}</p>
