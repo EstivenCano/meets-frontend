@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
+const ListOfLikes = dynamic(() => import("./ListOfLikes"));
 
 interface PostCardProps {
   post: Feed;
@@ -61,9 +62,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
             id={post.id}
             liked={post.likedBy.some((user) => user.id === Number(userId))}
           />
-          <span className='text-xs text-gray-500 dark:text-gray-400'>
-            {post._count.likedBy} Likes
-          </span>
+          <ListOfLikes likedBy={post.likedBy} count={post._count.likedBy} />
         </span>
         <button className='flex items-center gap-x-2'>
           <Comment
