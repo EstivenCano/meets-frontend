@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useRef } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import { feedStore } from "@/stores/useFeed.store";
 import { Feed } from "@/services/model/Feed";
-import { GetFeed } from "@/services/post.service";
+import { getFeed } from "@/services/post.service";
 import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";
 import { PostCard } from "./PostCard";
@@ -18,13 +18,12 @@ interface PostListProps {
 }
 
 const FeedList: FC<PostListProps> = ({ initialFeed }) => {
-  const feedLayout = document.getElementById("main-layout");
   const { feed, searchString, perPage, page, setFeed, setPage } = feedStore();
   const user = userStore((state) => state.user);
   const addAlert = alertStore((state) => state.addAlert);
   const { trigger, isMutating: loadingFeed } = useSWRMutation(
     "/posts/feed",
-    GetFeed,
+    getFeed,
     {
       onSuccess(response) {
         setFeed(response.data);
@@ -40,21 +39,21 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
     }
   );
 
-  useEffect(() => {
-    setFeed(initialFeed);
-  }, [initialFeed, setFeed]);
-
-  const loadMoreFeed = useCallback(async () => {
+  const loadMoreFeed = async () => {
     if (feed.length < perPage * page || loadingFeed) return;
 
     await trigger({
       page: page + 1,
-      perPage,
+      perPage: perPage,
       searchString,
     });
-  }, [feed, page, perPage, searchString, trigger, loadingFeed]);
+  };
 
-  useScrolledToBottom(loadMoreFeed, feedLayout);
+  useScrolledToBottom(loadMoreFeed, "main-layout");
+
+  useEffect(() => {
+    setFeed(initialFeed);
+  }, [initialFeed, setFeed]);
 
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto'>

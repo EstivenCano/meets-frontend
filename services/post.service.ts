@@ -20,7 +20,7 @@ export const createDraft = async (
   }
 };
 
-export const GetFeed = async (
+export const getFeed = async (
   url: string,
   { arg }: { arg: GetFeedRequest }
 ) => {
@@ -38,7 +38,7 @@ export const GetFeed = async (
   }
 };
 
-export const GetFirstFeed = async () => {
+export const getFirstFeed = async () => {
   const nextCookies = (await import("next/headers")).cookies();
 
   const token = nextCookies.get("access_token");

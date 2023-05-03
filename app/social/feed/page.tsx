@@ -1,5 +1,5 @@
 import Skeleton from "@/components/Feedback/Skeleton";
-import { GetFirstFeed } from "@/services/post.service";
+import { getFirstFeed } from "@/services/post.service";
 import dynamic from "next/dynamic";
 
 const NewPostForm = dynamic(() => import("@/components/Forms/NewPostForm"));
@@ -13,7 +13,7 @@ const FeedList = dynamic(() => import("@/components/Display/FeedList"), {
 });
 
 export default async function Feed() {
-  const post = await GetFirstFeed();
+  const post = await getFirstFeed();
 
   return (
     <>
