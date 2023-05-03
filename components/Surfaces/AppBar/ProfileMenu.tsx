@@ -40,7 +40,7 @@ const ProfileMenu = () => {
             transition={{ duration: 0.3 }}
             className='absolute right-0 w-48 py-2 mt-2 bg-background rounded-md shadow-sm shadow-gray-400 dark:shadow-gray-600 top-16 select-none'>
             <ProfileItem id={user?.id} />
-            <li className='flex gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer hover:text-white'>
+            <li className='flex gap-x-2 px-4 py-2 text-sm items-center hover:bg-violet-500 cursor-pointer hover:text-white'>
               <Settings className='w-5 h-5' />
               Settings
             </li>

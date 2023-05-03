@@ -1,10 +1,15 @@
+"use client";
+
 import { Feed } from "@/services/model/Feed";
 import { ProfileImage } from "../ProfileImage";
-import Image from "next/image";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { FC } from "react";
 import { match } from "ts-pattern";
-import { Like, Comment, Delete } from "@/public/icons";
+import { Comment, Delete } from "@/public/icons";
+import { dateToLongString } from "@/utils/dateToLongString";
+import dynamic from "next/dynamic";
+
+const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 
 interface PostCardProps {
   post: Feed;
@@ -24,14 +29,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
         <span className='block'>
           <p className='text-sm'>{post.author.name}</p>
           <p className='text-xs text-gray-500'>
-            {new Date(post.createdAt).toLocaleString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            })}
+            {dateToLongString(new Date(post.createdAt))}
           </p>
         </span>
         {match(post.authorId === Number(userId))
@@ -53,7 +51,8 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
       <hr className='border-violet-500 w-full' />
       <div className='flex items-center gap-x-4 justify-end md:justify-between w-full'>
         <span className='flex items-center gap-x-2'>
-          <Like
+          <LikeForm
+            id={post.id}
             liked={post.likedBy.some((user) => user.id === Number(userId))}
           />
           <span className='text-xs text-gray-500 dark:text-gray-400'>

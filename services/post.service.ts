@@ -62,3 +62,12 @@ export const getFirstFeed = async () => {
     return Promise.reject(error);
   }
 };
+
+export const likeUnlikePost = async (url: string) => {
+  try {
+    const response = await post(url, {});
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

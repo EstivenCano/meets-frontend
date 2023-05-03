@@ -9,7 +9,6 @@ import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";
 import { PostCard } from "./PostCard";
 import Skeleton from "@/components/Feedback/Skeleton";
-import Image from "next/image";
 import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
 import { Loading } from "@/public/icons";
@@ -19,7 +18,8 @@ interface PostListProps {
 }
 
 const FeedList: FC<PostListProps> = ({ initialFeed }) => {
-  const { feed, searchString, perPage, page, setFeed, setPage } = feedStore();
+  const feed = feedStore((state) => state.feed);
+  const { searchString, perPage, page, setFeed, setPage } = feedStore();
   const user = userStore((state) => state.user);
   const addAlert = alertStore((state) => state.addAlert);
   const { trigger, isMutating: loadingFeed } = useSWRMutation(
@@ -37,6 +37,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
           status: err.statusCode,
         });
       },
+      revalidate: true,
     }
   );
 

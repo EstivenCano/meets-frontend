@@ -1,6 +1,6 @@
 import { Post } from "./Post";
 
-interface UserInfo {
+export interface UserInfo {
   name: string;
   id: number;
   profile: {

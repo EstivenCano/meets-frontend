@@ -18,7 +18,7 @@ const LikeIcon: FC<LikeIconProps> = ({ className = "", liked = false }) => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className={`w-6 h-6 hover:scale-105 cursor-pointer ${likedClass} ${className}`}>
+      className={`w-6 h-6 hover:scale-105 cursor-pointer active:scale-95 ${likedClass} ${className}`}>
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
