@@ -10,7 +10,7 @@ import { alertStore } from "@/stores/useAlert.store";
 import { userStore } from "@/stores/useUser.store";
 import { newCommentToPost } from "@/services/post.service";
 import { TextArea } from "@/components/Inputs/TextArea";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { feedStore } from "@/stores/useFeed.store";
 
 interface NewCommentFormProps {

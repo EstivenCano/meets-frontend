@@ -13,11 +13,7 @@ function useLockedBody(
 
   // Do the side effect before render
   useIsomorphicLayoutEffect(() => {
-    if (!locked) {
-      return;
-    }
-
-    if (!element) {
+    if (!locked || !element) {
       return;
     }
 
@@ -46,12 +42,18 @@ function useLockedBody(
       }
     };
 
-    element.addEventListener("keydown", keydownHandler);
+    // Autofocus on first element when submitting form
+    const submitHandler = () => {
+      firstFocusableElement.focus();
+    };
 
-    element.focus();
+    element.addEventListener("submit", submitHandler);
+
+    element.addEventListener("keydown", keydownHandler);
 
     return () => {
       element.removeEventListener("keydown", keydownHandler);
+      element.removeEventListener("submit", submitHandler);
     };
   }, [locked]);
 
