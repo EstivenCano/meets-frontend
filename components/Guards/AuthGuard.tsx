@@ -4,7 +4,8 @@ import useIsMounted from "@/hooks/useIsMounted";
 import { userStore } from "@/stores/useUser.store";
 import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
+import { RedirectScreen } from "../Feedback/RedirectScreen";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
     <>
       {match(isMounted && !!user)
         .with(true, () => children)
-        .otherwise(() => null)}
+        .otherwise(() => (
+          <RedirectScreen />
+        ))}
     </>
   );
 };

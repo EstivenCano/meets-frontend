@@ -1,20 +1,31 @@
+"use client";
+
 import { logout } from "@/services/auth.service";
 import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
 import { alertStore } from "@/stores/useAlert.store";
 import { Loading, Logout } from "@/public/icons";
+import { userStore } from "@/stores/useUser.store";
+import { useRouter } from "next/navigation";
 
 export const LogoutItem = () => {
+  const router = useRouter();
   const { trigger: triggerLogout, isMutating } = useSWRMutation(
     "/auth/logout",
     logout
   );
   const addAlert = alertStore((state) => state.addAlert);
+  const setUser = userStore((state) => state.setUser);
 
   const handleLogout = () => {
     triggerLogout()
       .then(() => {
-        window.location.href = "/";
+        setUser(null);
+        router.push("/");
+        addAlert({
+          message: "Logged out successfully!",
+          status: 200,
+        });
       })
       .catch((error) => {
         addAlert({
@@ -22,7 +33,7 @@ export const LogoutItem = () => {
           errorList: error.errorList,
           status: error.statusCode,
         });
-        window.location.reload();
+        router.refresh();
       });
   };
   return (

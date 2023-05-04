@@ -5,6 +5,7 @@ import { userStore } from "@/stores/useUser.store";
 import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
 import { match } from "ts-pattern";
+import { RedirectScreen } from "../Feedback/RedirectScreen";
 
 interface NotUserGuardProps {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ const NotUserGuard: FC<NotUserGuardProps> = ({ children }) => {
     <>
       {match(isMounted && !user)
         .with(true, () => children)
-        .otherwise(() => null)}
+        .otherwise(() => (
+          <RedirectScreen />
+        ))}
     </>
   );
 };
