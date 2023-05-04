@@ -4,9 +4,10 @@ import { ProfileCardLoading } from "./ProfileCard";
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { PostCard } from "./PostCard";
 import { Comment } from "./Comment";
+import { Likes } from "./Likes";
 
 interface SkeletonProps {
-  type: "profile" | "post" | "comment";
+  type: "profile" | "post" | "comment" | "likes";
 }
 
 const Skeleton: FC<
@@ -17,6 +18,7 @@ const Skeleton: FC<
     .with("profile", () => <ProfileCardLoading {...props} />)
     .with("post", () => <PostCard {...props} />)
     .with("comment", () => <Comment {...props} />)
+    .with("likes", () => <Likes {...props} />)
     .exhaustive();
 };
 

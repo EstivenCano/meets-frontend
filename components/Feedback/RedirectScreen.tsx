@@ -5,9 +5,7 @@ interface RedirectScreenProps {
   text?: string;
 }
 
-export const RedirectScreen: FC<RedirectScreenProps> = ({
-  text = "Redirecting",
-}) => {
+const RedirectScreen: FC<RedirectScreenProps> = ({ text = "Redirecting" }) => {
   return (
     <div className='flex items-center gap-x-2 justify-center w-full h-screen'>
       <Loading className='w-12 h-12 stroke-current' />
@@ -15,3 +13,5 @@ export const RedirectScreen: FC<RedirectScreenProps> = ({
     </div>
   );
 };
+
+export default RedirectScreen;

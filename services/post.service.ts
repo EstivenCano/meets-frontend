@@ -1,6 +1,7 @@
 import { get, post, remove } from "./api/serviceClient";
 import { GetCommentsResponse } from "./dto/get-comment.dto";
 import { GetFeedRequest, GetFeedResponse } from "./dto/get-feed.dto";
+import { GetLikesResponse } from "./dto/get-likes.dto";
 import { NewPostResponse, NewPostType } from "./dto/new-post.dto";
 
 export const createDraft = async (
@@ -96,6 +97,16 @@ export const getComments = async (url: string) => {
     const response: { data: GetCommentsResponse; status: number } = await get(
       url
     );
+
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getLikes = async (url: string) => {
+  try {
+    const response: { data: GetLikesResponse; status: number } = await get(url);
 
     return response.data;
   } catch (error) {

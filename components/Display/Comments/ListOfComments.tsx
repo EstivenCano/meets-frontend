@@ -7,6 +7,7 @@ import { dateSort } from "@/utils/dateSort";
 import useSWRImmutable from "swr/immutable";
 import { getComments } from "@/services/post.service";
 import Skeleton from "@/components/Feedback/Skeleton";
+import { Loading } from "@/public/icons";
 
 interface ListOfCommentsProps {
   id: number;
@@ -19,7 +20,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
   showComments,
   handleClose,
 }) => {
-  const { data, isLoading } = useSWRImmutable(
+  const { data: comments, isLoading } = useSWRImmutable(
     showComments ? `/posts/${id}/comments` : null,
     getComments,
     {
@@ -35,7 +36,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
   return (
     <>
       <Modal open={showComments} title='List of comments' onClose={handleClose}>
-        {data
+        {comments
           ?.sort((a, b) => dateSort(a.createdAt, b.createdAt))
           .map((comment) => (
             <div
@@ -61,11 +62,14 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
           ))}
         {isLoading && (
           <div className='flex flex-col px-4 gap-y-2 w-full'>
+            <Loading className='absolute top-1/2 left-1/2 w-10 h-10 stroke-violet-500' />
             <Skeleton type='comment' />
             <Skeleton type='comment' />
           </div>
         )}
-        {data?.length === 0 && <p className='text-sm'>No comments yet 😄</p>}
+        {comments?.length === 0 && (
+          <p className='text-sm'>No comments yet 😄</p>
+        )}
       </Modal>
     </>
   );

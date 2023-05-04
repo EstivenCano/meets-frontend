@@ -3,7 +3,7 @@ import { UserInfo } from "./UserInfo";
 
 export interface Feed extends Post {
   author: UserInfo;
-  likedBy: UserInfo[];
+  likedBy: { id: number }[];
   _count: {
     likedBy: number;
     comments: number;

@@ -5,7 +5,9 @@ import { userStore } from "@/stores/useUser.store";
 import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
 import { match } from "ts-pattern";
-import { RedirectScreen } from "../Feedback/RedirectScreen";
+import dynamic from "next/dynamic";
+
+const RedirectScreen = dynamic(() => import("../Feedback/RedirectScreen"));
 
 interface AuthGuardProps {
   children: React.ReactNode;

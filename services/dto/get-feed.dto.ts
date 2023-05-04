@@ -8,17 +8,9 @@ interface UserInfo {
   };
 }
 
-export interface Comment {
-  id: number;
-  author: UserInfo;
-  content: string;
-  createdAt: string;
-}
-
 export interface GetFeedResponse extends Post {
   author: UserInfo;
-  likedBy: UserInfo[];
-  comments: Comment[];
+  likedBy: { id: number }[];
   _count: {
     likedBy: number;
     comments: number;

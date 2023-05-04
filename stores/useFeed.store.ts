@@ -39,26 +39,21 @@ export const feedStore = create<feedStore>()((set, get) => ({
       if (post.id === id) {
         return {
           ...post,
-          likedBy: match(like)
-            .with(true, () => [
-              ...post.likedBy,
-              {
-                id: Number(user?.id),
-                name: user?.name || "",
-                profile: {
-                  picture: user?.picture || "",
-                },
+          ...match(like)
+            .with(true, () => ({
+              likedBy: [...post.likedBy, { id: Number(user?.id) }],
+              _count: {
+                ...post._count,
+                likedBy: post._count.likedBy + 1,
               },
-            ])
-            .otherwise(() =>
-              post.likedBy.filter((user) => user.id !== Number(user?.id))
-            ),
-          _count: {
-            ...post._count,
-            likedBy: match(like)
-              .with(true, () => post._count.likedBy + 1)
-              .otherwise(() => post._count.likedBy - 1),
-          },
+            }))
+            .otherwise(() => ({
+              likedBy: post.likedBy.filter(({ id }) => id !== Number(user?.id)),
+              _count: {
+                ...post._count,
+                likedBy: post._count.likedBy - 1,
+              },
+            })),
         };
       }
       return post;
