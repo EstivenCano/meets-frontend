@@ -1,27 +1,32 @@
 import { Modal } from "@/components/Surfaces/Modal";
-import { Comment } from "@/services/model/Feed";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { ProfileImage } from "../ProfileImage";
 import { useRouter } from "next/navigation";
 import { dateToLongString } from "@/utils/dateToLongString";
 import { dateSort } from "@/utils/dateSort";
+import useSWRImmutable from "swr/immutable";
+import { getComments } from "@/services/post.service";
+import Skeleton from "@/components/Feedback/Skeleton";
 
 interface ListOfCommentsProps {
-  comments: Comment[];
-  count: number;
+  id: number;
+  showComments: boolean;
+  handleClose: () => void;
 }
 
-const ListOfComments: FC<ListOfCommentsProps> = ({ comments, count }) => {
+const ListOfComments: FC<ListOfCommentsProps> = ({
+  id,
+  showComments,
+  handleClose,
+}) => {
+  const { data, isLoading } = useSWRImmutable(
+    showComments ? `/posts/${id}/comments` : null,
+    getComments,
+    {
+      keepPreviousData: true,
+    }
+  );
   const router = useRouter();
-  const [showComments, setShowComments] = useState(false);
-
-  const handleShowComments = () => {
-    setShowComments(true);
-  };
-
-  const handleClose = () => {
-    setShowComments(false);
-  };
 
   const handleProfileClick = (id: number) => {
     router.push(`/social/profile/${id}`);
@@ -29,15 +34,9 @@ const ListOfComments: FC<ListOfCommentsProps> = ({ comments, count }) => {
 
   return (
     <>
-      <button
-        onClick={handleShowComments}
-        className='text-xs text-gray-500 dark:text-gray-400'>
-        {count} Comments
-      </button>
-
       <Modal open={showComments} title='List of comments' onClose={handleClose}>
-        {comments
-          .sort((a, b) => dateSort(a.createdAt, b.createdAt))
+        {data
+          ?.sort((a, b) => dateSort(a.createdAt, b.createdAt))
           .map((comment) => (
             <div
               className='flex flex-col gap-x-2 gap-y-3 w-full border-b-2 border-gray-500/30 px-6 py-2'
@@ -60,7 +59,13 @@ const ListOfComments: FC<ListOfCommentsProps> = ({ comments, count }) => {
               <p className='text-sm'>{comment.content}</p>
             </div>
           ))}
-        {count === 0 && <p className='text-sm'>No comments yet 😄</p>}
+        {isLoading && (
+          <div className='flex flex-col px-4 gap-y-2 w-full'>
+            <Skeleton type='comment' />
+            <Skeleton type='comment' />
+          </div>
+        )}
+        {data?.length === 0 && <p className='text-sm'>No comments yet 😄</p>}
       </Modal>
     </>
   );

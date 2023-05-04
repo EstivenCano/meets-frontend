@@ -4,16 +4,16 @@ import { Feed } from "@/services/model/Feed";
 import { ProfileImage } from "../ProfileImage";
 import { FC } from "react";
 import { match } from "ts-pattern";
-import { Comment } from "@/public/icons";
+import { Comment as CommentIcon } from "@/public/icons";
 import { dateToLongString } from "@/utils/dateToLongString";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import ListOfComments from "./ListOfComments";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 const ListOfLikes = dynamic(() => import("./ListOfLikes"));
+const Comments = dynamic(() => import("../Comments"));
 
 interface PostCardProps {
   post: Feed;
@@ -66,15 +66,8 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
           <ListOfLikes likedBy={post.likedBy} count={post._count.likedBy} />
         </span>
         <span className='flex items-center gap-x-2'>
-          <Comment
-            commented={post.comments.some(
-              (comment) => comment.author.id === Number(userId)
-            )}
-          />
-          <ListOfComments
-            comments={post.comments}
-            count={post._count.comments}
-          />
+          <CommentIcon />
+          <Comments id={post.id} count={post._count.comments} />
         </span>
       </div>
     </div>

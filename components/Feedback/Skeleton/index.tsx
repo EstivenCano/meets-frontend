@@ -3,6 +3,7 @@ import { ProfileCardLoading } from "./ProfileCard";
 
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { PostCard } from "./PostCard";
+import { Comment } from "./Comment";
 
 interface SkeletonProps {
   type: "profile" | "post" | "comment";
@@ -15,7 +16,7 @@ const Skeleton: FC<
   return match(type)
     .with("profile", () => <ProfileCardLoading {...props} />)
     .with("post", () => <PostCard {...props} />)
-    .with("comment", () => <div {...props} />)
+    .with("comment", () => <Comment {...props} />)
     .exhaustive();
 };
 

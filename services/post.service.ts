@@ -1,4 +1,5 @@
-import { post, remove } from "./api/serviceClient";
+import { get, post, remove } from "./api/serviceClient";
+import { GetCommentsResponse } from "./dto/get-comment.dto";
 import { GetFeedRequest, GetFeedResponse } from "./dto/get-feed.dto";
 import { NewPostResponse, NewPostType } from "./dto/new-post.dto";
 
@@ -85,6 +86,18 @@ export const incrementViews = async (url: string) => {
   try {
     const response = await post(url, {});
     return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getComments = async (url: string) => {
+  try {
+    const response: { data: GetCommentsResponse; status: number } = await get(
+      url
+    );
+
+    return response.data;
   } catch (error) {
     return Promise.reject(error);
   }

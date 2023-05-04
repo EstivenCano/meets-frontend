@@ -23,8 +23,15 @@ const NotUserGuard: FC<NotUserGuardProps> = ({ children }) => {
 
   return (
     <>
-      {match(isMounted && !user)
-        .with(true, () => children)
+      {match(user)
+        .when(
+          (user) => !user && isMounted,
+          () => children
+        )
+        .when(
+          (user) => user && !isMounted,
+          () => <RedirectScreen text='Loading' />
+        )
         .otherwise(() => (
           <RedirectScreen />
         ))}
