@@ -18,10 +18,7 @@ interface ListOfLikesProps {
 const ListOfLikes: FC<ListOfLikesProps> = ({ id, showLikes, handleClose }) => {
   const { data: likes, isLoading } = useSWRImmutable(
     showLikes ? `/posts/${id}/likes` : null,
-    getLikes,
-    {
-      keepPreviousData: true,
-    }
+    getLikes
   );
 
   const router = useRouter();

@@ -1,9 +1,10 @@
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { IconButton } from "../Inputs/IconButton";
 import { AnimatePresence, motion } from "framer-motion";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { Close } from "@/public/icons";
+import useLockedBody from "@/hooks/useLockedBody";
 
 const modalEl = document.getElementById("modal-root") as HTMLElement;
 
@@ -16,6 +17,11 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [_, setLocked] = useLockedBody(open, "modal-root");
+
+  useEffect(() => {
+    setLocked(open);
+  }, [open, setLocked]);
 
   useOnClickOutside(ref, onClose);
 
@@ -37,6 +43,7 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
                   <h1 className='text-xl font-bold'>{title}</h1>
                   <IconButton
                     size='xs'
+                    autoFocus
                     icon={<Close className='w-5 h-5' />}
                     name='Close'
                     onClick={onClose}
