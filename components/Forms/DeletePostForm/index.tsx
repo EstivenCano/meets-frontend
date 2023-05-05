@@ -6,7 +6,7 @@ import { FC, FormEventHandler } from "react";
 import { deletePostById } from "@/services/post.service";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { Delete, Loading } from "@/public/icons";
-import { feedStore } from "@/stores/useFeed.store";
+import { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { match } from "ts-pattern";
 
 interface DeleteFormProps {
@@ -14,7 +14,7 @@ interface DeleteFormProps {
 }
 
 const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
-  const deletePost = feedStore((state) => state.deletePost);
+  const deletePost = useFeedStore((state) => state.deletePost);
 
   const { trigger: triggerFollow, isMutating } = useSWRMutation(
     `/posts/${id}`,

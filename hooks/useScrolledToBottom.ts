@@ -29,7 +29,7 @@ export const useScrolledToBottom = (
     } else {
       setIsScrolledToBottom(false);
     }
-  }, [callback]);
+  }, [callback, scrollRef]);
 
   useEventListener("scroll", handleScroll, scrollRef);
 

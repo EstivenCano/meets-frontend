@@ -19,6 +19,7 @@ export interface GetFeedResponse extends Post {
 
 export interface GetFeedRequest {
   searchString: string;
+  byAuthor?: number;
   page: number;
   perPage: number;
 }

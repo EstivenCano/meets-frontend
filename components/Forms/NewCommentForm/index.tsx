@@ -11,7 +11,7 @@ import { userStore } from "@/stores/useUser.store";
 import { newCommentToPost } from "@/services/post.service";
 import { TextArea } from "@/components/Inputs/TextArea";
 import { FC, useRef } from "react";
-import { feedStore } from "@/stores/useFeed.store";
+import { useFeedStore } from "@/stores/FeedStore/FeedContext";
 
 interface NewCommentFormProps {
   id: number;
@@ -19,7 +19,7 @@ interface NewCommentFormProps {
 
 const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
   const { user } = userStore();
-  const updateCommentCount = feedStore((state) => state.updateCommentCount);
+  const updateCommentCount = useFeedStore((state) => state.updateCommentCount);
   const { trigger, isMutating } = useSWRMutation(
     `/posts/${id}/comments`,
     newCommentToPost

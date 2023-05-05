@@ -1,54 +1,72 @@
 "use client";
 
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useState } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
-import { feedStore } from "@/stores/useFeed.store";
+import FeedProvider, { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { Feed } from "@/services/model/Feed";
 import { getFeed } from "@/services/post.service";
 import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";
 import { PostCard } from "./PostCard";
-import Skeleton from "@/components/Feedback/Skeleton";
 import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
-import { Loading } from "@/public/icons";
+import { LoadingFeed } from "./LoadingFeed";
 
 interface PostListProps {
   initialFeed: Feed[];
+  byAuthor?: number;
 }
 
-const FeedList: FC<PostListProps> = ({ initialFeed }) => {
-  const loadingRef = useRef<HTMLDivElement>(null);
-  const feed = feedStore((state) => state.feed);
-  const { searchString, perPage, page, setFeed, setPage } = feedStore();
+const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
+  const { feed, perPage, setFeed, searchString } = useFeedStore(
+    (state) => state
+  );
+  const [page, setPage] = useState(1);
   const user = userStore((state) => state.user);
   const addAlert = alertStore((state) => state.addAlert);
-  const { trigger, isMutating: loadingFeed } = useSWRMutation(
-    "/posts/feed",
-    getFeed,
-    {
-      onSuccess(response) {
-        setFeed(response.data);
-        setPage(page + 1);
-      },
-      onError(err) {
+  const {
+    data: lastFeed,
+    trigger,
+    isMutating: loadingFeed,
+  } = useSWRMutation("/posts/feed", getFeed, {
+    onSuccess(response) {
+      setFeed(response.data);
+      if (response.data.length < perPage) {
         addAlert({
-          message: err.message,
-          errorList: err.errorList,
-          status: err.statusCode,
+          message: "No more posts to load.",
+          status: 100,
         });
-      },
-      revalidate: true,
-    }
-  );
+
+        return;
+      }
+      setPage(page + 1);
+    },
+    onError(err) {
+      addAlert({
+        message: err.message,
+        errorList: err.errorList,
+        status: err.statusCode,
+      });
+    },
+  });
 
   const loadMoreFeed = async () => {
-    if (feed.length < perPage * page || loadingFeed) return;
+    if (loadingFeed) return;
 
+    console.log("Page", page);
+
+    if (
+      !!lastFeed &&
+      (lastFeed.data.length === 0 || lastFeed.data.length < perPage)
+    )
+      return;
+
+    // Add 1 to the actual page to search the next one
     await trigger({
       page: page + 1,
       perPage: perPage,
       searchString,
+      byAuthor,
     });
   };
 
@@ -58,26 +76,23 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
     setFeed(initialFeed);
   }, [initialFeed, setFeed]);
 
-  useEffect(() => {
-    if (loadingRef.current && loadingFeed) {
-      loadingRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [loadingFeed, loadingRef]);
-
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto'>
       {feed.map((post) => (
         <PostCard key={post.id} post={post} userId={user?.id} />
       ))}
       {feed.length === 0 && <NoFeed />}
-      {loadingFeed && (
-        <div ref={loadingRef} className='relative'>
-          <Skeleton type='post' />
-          <Loading className='absolute top-1/2 left-1/2 w-10 h-10 stroke-violet-500' />
-        </div>
-      )}
+      <LoadingFeed loading={loadingFeed} />
     </div>
   );
 };
 
-export default FeedList;
+const FeedWithProvider: FC<PostListProps> = (props) => {
+  return (
+    <FeedProvider>
+      <FeedList {...props} />
+    </FeedProvider>
+  );
+};
+
+export default FeedWithProvider;

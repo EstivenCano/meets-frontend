@@ -41,7 +41,7 @@ export const getFeed = async (
   }
 };
 
-export const getFirstFeed = async () => {
+export const getFirstFeed = async (byAuthor?: number) => {
   const nextCookies = (await import("next/headers")).cookies();
 
   const token = nextCookies.get("access_token");
@@ -51,10 +51,12 @@ export const getFirstFeed = async () => {
       {
         searchString: "",
         page: 1,
-        perPage: 3,
+        perPage: 15,
+        byAuthor,
       },
       {
         Authorization: `Bearer ${token?.value}`,
+        cache: "no-store",
       }
     );
     return {

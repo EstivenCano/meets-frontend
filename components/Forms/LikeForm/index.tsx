@@ -6,7 +6,7 @@ import { FC, FormEventHandler } from "react";
 
 import { likeUnlikePost } from "@/services/post.service";
 import { Like } from "@/public/icons";
-import { feedStore } from "@/stores/useFeed.store";
+import { useFeedStore } from "@/stores/FeedStore/FeedContext";
 
 interface LikeFormProps {
   id: number;
@@ -19,7 +19,7 @@ const LikeForm: FC<LikeFormProps> = ({ id, liked = false }) => {
     likeUnlikePost
   );
 
-  const updateLike = feedStore((state) => state.updateLike);
+  const updateLike = useFeedStore((state) => state.updateLike);
 
   const addAlert = alertStore((state) => state.addAlert);
 

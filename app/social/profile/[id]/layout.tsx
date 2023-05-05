@@ -10,7 +10,7 @@ export default async function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className='flex flex-col items-center max-w-6xl w-full px-2 py-4'>
+    <main className='flex flex-col gap-y-4 items-center max-w-6xl w-full px-2 py-4'>
       {children}
     </main>
   );

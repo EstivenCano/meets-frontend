@@ -1,5 +1,8 @@
-export const dateSort = (a: string, b: string) => {
-  const dateA = new Date(a).getTime();
-  const dateB = new Date(b).getTime();
+export const dateSort = (
+  a: { createdAt: string },
+  b: { createdAt: string }
+) => {
+  const dateA = new Date(a.createdAt).getTime();
+  const dateB = new Date(b.createdAt).getTime();
   return dateB - dateA;
 };
