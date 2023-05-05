@@ -36,7 +36,6 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
           message: "No more posts to load.",
           status: 100,
         });
-
         return;
       }
       setPage(page + 1);
@@ -52,8 +51,6 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
 
   const loadMoreFeed = async () => {
     if (loadingFeed) return;
-
-    console.log("Page", page);
 
     if (
       !!lastFeed &&
