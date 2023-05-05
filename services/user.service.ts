@@ -1,6 +1,7 @@
 import { get, post, put } from "./api/serviceClient";
 import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
+import { UserInfo } from "./model/UserInfo";
 
 export const getUser = async (url: string) => {
   try {
@@ -75,6 +76,17 @@ export const followUnfollowUser = async (url: string) => {
   try {
     const response = await post(url, {});
     return { ...response, message: `User ${action}ed` };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const searchUsers = async (url: string, { arg }: { arg: string }) => {
+  try {
+    const response: { data: UserInfo[]; status: number } = await get(
+      `${url}/${arg}`
+    );
+    return response.data;
   } catch (error) {
     return Promise.reject(error);
   }

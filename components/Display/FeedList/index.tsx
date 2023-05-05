@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import { feedStore } from "@/stores/useFeed.store";
 import { Feed } from "@/services/model/Feed";
