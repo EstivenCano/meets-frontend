@@ -10,7 +10,7 @@ interface ErrorStateProps {
 const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
   return (
     <>
-      <div className='flex flex-col space-y-4 justify-center items-center'>
+      <div className='flex flex-col py-4 space-y-4 justify-center items-center'>
         <h1 className='text-xl font-extrabold text-red-500'>{error.name}</h1>
         <h2>
           This is a not valid link. Please, check your email and try again.

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import { feedStore } from "@/stores/useFeed.store";
 import { Feed } from "@/services/model/Feed";
@@ -18,6 +18,7 @@ interface PostListProps {
 }
 
 const FeedList: FC<PostListProps> = ({ initialFeed }) => {
+  const loadingRef = useRef<HTMLDivElement>(null);
   const feed = feedStore((state) => state.feed);
   const { searchString, perPage, page, setFeed, setPage } = feedStore();
   const user = userStore((state) => state.user);
@@ -57,6 +58,12 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
     setFeed(initialFeed);
   }, [initialFeed, setFeed]);
 
+  useEffect(() => {
+    if (loadingRef.current && loadingFeed) {
+      loadingRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [loadingFeed, loadingRef]);
+
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto'>
       {feed.map((post) => (
@@ -64,7 +71,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed }) => {
       ))}
       {feed.length === 0 && <NoFeed />}
       {loadingFeed && (
-        <div className='relative'>
+        <div ref={loadingRef} className='relative'>
           <Skeleton type='post' />
           <Loading className='absolute top-1/2 left-1/2 w-10 h-10 stroke-violet-500' />
         </div>

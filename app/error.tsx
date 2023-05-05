@@ -14,7 +14,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
   };
 
   return (
-    <main className='flex flex-col items-left justify-center h-screen gap-y-8 max-w-lg m-auto'>
+    <main className='flex flex-col items-left justify-center h-screen gap-y-8 px-4 max-w-lg m-auto'>
       <MeetsTitle className='text-center' />
       <h1 className='text-2xl font-bold'>
         Something went wrong, please try again later.
