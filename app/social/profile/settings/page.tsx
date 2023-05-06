@@ -1,4 +1,5 @@
 import { Settings as SettingsIcon } from "@/public/icons";
+import { Select } from "@/components/Inputs/Select";
 
 export default async function Settings() {
   return (
@@ -12,10 +13,40 @@ export default async function Settings() {
       <h2 className='text-sm font-bold mb-2'>General</h2>
       <ul className='flex flex-col gap-y-2'>
         <li className='flex gap-x-2 px-4 py-2 items-center text-sm'>
-          Language: English
+          Language
+          <Select
+            label='language'
+            name='language'
+            options={[
+              {
+                label: "English",
+                value: "en",
+              },
+              {
+                label: "Spanish",
+                value: "es",
+              },
+            ]}
+            defaultValue='en'
+          />
         </li>
         <li className='flex gap-x-2 px-4 py-2 items-center text-sm'>
-          Theme: Dark
+          Theme:{" "}
+          <Select
+            label='theme'
+            name='theme'
+            options={[
+              {
+                label: "Light",
+                value: "light",
+              },
+              {
+                label: "Dark",
+                value: "dark",
+              },
+            ]}
+            defaultValue='light'
+          />
         </li>
       </ul>
       <hr className='border-violet-400 w-full my-4' />
