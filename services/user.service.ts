@@ -1,7 +1,7 @@
 import { get, post, put } from "./api/serviceClient";
 import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
-import { UserInfo } from "./model/UserInfo";
+import { UserInfo } from "../model/UserInfo";
 
 export const getUser = async (url: string) => {
   try {

@@ -3,6 +3,11 @@ import "./globals.css";
 import AlertsProvider from "@/components/Feedback/AlertsProvider";
 import AuthProvider from "@/components/Providers/AuthProvider";
 import { getUserFromServer } from "@/services/user.service";
+import dynamic from "next/dynamic";
+
+const ThemeProvider = dynamic(
+  () => import("@/components/Providers/ThemeProvider")
+);
 
 export const metadata = {
   title: "Meets - Share what you are",
@@ -24,11 +29,15 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={`${monserrat.className} text-text`}>
-        <div id='modal-root' />
-        <AuthProvider user={user}>{children}</AuthProvider>
-        <AlertsProvider />
-      </body>
+      <AuthProvider user={user}>
+        <body className={`${monserrat.className} text-text`}>
+          <ThemeProvider>
+            <div id='modal-root' />
+            {children}
+            <AlertsProvider />
+          </ThemeProvider>
+        </body>
+      </AuthProvider>
     </html>
   );
 }

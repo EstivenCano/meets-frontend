@@ -1,5 +1,5 @@
 import { ProfileImage } from "@/components/Display/ProfileImage";
-import { UserInfo } from "@/services/model/UserInfo";
+import { UserInfo } from "@/model/UserInfo";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { FC } from "react";

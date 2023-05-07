@@ -6,9 +6,9 @@ import useSWRMutation from "swr/mutation";
 import useSWRImmutable from "swr/immutable";
 import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
-import { User } from "@/services/model/User";
+import { User } from "@/model/User";
 import { getUser } from "@/services/user.service";
-import { ServiceError } from "@/services/model/serviceError";
+import { ServiceError } from "@/model/ServiceError";
 
 interface AuthProviderProps {
   children: React.ReactNode;

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  scroll-behavior: smooth;
+}
+
 @layer base {
   :root {
     --foreground-rgb: 40, 40, 40;
@@ -15,10 +21,14 @@
     }
   }
 
-  body {
-    color: rgb(var(--foreground-rgb));
-    background: rgb(var(--background-rgb));
-    scroll-behavior: smooth;
+  [data-theme="dark"] {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 40, 40, 40;
+  }
+
+  [data-theme="light"] {
+    --foreground-rgb: 40, 40, 40;
+    --background-rgb: 255, 255, 255;
   }
 }
 
@@ -86,10 +96,10 @@
 
   ::-moz-selection {
     /* Code for Firefox */
-    @apply text-text bg-violet-300 dark:bg-violet-700;
+    @apply text-white bg-violet-600;
   }
 
   ::selection {
-    @apply text-text bg-violet-300 dark:bg-violet-700;
+    @apply text-white bg-violet-600;
   }
 }

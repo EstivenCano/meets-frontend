@@ -12,7 +12,7 @@ import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";
 import { match } from "ts-pattern";
 import { userStore } from "@/stores/useUser.store";
-import { Profile } from "@/services/model/Profile";
+import { Profile } from "@/model/Profile";
 import { FC } from "react";
 import { RadioImage } from "../../Display/RadioImage";
 import { avatarImages } from "@/utils/constants/avatarImages";

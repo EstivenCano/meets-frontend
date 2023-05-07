@@ -1,6 +1,6 @@
 "use client";
 
-import { Feed } from "@/services/model/Feed";
+import { Feed } from "@/model/Feed";
 import { ProfileImage } from "../ProfileImage";
 import { FC } from "react";
 import { match } from "ts-pattern";

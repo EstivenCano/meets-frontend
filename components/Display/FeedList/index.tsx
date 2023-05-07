@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import FeedProvider, { useFeedStore } from "@/stores/FeedStore/FeedContext";
-import { Feed } from "@/services/model/Feed";
+import { Feed } from "@/model/Feed";
 import { getFeed } from "@/services/post.service";
 import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";

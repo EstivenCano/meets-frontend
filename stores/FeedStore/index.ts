@@ -1,4 +1,4 @@
-import { Feed } from "@/services/model/Feed";
+import { Feed } from "@/model/Feed";
 import { create } from "zustand";
 import { userStore } from "../useUser.store";
 import { dateSort } from "@/utils/dateSort";

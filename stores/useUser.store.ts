@@ -1,4 +1,4 @@
-import { User } from "@/services/model/User";
+import { User } from "@/model/User";
 import { create } from "zustand";
 
 interface userStore {

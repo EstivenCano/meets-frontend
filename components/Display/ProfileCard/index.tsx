@@ -2,7 +2,7 @@
 
 import { ProfileImage } from "../ProfileImage";
 import Image from "next/image";
-import { Profile } from "@/services/model/Profile";
+import { Profile } from "@/model/Profile";
 import { FC } from "react";
 import { userStore } from "@/stores/useUser.store";
 import { match } from "ts-pattern";

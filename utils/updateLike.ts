@@ -1,4 +1,4 @@
-import { Feed } from "@/services/model/Feed";
+import { Feed } from "@/model/Feed";
 import { match } from "ts-pattern";
 
 export const updateLike = (post: Feed, like: boolean, userId: number) => {

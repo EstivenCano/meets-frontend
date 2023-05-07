@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 
 import { Modal } from "@/components/Surfaces/Modal";
 
-import { Profile } from "@/services/model/Profile";
+import { Profile } from "@/model/Profile";
 import { IconButton } from "@/components/Inputs/IconButton";
 import UpdateProfileForm from "@/components/Forms/UpdateProfile";
 import { Edit } from "@/public/icons";

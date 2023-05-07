@@ -1,5 +1,5 @@
 import { ServerError } from "../dto/server-error.dto";
-import { ServiceError } from "../model/serviceError";
+import { ServiceError } from "../../model/ServiceError";
 import { isOnClient } from "@/utils/isOnClient";
 
 const defaultHeaders = {
