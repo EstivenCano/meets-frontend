@@ -1,4 +1,13 @@
 {
-    "title": "Hi there!",
-    "to-second-page": "To second page"
+    "title": "Sign in with your account",
+    "noAccount": "Don't have an account?",
+    "forgotPassword": "Forgot Password?",
+    "signInGoogle": "Sign in with Google",
+    "or": "Or",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signinIn": "Signing In...",
+    "signUp": "Sign Up",
+    "allRightsReserved": "@2023 Meets. All rights reserved."
 }

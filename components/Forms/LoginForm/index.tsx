@@ -10,8 +10,14 @@ import { LoginSchemaType, loginSchema } from "./login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alertStore } from "@/stores/useAlert.store";
 import { userStore } from "@/stores/useUser.store";
+import { useTranslation } from "@/app/i18n/client";
 
-const LoginSection = () => {
+interface LoginSectionProps {
+  lng: string;
+}
+
+const LoginSection = ({ lng }: LoginSectionProps) => {
+  const { t } = useTranslation(lng, "login");
   const setUser = userStore((state) => state.setUser);
   const { trigger, isMutating } = useSWRMutation("/auth/signin", login);
   const {
@@ -49,20 +55,20 @@ const LoginSection = () => {
       className='flex flex-col items-center justify-center space-y-4 w-72'>
       <TextField
         type='email'
-        placeholder='Email'
+        placeholder={t("email")}
         error={formErrors.email?.message}
         {...register("email")}
       />
       <TextField
         type='password'
-        placeholder='Password'
+        placeholder={t("password")}
         error={formErrors.password?.message}
         {...register("password")}
       />
       <Button color='green' size='auto' type='submit' loading={isMutating}>
         {match(isMutating)
-          .with(true, () => "Signing in...")
-          .otherwise(() => "Sign in")}
+          .with(true, () => t("signIn"))
+          .otherwise(() => t("signIn"))}
       </Button>
     </form>
   );

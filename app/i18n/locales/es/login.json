@@ -1,4 +1,13 @@
 {
-    "title": "Buenas buenas!",
-    "to-second-page": "Zur zweiten Seite"
+    "title": "Inicia sesión con tu cuenta",
+    "noAccount": "¿No tienes una cuenta?",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "signInGoogle": "Inicia sesión con Google",
+    "or": "O",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "signinIn": "Iniciando sesión...",
+    "signUp": "Registrarse",
+    "allRightsReserved": "@2023 Meets. Todos los derechos reservados."
 }
