@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, ReactNode, forwardRef } from "react";
 import { match } from "ts-pattern";
+import ZodError from "../Display/ZodError";
 
 interface TextFieldProps {
   name: string;
@@ -61,7 +62,7 @@ export const TextField = forwardRef<
             {...props}
           />
         </div>
-        {error && <p className='text-red-600 text-sm mt-1'>{error}</p>}
+        <p className='text-red-600 text-sm mt-1'>{ZodError(error)}</p>
       </div>
     );
   }

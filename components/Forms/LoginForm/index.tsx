@@ -12,12 +12,8 @@ import { alertStore } from "@/stores/useAlert.store";
 import { userStore } from "@/stores/useUser.store";
 import { useTranslation } from "@/app/i18n/client";
 
-interface LoginSectionProps {
-  lng: string;
-}
-
-const LoginSection = ({ lng }: LoginSectionProps) => {
-  const { t } = useTranslation(lng, "login");
+const LoginSection = () => {
+  const { t } = useTranslation("login");
   const setUser = userStore((state) => state.setUser);
   const { trigger, isMutating } = useSWRMutation("/auth/signin", login);
   const {

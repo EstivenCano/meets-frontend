@@ -1,0 +1,6 @@
+{
+    "invalidEmail": "Correo electrónico inválido",
+    "emailRequired": "Correo electrónico requerido",
+    "passwordRequired": "Contraseña requerida",
+    "passwordLength8": "La contraseña debe tener al menos 8 caracteres"
+}

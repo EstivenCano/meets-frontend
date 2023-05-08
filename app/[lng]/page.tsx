@@ -7,8 +7,11 @@ import { Link } from "@/components/Navigation/Link";
 import NotUserGuard from "@/components/Guards/NotUserGuard";
 import { Google } from "@/public/icons";
 import { useTranslation } from "../i18n";
+import Skeleton from "@/components/Feedback/Skeleton";
 
-const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
+const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
+  loading: () => <Skeleton type='form' numberOfFields={2} className='w-72' />,
+});
 
 const TitleSection = async ({ lng }: { lng: string }) => {
   const { t } = await useTranslation(lng, "title");
@@ -54,7 +57,7 @@ const LoginSection = async ({ lng }: { lng: string }) => {
     <section className='flex w-full md:w-1/2 min-h-screen flex-col items-center justify-center space-y-6 py-10'>
       <MeetsTitle size='lg' className='visible md:hidden' />
       <h2 className='text-lg font-semibold'>{t("title")}</h2>
-      <LoginForm lng={lng} />
+      <LoginForm />
       <div className='flex items-center space-x-4'>
         <div className='w-20 h-0.5 bg-violet-600' />
         <p className='text-lg font-semibold'>{t("or")}</p>

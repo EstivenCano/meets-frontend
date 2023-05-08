@@ -4,7 +4,6 @@ import {
   ReactNode,
   TextareaHTMLAttributes,
   forwardRef,
-  useMemo,
   useState,
 } from "react";
 import { match } from "ts-pattern";

@@ -1,0 +1,6 @@
+{
+    "invalidEmail": "Invalid email address",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordLength8": "Password must be at least 8 characters"
+}

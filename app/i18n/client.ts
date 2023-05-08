@@ -8,6 +8,7 @@ import {
 import resourcesToBackend from "i18next-resources-to-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { getOptions } from "./settings";
+import { useParams } from "next/navigation";
 
 i18next
   .use(initReactI18next)
@@ -26,7 +27,8 @@ i18next
     },
   });
 
-export function useTranslation(lng: string, ns: string, options = {}) {
+export function useTranslation(ns?: string, options = {}) {
+  const { lng } = useParams();
   if (i18next.resolvedLanguage !== lng) i18next.changeLanguage(lng);
   return useTranslationOrg(ns, options);
 }
