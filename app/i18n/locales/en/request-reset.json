@@ -1,0 +1,10 @@
+{
+    "title": "Reset your password",
+    "email": "Email",
+    "resetPassword": "Reset password",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "backHome": "Back to home",
+    "emailSent": "We have sent you an email with a link to reset your password to:",
+    "checkEmail": "Please check your inbox and follow the instructions in the email to reset your password."
+}

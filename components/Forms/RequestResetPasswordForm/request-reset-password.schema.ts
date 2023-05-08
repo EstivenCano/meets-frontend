@@ -5,5 +5,5 @@ export type RequestResetPasswordType = z.infer<
 >;
 
 export const requestResetPasswordSchema = z.object({
-  email: z.string().email("Invalid email").min(1, "Email is required"),
+  email: z.string().email("invalidEmail").min(1, "emailRequired"),
 });

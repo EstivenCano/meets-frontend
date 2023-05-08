@@ -10,7 +10,7 @@ export const FormLoading: FC<
 > = ({ numberOfFields = 3, ...props }) => {
   return (
     <div
-      className='relative flex flex-col p-4 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden bg-gray-500/20 animate-pulse'
+      className='relative flex flex-col p-4 w-full h-max max-w-6xl rounded-xl overflow-hidden bg-gray-500/20 animate-pulse'
       {...props}>
       {Array.from({ length: numberOfFields }).map((_, i) => (
         <div

@@ -1,0 +1,10 @@
+{
+    "title": "Restablecese tu contraseña",
+    "email": "Correo electrónico",
+    "resetPassword": "Restablecer contraseña",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate",
+    "backHome": "Volver al inicio",
+    "emailSent": "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña al correo:",
+    "checkEmail": "Por favor, revisa tu bandeja de entrada y sigue las instrucciones para restablecer tu contraseña."
+}

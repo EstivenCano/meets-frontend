@@ -14,8 +14,10 @@ import { requestResetPassword } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { useState } from "react";
 import { match } from "ts-pattern";
+import { useTranslation } from "@/app/i18n/client";
 
 const RequestResetPassword = () => {
+  const { t } = useTranslation("request-reset");
   const { trigger, isMutating } = useSWRMutation(
     "/auth/request-reset-password",
     requestResetPassword
@@ -58,12 +60,10 @@ const RequestResetPassword = () => {
         .with(true, () => (
           <div className='flex flex-col items-center justify-center space-y-4 px-20 py-10'>
             <p className='text-lg font-semibold max-w-lg'>
-              {"We've sent an email to "}
+              {t("emailSent")}{" "}
               <span className='text-violet-400'>{getValues("email")}</span>
             </p>
-            <p className='text-lg font-semibold max-w-lg'>
-              {"Please, check your inbox."}
-            </p>
+            <p className='text-lg font-semibold max-w-lg'>{t("checkEmail")}</p>
           </div>
         ))
         .otherwise(() => (
@@ -72,12 +72,12 @@ const RequestResetPassword = () => {
             className='flex flex-col items-center justify-center space-y-4 w-72'>
             <TextField
               type='email'
-              placeholder='Email'
+              placeholder={t("email")}
               error={formErrors.email?.message}
               {...register("email")}
             />
             <Button color='green' type='submit' loading={isMutating}>
-              Reset password
+              {t("resetPassword")}
             </Button>
           </form>
         ))}
