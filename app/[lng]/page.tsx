@@ -6,6 +6,7 @@ import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
 import NotUserGuard from "@/components/Guards/NotUserGuard";
 import { Google } from "@/public/icons";
+import { useTranslation } from "../i18n";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"));
 
@@ -69,7 +70,12 @@ const LoginSection = () => {
   );
 };
 
-export default async function Home() {
+export default async function Home({
+  params: { lng },
+}: {
+  params: { lng: string };
+}) {
+  const { t } = await useTranslation(lng, "login");
   return (
     <NotUserGuard>
       <main className='relative flex overflow-x-hidden max-w-screen min-h-screen md:flex-row flex-col'>

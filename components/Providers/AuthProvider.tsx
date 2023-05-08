@@ -87,7 +87,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
       setUser(initialUser);
     } else {
       const refresh = localStorage.getItem("refresh_token");
-
       if (!refresh) return;
       triggerRefresh();
     }

@@ -39,7 +39,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
       <Modal open={showComments} title='List of comments' onClose={handleClose}>
         <div className='w-full overflow-y-auto'>
           {comments
-            ?.sort((a, b) => dateSort(a.createdAt, b.createdAt))
+            ?.sort((a, b) => dateSort(a, b))
             .map((comment) => (
               <div
                 className='flex flex-col gap-x-2 gap-y-3 w-full border-t-2 border-gray-500/30 px-6 py-2'

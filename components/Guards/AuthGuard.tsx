@@ -21,7 +21,7 @@ const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
     if (!user) {
       redirect("/");
     }
-  }, [user]);
+  }, [user, isMounted]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { removeCookies } from "cookies-next";
+import { deleteCookie } from "cookies-next";
 
 export const removeTokens = () => {
   if (typeof window !== "undefined" && window.localStorage) {
@@ -6,6 +6,6 @@ export const removeTokens = () => {
     window.localStorage.removeItem("refresh_token");
   }
 
-  removeCookies("access_token");
-  removeCookies("refresh_token");
+  deleteCookie("access_token");
+  deleteCookie("refresh_token");
 };

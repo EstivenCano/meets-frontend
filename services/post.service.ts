@@ -45,6 +45,7 @@ export const getFirstFeed = async (byAuthor?: number) => {
   const nextCookies = (await import("next/headers")).cookies();
 
   const token = nextCookies.get("access_token");
+
   try {
     const response: { data: GetFeedResponse[]; status: number } = await post(
       "/posts/feed",

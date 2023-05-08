@@ -26,7 +26,7 @@ export const IconButton: FC<
   return (
     <button
       data-tooltip={name}
-      className={`relative rounded-full flex items-center justify-center w-10 h-10 bg-gray-500/40 hover:bg-gray-500/80 active:scale-90 ${sizeClass} ${className}`}
+      className={`relative text-white rounded-full flex items-center justify-center w-10 h-10 bg-gray-500/70 dark:bg-gray-500/30 hover:bg-gray-500/80 active:scale-90 ${sizeClass} ${className}`}
       onClick={onClick}
       {...props}>
       {icon}
