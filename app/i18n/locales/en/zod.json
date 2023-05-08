@@ -1,6 +1,11 @@
 {
     "invalidEmail": "Invalid email address",
     "emailRequired": "Email is required",
+    "nameRequired": "Name is required",
+    "nameToLong": "Name is too long",
     "passwordRequired": "Password is required",
-    "passwordLength8": "Password must be at least 8 characters"
+    "passwordLength8": "Password must be at least 8 characters",
+    "confirmPasswordRequired": "Confirm password is required",
+    "confirmPasswordLength8": "Confirm password must be at least 8 characters",
+    "passwordsDoNotMatch": "Passwords do not match"
 }

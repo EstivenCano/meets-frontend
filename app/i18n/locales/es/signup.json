@@ -1,0 +1,13 @@
+{
+    "title": "Registrate con tu correo electrónico",
+    "email": "Correo electrónico",
+    "name": "Nombre",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "signUp": "Registrarse",
+    "signIn": "Iniciar sesión",
+    "signUpGoogle": "Registrarse con Google",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "or": "O",
+    "loading": "Loading..."
+}

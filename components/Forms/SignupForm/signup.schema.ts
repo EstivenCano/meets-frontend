@@ -4,18 +4,15 @@ export type SignupSchemaType = z.infer<typeof signupSchema>;
 
 export const signupSchema = z
   .object({
-    email: z.string().email("Invalid email").min(1, "Email is required"),
-    name: z.string().min(1, "Name is required").max(40, "Name is too long"),
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .min(8, "Password must have more than 8 characters"),
+    email: z.string().email("invalidEmail").min(1, "emailRequired"),
+    name: z.string().min(1, "nameRequired").max(40, "nameToLong"),
+    password: z.string().min(1, "passwordRequired").min(8, "passwordLength8"),
     confirmPassword: z
       .string()
-      .min(1, "Confirm Password is required")
-      .min(8, "Confirm Password must have more than 8 characters"),
+      .min(1, "confirmPasswordRequired")
+      .min(8, "confirmPasswordLength8"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: "passwordsDoNotMatch",
     path: ["confirmPassword"],
   });

@@ -10,8 +10,10 @@ import { signup } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { match } from "ts-pattern";
 import { userStore } from "@/stores/useUser.store";
+import { useTranslation } from "@/app/i18n/client";
 
 const SignupForm = () => {
+  const { t } = useTranslation("signup");
   const setUser = userStore((state) => state.setUser);
   const { trigger, isMutating } = useSWRMutation("/auth/signup", signup);
   const addAlert = alertStore((state) => state.addAlert);
@@ -50,32 +52,32 @@ const SignupForm = () => {
       className='flex flex-col items-center justify-center space-y-4 w-72'>
       <TextField
         type='email'
-        placeholder='Email'
+        placeholder={t("email")}
         error={formErrors.email?.message}
         {...register("email")}
       />
       <TextField
         type='text'
-        placeholder='Name'
+        placeholder={t("name")}
         error={formErrors.name?.message}
         {...register("name")}
       />
       <TextField
         type='password'
-        placeholder='Password'
+        placeholder={t("password")}
         error={formErrors.password?.message}
         {...register("password")}
       />
       <TextField
         type='password'
-        placeholder='Confirm password'
+        placeholder={t("confirmPassword")}
         error={formErrors.confirmPassword?.message}
         {...register("confirmPassword")}
       />
       <Button color='green' size='auto' type='submit' loading={isMutating}>
         {match(isMutating)
-          .with(true, () => "Loading...")
-          .otherwise(() => "Sign up")}
+          .with(true, () => t("loading"))
+          .otherwise(() => t("signUp"))}
       </Button>
     </form>
   );

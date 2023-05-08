@@ -1,0 +1,13 @@
+{
+    "title": "Sign up with your email address",
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "signUpGoogle": "Sign Up with Google",
+    "haveAccount": "Already have an account?",
+    "or": "Or",
+    "loading": "Loading..."
+}
