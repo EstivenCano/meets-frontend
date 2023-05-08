@@ -14,6 +14,7 @@ import { resetPassword } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
+import { useTranslation } from "@/app/i18n/client";
 
 interface ResetPasswordFormProps {
   token: string;
@@ -21,6 +22,7 @@ interface ResetPasswordFormProps {
 }
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token, userId }) => {
+  const { t } = useTranslation("reset-password");
   const router = useRouter();
   const { trigger, isMutating } = useSWRMutation(
     "/auth/reset-password",
@@ -65,13 +67,13 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token, userId }) => {
       className='flex flex-col items-center justify-center space-y-4 w-72'>
       <TextField
         type='password'
-        placeholder='New Password'
+        placeholder={t("newPassword")}
         error={formErrors.password?.message}
         {...register("password")}
       />
       <TextField
         type='password'
-        placeholder='Confirm Password'
+        placeholder={t("confirmNewPassword")}
         error={formErrors.confirmPassword?.message}
         {...register("confirmPassword")}
       />
