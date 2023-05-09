@@ -6,9 +6,10 @@ import { PostCard } from "./PostCard";
 import { Comment } from "./Comment";
 import { Likes } from "./Likes";
 import { FormLoading } from "./Form";
+import { Select } from "./Select";
 
 interface SkeletonProps {
-  type: "profile" | "post" | "comment" | "likes" | "form";
+  type: "profile" | "post" | "comment" | "likes" | "form" | "select";
   numberOfFields?: number;
 }
 
@@ -24,6 +25,7 @@ const Skeleton: FC<
     .with("form", () => (
       <FormLoading numberOfFields={numberOfFields} {...props} />
     ))
+    .with("select", () => <Select {...props} />)
     .exhaustive();
 };
 

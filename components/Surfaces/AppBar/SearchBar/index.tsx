@@ -8,7 +8,10 @@ import { searchUsers } from "@/services/user.service";
 import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
 import { Results } from "./Results";
+import { useTranslation } from "@/app/i18n/client";
+
 export const SearchBar = () => {
+  const { t } = useTranslation("app-bar");
   const [searchString, setSearchString] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const {
@@ -45,7 +48,7 @@ export const SearchBar = () => {
       <TextField
         onFocus={handleFocus}
         onBlur={handleBlur}
-        placeholder='Search...'
+        placeholder={t("search")}
         icon={match(isMutating)
           .with(true, () => <Loading className='w-5 h-5 stroke-current' />)
           .otherwise(() => (

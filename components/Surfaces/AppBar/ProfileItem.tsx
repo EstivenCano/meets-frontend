@@ -8,7 +8,7 @@ interface ProfileItemProps {
 }
 
 export const ProfileItem: FC<ProfileItemProps> = ({ id }) => {
-  const { t } = useTranslation("profile-menu");
+  const { t } = useTranslation("app-bar");
   const router = useRouter();
 
   const handleNavigate = () => {

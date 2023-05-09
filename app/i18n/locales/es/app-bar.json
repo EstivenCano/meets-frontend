@@ -3,5 +3,8 @@
     "logoutSuccess": "Se ha cerrado la sesión correctamente",
     "loggingOut": "Cerrando sesión...",
     "settings": "Configuración",
-    "yourProfile": "Tu perfil"
+    "yourProfile": "Tu perfil",
+    "search": "Buscar",
+    "startTyping": "Empieza a escribir para buscar...",
+    "noResults": "No se han encontrado resultados"
 }

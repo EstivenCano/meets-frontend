@@ -15,7 +15,9 @@ export const FormLoading: FC<
       {Array.from({ length: numberOfFields }).map((_, i) => (
         <div
           key={i}
-          className='w-full h-12 bg-gray-600/40 animate-pulse rounded-md mb-4'></div>
+          className={`w-full h-12 bg-gray-600/40 animate-pulse rounded-md ${
+            i > 0 ? "mb-4" : ""
+          }`}></div>
       ))}
     </div>
   );

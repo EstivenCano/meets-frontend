@@ -20,7 +20,7 @@ const ProfileMenu = () => {
   const handleCloseMenu = () => setIsOpen(false);
 
   useOnClickOutside(ref, handleCloseMenu);
-  useTranslation("profile-menu");
+  useTranslation("app-bar");
 
   return (
     <nav ref={ref} className='relative z-10'>

@@ -1,3 +1,4 @@
+import { useTranslation } from "@/app/i18n/client";
 import { ProfileImage } from "@/components/Display/ProfileImage";
 import { UserInfo } from "@/model/UserInfo";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,6 +11,7 @@ interface ResultsProps {
 }
 
 export const Results: FC<ResultsProps> = ({ isOpen, results }) => {
+  const { t } = useTranslation("app-bar");
   const router = useRouter();
 
   const handleSelect = (id: number) => {
@@ -41,12 +43,12 @@ export const Results: FC<ResultsProps> = ({ isOpen, results }) => {
             ))}
             {results?.length === 0 && (
               <li className='flex items-center px-4 py-2 text-sm text-gray-500'>
-                <p>No results found</p>
+                <p>{t("noResults")}</p>
               </li>
             )}
             {!results && (
               <li className='flex items-center px-4 py-2 text-sm text-gray-500'>
-                <p>Start typing to search</p>
+                <p>{t("startTyping")}</p>
               </li>
             )}
           </motion.ul>

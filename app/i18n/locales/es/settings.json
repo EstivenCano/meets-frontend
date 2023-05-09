@@ -1,0 +1,17 @@
+{
+  "settings": "Configuración",
+  "general": "General",
+  "language": "Idioma",
+  "theme": "Tema",
+  "dark": "Oscuro",
+  "light": "Claro",
+  "en": "Inglés",
+  "es": "Español",
+  "account": "Cuenta",
+  "about": "Acerca de",
+  "changePassword": "Cambiar contraseña",
+  "changeUsername": "Cambiar nombre de usuario",
+  "deleteAccount": "Eliminar cuenta",
+  "aboutMeets": "Acerca de Meets",
+  "contact": "Contacto"
+}

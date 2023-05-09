@@ -3,7 +3,7 @@ import { Settings } from "@/public/icons";
 import { useTranslation } from "@/app/i18n/client";
 
 export const SettingsItem = () => {
-  const { t } = useTranslation("profile-menu");
+  const { t } = useTranslation("app-bar");
   const router = useRouter();
 
   const handleNavigate = () => {

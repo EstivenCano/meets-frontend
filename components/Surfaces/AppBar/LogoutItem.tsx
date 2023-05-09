@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "@/app/i18n/client";
 
 export const LogoutItem = () => {
-  const { t } = useTranslation("profile-menu");
+  const { t } = useTranslation("app-bar");
   const router = useRouter();
   const { trigger: triggerLogout, isMutating } = useSWRMutation(
     "/auth/logout",
