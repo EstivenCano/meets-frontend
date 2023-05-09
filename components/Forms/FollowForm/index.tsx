@@ -9,7 +9,7 @@ import useSWRImmutable from "swr/immutable";
 
 import { followUnfollowUser, isFollowingUser } from "@/services/user.service";
 import { match } from "ts-pattern";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 
 interface FollowFormProps {
   id: string;
@@ -17,7 +17,7 @@ interface FollowFormProps {
 }
 
 const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
-  const router = useRouter();
+  const router = useRouterLocale();
   const {
     data: following,
     mutate,

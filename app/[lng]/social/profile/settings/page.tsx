@@ -49,7 +49,7 @@ export default async function Settings({
       <h2 className='text-sm font-bold mb-2'>{t("about")}</h2>
       <ul className='flex flex-col gap-y-2'>
         <li className='flex gap-x-2 px-4 py-2 items-center text-sm'>
-          {t("about")}
+          {t("aboutMeets")}
         </li>
         <li className='flex gap-x-2 px-4 py-2 items-center text-sm'>
           {t("contact")}

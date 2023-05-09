@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { ProfileImage } from "../ProfileImage";
 import { Modal } from "@/components/Surfaces/Modal";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import useSWRImmutable from "swr/immutable";
 import { getLikes } from "@/services/post.service";
 import Skeleton from "@/components/Feedback/Skeleton";
@@ -21,7 +21,7 @@ const ListOfLikes: FC<ListOfLikesProps> = ({ id, showLikes, handleClose }) => {
     getLikes
   );
 
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const handleProfileClick = (id: number) => {
     router.push(`/social/profile/${id}`);

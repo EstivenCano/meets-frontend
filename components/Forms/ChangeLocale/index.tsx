@@ -2,7 +2,9 @@
 
 import { useTranslation } from "@/app/i18n/client";
 import { Select } from "@/components/Inputs/Select";
+import { setCookie } from "cookies-next";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ChangeLocale = () => {
   const { t } = useTranslation("settings");
@@ -15,8 +17,12 @@ const ChangeLocale = () => {
     { value: "es", label: t("es") },
   ];
 
+  useEffect(() => {
+    setCookie("i18next", lng);
+  }, [lng]);
+
   const handleChangeLocale = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    router.push(`/${e.target.value}${pathname.replace(`/${lng}`, "")}`);
+    router.replace(`/${e.target.value}${pathname.replace(`/${lng}`, "")}`);
   };
 
   return (

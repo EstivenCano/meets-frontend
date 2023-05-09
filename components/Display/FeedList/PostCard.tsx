@@ -7,7 +7,8 @@ import { match } from "ts-pattern";
 import { Comment as CommentIcon } from "@/public/icons";
 import { dateToLongString } from "@/utils/dateToLongString";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
+import { useParams } from "next/navigation";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
@@ -21,7 +22,8 @@ interface PostCardProps {
 }
 
 export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
-  const router = useRouter();
+  const { lng } = useParams();
+  const router = useRouterLocale();
 
   const handleProfileClick = () => {
     router.push(`/social/profile/${post.authorId}`);
@@ -40,7 +42,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
         <span className='block'>
           <p className='text-sm'>{post.author.name}</p>
           <p className='text-xs text-gray-500'>
-            {dateToLongString(new Date(post.createdAt))}
+            {dateToLongString(new Date(post.createdAt), lng)}
           </p>
         </span>
         {match(post.authorId === Number(userId))

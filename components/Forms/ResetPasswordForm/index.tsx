@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
 import { resetPassword } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { FC } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
@@ -23,7 +23,7 @@ interface ResetPasswordFormProps {
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token, userId }) => {
   const { t } = useTranslation("reset-password");
-  const router = useRouter();
+  const router = useRouterLocale();
   const { trigger, isMutating } = useSWRMutation(
     "/auth/reset-password",
     resetPassword

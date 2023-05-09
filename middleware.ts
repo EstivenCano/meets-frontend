@@ -13,8 +13,9 @@ const cookieName = "i18next";
 
 export function middleware(req: NextRequest) {
   let lng;
-  if (req.cookies.has(cookieName))
+  if (req.cookies.has(cookieName)) {
     lng = acceptLanguage.get(req.cookies.get(cookieName)?.value as string);
+  }
   if (!lng) lng = acceptLanguage.get(req.headers.get("Accept-Language"));
   if (!lng) lng = fallbackLng;
 
@@ -37,5 +38,7 @@ export function middleware(req: NextRequest) {
     return response;
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  return response;
 }

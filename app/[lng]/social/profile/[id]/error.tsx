@@ -1,15 +1,14 @@
 "use client";
 
-import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import { Button } from "@/components/Inputs/Button";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 
 interface ErrorStateProps {
   error: Error;
 }
 
 const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const goHome = () => {
     router.push("/social/feed");

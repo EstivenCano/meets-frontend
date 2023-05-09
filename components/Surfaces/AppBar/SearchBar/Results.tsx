@@ -2,7 +2,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { ProfileImage } from "@/components/Display/ProfileImage";
 import { UserInfo } from "@/model/UserInfo";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { FC } from "react";
 
 interface ResultsProps {
@@ -12,7 +12,7 @@ interface ResultsProps {
 
 export const Results: FC<ResultsProps> = ({ isOpen, results }) => {
   const { t } = useTranslation("app-bar");
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const handleSelect = (id: number) => {
     router.push(`/social/profile/${id}`);

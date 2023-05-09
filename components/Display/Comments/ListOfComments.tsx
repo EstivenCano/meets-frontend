@@ -1,7 +1,7 @@
 import { Modal } from "@/components/Surfaces/Modal";
 import { FC } from "react";
 import { ProfileImage } from "../ProfileImage";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { dateToLongString } from "@/utils/dateToLongString";
 import { dateSort } from "@/utils/dateSort";
 import useSWRImmutable from "swr/immutable";
@@ -9,6 +9,7 @@ import { getComments } from "@/services/post.service";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { Loading } from "@/public/icons";
 import NewCommentForm from "@/components/Forms/NewCommentForm";
+import { useParams } from "next/navigation";
 
 interface ListOfCommentsProps {
   id: number;
@@ -21,6 +22,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
   showComments,
   handleClose,
 }) => {
+  const { lng } = useParams();
   const { data: comments, isLoading } = useSWRImmutable(
     showComments ? `/posts/${id}/comments` : null,
     getComments,
@@ -28,7 +30,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
       keepPreviousData: true,
     }
   );
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const handleProfileClick = (id: number) => {
     router.push(`/social/profile/${id}`);
@@ -55,7 +57,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
                   <span className='block'>
                     <p className='text-sm'>{comment.author.name}</p>
                     <p className='text-xs text-gray-500'>
-                      {dateToLongString(new Date(comment.createdAt))}
+                      {dateToLongString(new Date(comment.createdAt), lng)}
                     </p>
                   </span>
                 </span>

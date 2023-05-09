@@ -6,12 +6,12 @@ import { match } from "ts-pattern";
 import { alertStore } from "@/stores/useAlert.store";
 import { Loading, Logout } from "@/public/icons";
 import { userStore } from "@/stores/useUser.store";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { useTranslation } from "@/app/i18n/client";
 
 export const LogoutItem = () => {
   const { t } = useTranslation("app-bar");
-  const router = useRouter();
+  const router = useRouterLocale();
   const { trigger: triggerLogout, isMutating } = useSWRMutation(
     "/auth/logout",
     logout
@@ -23,11 +23,11 @@ export const LogoutItem = () => {
     triggerLogout()
       .then(() => {
         setUser(null);
-        router.push("/");
         addAlert({
           message: t("logoutSuccess"),
           status: 200,
         });
+        window.location.href = "/";
       })
       .catch((error) => {
         addAlert({

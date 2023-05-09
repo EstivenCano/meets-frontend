@@ -1,10 +1,10 @@
 "use client";
 
 import { MeetsTitle } from "@/components/Display/MeetsTitle";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 
 const Title = () => {
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const goToFeed = () => {
     router.push("/social/feed");

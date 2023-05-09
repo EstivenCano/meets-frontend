@@ -18,7 +18,7 @@ import { RadioImage } from "../../Display/RadioImage";
 import { avatarImages } from "@/utils/constants/avatarImages";
 import { coverImages } from "@/utils/constants/coverImages";
 import { updateUserProfile } from "@/services/user.service";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 
 interface UpdateProfileFormProps {
   profile: Profile;
@@ -29,7 +29,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
   profile,
   closeForm,
 }) => {
-  const router = useRouter();
+  const router = useRouterLocale();
   const { user } = userStore();
   const addAlert = alertStore((state) => state.addAlert);
   const { trigger, isMutating } = useSWRMutation(

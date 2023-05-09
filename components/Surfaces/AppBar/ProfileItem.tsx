@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { FC } from "react";
 import { Profile } from "@/public/icons";
 import { useTranslation } from "@/app/i18n/client";
@@ -9,7 +9,7 @@ interface ProfileItemProps {
 
 export const ProfileItem: FC<ProfileItemProps> = ({ id }) => {
   const { t } = useTranslation("app-bar");
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const handleNavigate = () => {
     if (!id) return;

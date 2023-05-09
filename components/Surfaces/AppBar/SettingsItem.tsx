@@ -1,10 +1,10 @@
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { Settings } from "@/public/icons";
 import { useTranslation } from "@/app/i18n/client";
 
 export const SettingsItem = () => {
   const { t } = useTranslation("app-bar");
-  const router = useRouter();
+  const router = useRouterLocale();
 
   const handleNavigate = () => {
     router.push(`/social/profile/settings`);

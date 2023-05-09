@@ -1,5 +1,5 @@
-export const dateToLongString = (date: Date): string => {
-  return date.toLocaleString("en-US", {
+export const dateToLongString = (date: Date, lng?: string): string => {
+  const formatedDate = date.toLocaleString(lng, {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -7,4 +7,6 @@ export const dateToLongString = (date: Date): string => {
     hour: "numeric",
     minute: "numeric",
   });
+
+  return formatedDate.charAt(0).toUpperCase() + formatedDate.slice(1);
 };

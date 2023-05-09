@@ -14,11 +14,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { IconButton } from "@/components/Inputs/IconButton";
 import { createDraft } from "@/services/post.service";
-import { useRouter } from "next/navigation";
+import { useRouterLocale } from "@/hooks/useRouter";
 import { ArrowDown, ArrowUp } from "@/public/icons";
 
 const NewPostForm = () => {
-  const router = useRouter();
+  const router = useRouterLocale();
   const user = userStore((state) => state.user);
   const [open, setOpen] = useState(false);
   const {
