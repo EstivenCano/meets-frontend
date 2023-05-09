@@ -8,12 +8,14 @@ import { IconButton } from "@/components/Inputs/IconButton";
 import { Delete, Loading } from "@/public/icons";
 import { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { match } from "ts-pattern";
+import { useTranslation } from "@/app/i18n/client";
 
 interface DeleteFormProps {
   id: number;
 }
 
 const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
+  const { t } = useTranslation("common");
   const deletePost = useFeedStore((state) => state.deletePost);
 
   const { trigger: triggerFollow, isMutating } = useSWRMutation(
@@ -29,14 +31,14 @@ const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
         if (response) {
           deletePost(id);
           addAlert({
-            message: response.message,
+            message: t("deleteSuccess"),
             status: response.status,
           });
         }
       })
       .catch((error) => {
         addAlert({
-          message: error.message,
+          message: t("deleteError"),
           errorList: error.errorList,
           status: error.statusCode,
         });
@@ -52,7 +54,7 @@ const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
             <Delete className='p-1' />
           ))}
         size='xs'
-        name='Delete'
+        name={t("delete")}
         disabled={isMutating}
         className='hover:bg-red-600 hover:text-white'
         onClick={() => {}}

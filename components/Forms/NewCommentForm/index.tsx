@@ -12,12 +12,14 @@ import { newCommentToPost } from "@/services/post.service";
 import { TextArea } from "@/components/Inputs/TextArea";
 import { FC, useRef } from "react";
 import { useFeedStore } from "@/stores/FeedStore/FeedContext";
+import { useTranslation } from "@/app/i18n/client";
 
 interface NewCommentFormProps {
   id: number;
 }
 
 const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
+  const { t } = useTranslation("common");
   const { user } = userStore();
   const updateCommentCount = useFeedStore((state) => state.updateCommentCount);
   const { trigger, isMutating } = useSWRMutation(
@@ -58,7 +60,7 @@ const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
       <TextArea
         inputSize='sm'
         rows={5}
-        placeholder='Write your comment here...'
+        placeholder={t("writeComment")}
         error={formErrors.content?.message}
         {...register("content")}
       />
@@ -69,8 +71,8 @@ const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
         loading={isMutating}
         className='self-end'>
         {match(isMutating)
-          .with(true, () => "Adding...")
-          .otherwise(() => "Add comment")}
+          .with(true, () => t("adding"))
+          .otherwise(() => t("addComment"))}
       </Button>
     </form>
   );

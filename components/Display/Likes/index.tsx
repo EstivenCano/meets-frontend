@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import ListOfLikes from "./ListOfLikes";
+import { useTranslation } from "@/app/i18n/client";
 
 interface LikesProps {
   id: number;
@@ -7,6 +8,7 @@ interface LikesProps {
 }
 
 const Likes: FC<LikesProps> = ({ id, count }) => {
+  const { t } = useTranslation("common");
   const [showLikes, setShowLikes] = useState(false);
   const handleShowLikes = () => {
     setShowLikes(true);
@@ -21,7 +23,7 @@ const Likes: FC<LikesProps> = ({ id, count }) => {
       <button
         onClick={handleShowLikes}
         className='text-xs text-gray-500 dark:text-gray-400'>
-        {count} Likes
+        {count} {t("likes")}
       </button>
       <ListOfLikes id={id} handleClose={handleClose} showLikes={showLikes} />
     </>

@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { match } from "ts-pattern";
+import ZodError from "../Display/ZodError";
 
 interface TextAreaProps {
   name: string;
@@ -80,9 +81,9 @@ export const TextArea = forwardRef<
           />
         </div>
         <span className='flex justify-end items-center w-full'>
-          {error && (
-            <p className='text-red-600 text-sm mr-auto self-end'>{error}</p>
-          )}
+          <p className='text-red-600 text-sm mr-auto self-end'>
+            {ZodError(error)}
+          </p>
           <p
             className={`text-right text-sm ${
               characterCount > maxCharacters ? "text-red-600" : "text-text"

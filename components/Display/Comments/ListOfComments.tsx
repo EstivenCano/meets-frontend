@@ -10,6 +10,7 @@ import Skeleton from "@/components/Feedback/Skeleton";
 import { Loading } from "@/public/icons";
 import NewCommentForm from "@/components/Forms/NewCommentForm";
 import { useParams } from "next/navigation";
+import { useTranslation } from "@/app/i18n/client";
 
 interface ListOfCommentsProps {
   id: number;
@@ -22,6 +23,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
   showComments,
   handleClose,
 }) => {
+  const { t } = useTranslation("common");
   const { lng } = useParams();
   const { data: comments, isLoading } = useSWRImmutable(
     showComments ? `/posts/${id}/comments` : null,
@@ -38,7 +40,10 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
 
   return (
     <>
-      <Modal open={showComments} title='List of comments' onClose={handleClose}>
+      <Modal
+        open={showComments}
+        title={t("listOfComments")}
+        onClose={handleClose}>
         <div className='w-full overflow-y-auto'>
           {comments
             ?.sort((a, b) => dateSort(a, b))
@@ -73,7 +78,7 @@ const ListOfComments: FC<ListOfCommentsProps> = ({
           </div>
         )}
         {comments?.length === 0 && (
-          <p className='text-sm pb-8'>No comments yet 😄</p>
+          <p className='text-sm pb-8'>{t("noComments")}</p>
         )}
         <NewCommentForm id={id} />
       </Modal>

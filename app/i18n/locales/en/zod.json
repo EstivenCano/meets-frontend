@@ -3,9 +3,16 @@
     "emailRequired": "Email is required",
     "nameRequired": "Name is required",
     "nameToLong": "Name is too long",
+    "nameLength40": "Name must be less than 40 characters",
     "passwordRequired": "Password is required",
     "passwordLength8": "Password must be at least 8 characters",
     "confirmPasswordRequired": "Confirm password is required",
     "confirmPasswordLength8": "Confirm password must be at least 8 characters",
-    "passwordsDoNotMatch": "Passwords do not match"
+    "passwordsDoNotMatch": "Passwords do not match",
+    "titleRequired": "Title is required",
+    "titleLength30": "Title must be less than 30 characters",
+    "contentRequired": "Content is required",
+    "contentLength320": "Content must be less than 320 characters",
+    "bioLength35": "Bio must be less than 35 characters",
+    "invalidUrl": "Invalid url"
 }

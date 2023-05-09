@@ -1,0 +1,17 @@
+{
+    "followers": "Seguidores",
+    "following": "Siguiendo",
+    "posts": "Publicaciones",
+    "profile": "Perfil",
+    "update": "Actualizar",
+    "updating": "Actualizando...",
+    "edit": "Editar",
+    "name": "Nombre",
+    "shortDescription": "Descripción corta",
+    "updateProfile": "Actualizar perfil",
+    "reset": "Restablecer",
+    "selectAvatar": "Seleccionar una imagen de perfil",
+    "selectCover": "Seleccionar una imagen de portada",
+    "success": "Perfil actualizado correctamente",
+    "error": "Error al actualizar el perfil"
+}

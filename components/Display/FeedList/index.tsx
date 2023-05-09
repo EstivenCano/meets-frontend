@@ -74,7 +74,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
   }, [initialFeed, setFeed]);
 
   return (
-    <div className='flex flex-col w-full gap-y-6 overflow-y-auto'>
+    <div className='flex flex-col w-full gap-y-6 overflow-y-auto overflow-x-hidden'>
       {feed.map((post) => (
         <PostCard key={post.id} post={post} userId={user?.id} />
       ))}

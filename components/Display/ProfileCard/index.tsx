@@ -8,6 +8,7 @@ import { userStore } from "@/stores/useUser.store";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
 import { shimmerToBase64 } from "@/utils/shimmer";
+import { useTranslation } from "@/app/i18n/client";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
@@ -18,12 +19,11 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
+  const { t } = useTranslation("profile");
   const user = userStore((state) => state.user);
 
   return (
-    <section
-      title='Profile'
-      className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
+    <section className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
       <div className='absolute bg-gray-400/30 h-40 w-full rounded-xl'>
         <Image
           src={
@@ -60,11 +60,11 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
         </div>
         <div className='flex flex-row gap-x-6 justify-end z-10'>
           <span>
-            <h1 className='md:text-xl font-bold'>Followers</h1>
+            <h1 className='md:text-xl font-bold'>{t("followers")}</h1>
             <p className='text-md'>{profile.followedBy}</p>
           </span>
           <span>
-            <h1 className='md:text-xl font-bold'>Following</h1>
+            <h1 className='md:text-xl font-bold'>{t("following")}</h1>
             <p className='text-md'>{profile.following}</p>
           </span>
         </div>

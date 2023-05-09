@@ -10,6 +10,7 @@ import useSWRImmutable from "swr/immutable";
 import { followUnfollowUser, isFollowingUser } from "@/services/user.service";
 import { match } from "ts-pattern";
 import { useRouterLocale } from "@/hooks/useRouter";
+import { useTranslation } from "@/app/i18n/client";
 
 interface FollowFormProps {
   id: string;
@@ -17,6 +18,7 @@ interface FollowFormProps {
 }
 
 const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
+  const { t } = useTranslation("common");
   const router = useRouterLocale();
   const {
     data: following,
@@ -37,10 +39,6 @@ const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
       .then((response) => {
         if (response) {
           mutate();
-          addAlert({
-            message: response.message,
-            status: response.status,
-          });
         }
         router.refresh();
       })
@@ -61,8 +59,8 @@ const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
         type='submit'
         loading={isMutating || isValidating || isLoading}>
         {match(following)
-          .with(true, () => "Unfollow")
-          .otherwise(() => "Follow")}
+          .with(true, () => t("unfollow"))
+          .otherwise(() => t("follow"))}
       </Button>
     </form>
   );

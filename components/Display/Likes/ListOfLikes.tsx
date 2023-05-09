@@ -8,6 +8,7 @@ import useSWRImmutable from "swr/immutable";
 import { getLikes } from "@/services/post.service";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { Loading } from "@/public/icons";
+import { useTranslation } from "@/app/i18n/client";
 
 interface ListOfLikesProps {
   id: number;
@@ -16,6 +17,7 @@ interface ListOfLikesProps {
 }
 
 const ListOfLikes: FC<ListOfLikesProps> = ({ id, showLikes, handleClose }) => {
+  const { t } = useTranslation("common");
   const { data: likes, isLoading } = useSWRImmutable(
     showLikes ? `/posts/${id}/likes` : null,
     getLikes
@@ -28,7 +30,7 @@ const ListOfLikes: FC<ListOfLikesProps> = ({ id, showLikes, handleClose }) => {
   };
 
   return (
-    <Modal open={showLikes} title='List of likes' onClose={handleClose}>
+    <Modal open={showLikes} title={t("listOfLikes")} onClose={handleClose}>
       <div className='flex flex-wrap items-center gap-y-4 gap-x-8 py-2 px-6'>
         {likes?.map((user) => (
           <span className='flex items-center gap-x-2' key={user.id}>
@@ -50,7 +52,7 @@ const ListOfLikes: FC<ListOfLikesProps> = ({ id, showLikes, handleClose }) => {
           <Skeleton type='likes' />
         </div>
       )}
-      {likes?.length === 0 && <p className='text-sm'>No likes yet 😄</p>}
+      {likes?.length === 0 && <p className='text-sm'>{t("noLikes")}</p>}
     </Modal>
   );
 };

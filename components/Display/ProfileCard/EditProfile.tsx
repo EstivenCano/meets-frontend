@@ -8,12 +8,14 @@ import { Profile } from "@/model/Profile";
 import { IconButton } from "@/components/Inputs/IconButton";
 import UpdateProfileForm from "@/components/Forms/UpdateProfile";
 import { Edit } from "@/public/icons";
+import { useTranslation } from "@/app/i18n/client";
 
 interface EditProfileProps {
   profile: Profile;
 }
 
 const EditProfile: FC<EditProfileProps> = ({ profile }) => {
+  const { t } = useTranslation("profile");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -29,10 +31,10 @@ const EditProfile: FC<EditProfileProps> = ({ profile }) => {
       <IconButton
         size='sm'
         icon={<Edit className='w-5 h-5' />}
-        name='Edit profile'
+        name={t("edit")}
         onClick={handleOpen}
       />
-      <Modal open={isOpen} title='Update profile' onClose={handleClose}>
+      <Modal open={isOpen} title={t("updateProfile")} onClose={handleClose}>
         <UpdateProfileForm profile={profile} closeForm={handleClose} />
       </Modal>
     </div>

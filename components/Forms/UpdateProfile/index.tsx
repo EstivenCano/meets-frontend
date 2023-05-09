@@ -19,6 +19,7 @@ import { avatarImages } from "@/utils/constants/avatarImages";
 import { coverImages } from "@/utils/constants/coverImages";
 import { updateUserProfile } from "@/services/user.service";
 import { useRouterLocale } from "@/hooks/useRouter";
+import { useTranslation } from "@/app/i18n/client";
 
 interface UpdateProfileFormProps {
   profile: Profile;
@@ -29,6 +30,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
   profile,
   closeForm,
 }) => {
+  const { t } = useTranslation("profile");
   const router = useRouterLocale();
   const { user } = userStore();
   const addAlert = alertStore((state) => state.addAlert);
@@ -51,7 +53,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
         closeForm();
         if (response) {
           addAlert({
-            message: response.message,
+            message: t("success"),
             status: response.status,
           });
           router.refresh();
@@ -59,7 +61,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
       })
       .catch((error) => {
         addAlert({
-          message: error.message,
+          message: t("error"),
           errorList: error.errorList,
           status: error.statusCode,
         });
@@ -72,20 +74,20 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
       className='flex flex-col h-fit space-y-4 w-full max-w-sm px-1 md:px-0'>
       <TextField
         type='text'
-        placeholder='Name'
+        placeholder={t("name")}
         defaultValue={profile?.name}
         error={formErrors.name?.message}
         {...register("name")}
       />
       <TextField
         type='text'
-        placeholder='Short description'
+        placeholder={t("shortDescription")}
         defaultValue={profile?.bio}
         error={formErrors.bio?.message}
         {...register("bio")}
       />
       <fieldset className='flex flex-wrap gap-x-2 gap-y-2 py-2 max-w-lg'>
-        <legend>Select a profile avatar:</legend>
+        <legend>{t("selectAvatar")}:</legend>
         {avatarImages.map((avatar) => (
           <RadioImage
             key={avatar}
@@ -97,7 +99,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
         {formErrors.picture?.message}
       </fieldset>
       <fieldset className='flex flex-wrap justify-center py-2 max-w-lg'>
-        <legend>Select a profile cover:</legend>
+        <legend>{t("selectCover")}:</legend>
         {coverImages.map((cover) => (
           <RadioImage
             key={cover}
@@ -111,12 +113,12 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
       </fieldset>
       <div className='flex gap-x-4'>
         <Button color='red' size='auto' type='reset' loading={isMutating}>
-          Reset
+          {t("reset")}
         </Button>
         <Button color='green' size='auto' type='submit' loading={isMutating}>
           {match(isMutating)
-            .with(true, () => "Loading...")
-            .otherwise(() => "Update profile")}
+            .with(true, () => t("updating"))
+            .otherwise(() => t("update"))}
         </Button>
       </div>
     </form>

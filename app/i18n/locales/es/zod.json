@@ -7,5 +7,11 @@
     "nameRequired": "Nombre requerido",
     "confirmPasswordRequired": "Confirmar contraseña requerida",
     "confirmPasswordLength8": "La contraseña debe tener al menos 8 caracteres",
-    "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    "passwordsDoNotMatch": "Las contraseñas no coinciden",
+    "titleRequired": "Título requerido",
+    "titleLength30": "El título debe tener menos de 30 caracteres",
+    "contentRequired": "Contenido requerido",
+    "contentLength320": "El contenido debe tener menos de 320 caracteres",
+    "bioLength35": "La biografía debe tener menos de 35 caracteres",
+    "invalidUrl": "URL inválida"
 }

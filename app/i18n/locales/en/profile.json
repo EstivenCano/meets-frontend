@@ -1,0 +1,17 @@
+{
+    "followers": "Followers",
+    "following": "Following",
+    "posts": "Posts",
+    "profile": "Profile",
+    "edit": "Edit",
+    "name": "Name",
+    "update": "Update",
+    "updating": "Updating",
+    "shortDescription": "Short description",
+    "updateProfile": "Update profile",
+    "reset": "Reset",
+    "selectAvatar": "Select a profile avatar",
+    "selectCover": "Select a cover image",
+    "success": "Profile updated successfully",
+    "error": "Error updating profile"
+}

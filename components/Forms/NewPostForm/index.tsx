@@ -16,8 +16,10 @@ import { IconButton } from "@/components/Inputs/IconButton";
 import { createDraft } from "@/services/post.service";
 import { useRouterLocale } from "@/hooks/useRouter";
 import { ArrowDown, ArrowUp } from "@/public/icons";
+import { useTranslation } from "@/app/i18n/client";
 
 const NewPostForm = () => {
+  const { t } = useTranslation("post");
   const router = useRouterLocale();
   const user = userStore((state) => state.user);
   const [open, setOpen] = useState(false);
@@ -47,7 +49,7 @@ const NewPostForm = () => {
         if (response) {
           toggleOpen();
           addAlert({
-            message: response.message,
+            message: t("success"),
             status: response.status,
           });
           router.refresh();
@@ -86,8 +88,8 @@ const NewPostForm = () => {
           type='text'
           onClickCapture={handleOpen}
           placeholder={match(open)
-            .with(true, () => "Add a catchy title here")
-            .otherwise(() => "What is on your mind?")}
+            .with(true, () => t("addTitle"))
+            .otherwise(() => t("whatIs"))}
           error={formErrors.title?.message}
           className='max-w-sm'
           {...register("title")}
@@ -103,8 +105,8 @@ const NewPostForm = () => {
               <ArrowDown className='p-1' />
             ))}
           name={match(open)
-            .with(true, () => "Close")
-            .otherwise(() => "Open")}
+            .with(true, () => t("close"))
+            .otherwise(() => t("open"))}
         />
       </span>
       <AnimatePresence>
@@ -117,15 +119,15 @@ const NewPostForm = () => {
             <TextArea
               inputSize='sm'
               rows={5}
-              placeholder='What is on your mind?'
+              placeholder={t("whatIs")}
               error={formErrors.content?.message}
               {...register("content")}
             />
             <fieldset className='flex flex-row gap-x-2 space-y-2'>
               <legend className='text-sm font-semibold'>
-                Do you want to publish this post?
+                {t("publishConfirmation")}
               </legend>
-              <label className='text-xs'>Publish</label>
+              <label className='text-xs'>{t("publish")}</label>
               <input
                 type='checkbox'
                 className='checked:accent-violet-400'
@@ -134,7 +136,7 @@ const NewPostForm = () => {
             </fieldset>
             <span className='flex w-full justify-end gap-x-2 overflow-visible'>
               <Button color='red' size='sm' type='reset' loading={savingDraft}>
-                Discard
+                {t("discard")}
               </Button>
               <Button
                 color='green'
@@ -142,8 +144,8 @@ const NewPostForm = () => {
                 type='submit'
                 loading={savingDraft}>
                 {match(savingDraft)
-                  .with(true, () => "Saving...")
-                  .otherwise(() => "Save")}
+                  .with(true, () => t("saving"))
+                  .otherwise(() => t("save"))}
               </Button>
             </span>
           </motion.div>

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { Close } from "@/public/icons";
 import useLockedBody from "@/hooks/useLockedBody";
+import { useTranslation } from "@/app/i18n/client";
 
 const modalEl = document.getElementById("modal-root") as HTMLElement;
 
@@ -16,6 +17,7 @@ interface ModalProps {
 }
 
 export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
+  const { t } = useTranslation("common");
   const ref = useRef<HTMLDivElement>(null);
   const [_, setLocked] = useLockedBody(open, "modal-root");
 
@@ -45,7 +47,7 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
                     size='xs'
                     autoFocus
                     icon={<Close className='w-5 h-5' />}
-                    name='Close'
+                    name={t("close")}
                     onClick={onClose}
                   />
                 </span>

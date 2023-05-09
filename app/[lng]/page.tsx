@@ -14,7 +14,7 @@ const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
 });
 
 const TitleSection = async ({ lng }: { lng: string }) => {
-  const { t } = await useTranslation(lng, "title");
+  const { t } = await useTranslation(lng, "common");
   return (
     <section className='hidden md:flex w-full md:w-2/3 min-h-screen flex-col items-center justify-center space-y-1 py-4 bg-gradient-to-b md:bg-gradient-to-tr from-background via-violet-600/20 to-background shadow-lg shadow-violet-500 lg:rounded-r-full'>
       <MeetsTitle size='lg' />

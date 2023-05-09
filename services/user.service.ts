@@ -55,7 +55,7 @@ export const updateUserProfile = async (
 ) => {
   try {
     const response = await put(url, arg);
-    return { ...response, message: "Profile updated successfully" };
+    return response;
   } catch (error) {
     throw error;
   }
@@ -71,11 +71,9 @@ export const isFollowingUser = async (url: string) => {
 };
 
 export const followUnfollowUser = async (url: string) => {
-  const action = url.split("/").pop();
-
   try {
     const response = await post(url, {});
-    return { ...response, message: `User ${action}ed` };
+    return response;
   } catch (error) {
     return Promise.reject(error);
   }
