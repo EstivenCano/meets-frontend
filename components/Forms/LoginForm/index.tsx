@@ -30,7 +30,7 @@ const LoginSection = () => {
       .then((response) => {
         if (response) {
           addAlert({
-            message: response.message,
+            message: t("success"),
             status: response.status,
           });
           setUser(response.user);

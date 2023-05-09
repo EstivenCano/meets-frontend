@@ -6,5 +6,6 @@
     "signUp": "Regístrate",
     "backHome": "Volver al inicio",
     "emailSent": "Te hemos enviado un correo electrónico con un enlace para restablecer tu contraseña al correo:",
-    "checkEmail": "Por favor, revisa tu bandeja de entrada y sigue las instrucciones para restablecer tu contraseña."
+    "checkEmail": "Por favor, revisa tu bandeja de entrada y sigue las instrucciones para restablecer tu contraseña.",
+    "success": "Petición enviada con éxito"
 }

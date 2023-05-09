@@ -39,7 +39,7 @@ const RequestResetPassword = () => {
       .then((response) => {
         if (response) {
           addAlert({
-            message: response.message,
+            message: t("success"),
             status: response.status,
           });
           setEmailSent(true);

@@ -9,5 +9,6 @@
     "signIn": "Iniciar sesión",
     "signinIn": "Iniciando sesión...",
     "signUp": "Registrarse",
-    "allRightsReserved": "@2023 Meets. Todos los derechos reservados."
+    "allRightsReserved": "@2023 Meets. Todos los derechos reservados.",
+    "success": "Se ha iniciado sesión correctamente"
 }

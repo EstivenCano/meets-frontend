@@ -58,7 +58,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
     onSuccess() {
       handleRefreshSuccess();
     },
-    focusThrottleInterval: 780000,
     refreshInterval: 840000,
   });
 

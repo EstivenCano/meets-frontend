@@ -24,7 +24,6 @@ export const login = async (url: string, { arg }: { arg: LoginRequest }) => {
     return {
       ...response,
       user,
-      message: "Login successful",
     };
   } catch (error) {
     throw error;
@@ -49,7 +48,6 @@ export const signup = async (url: string, { arg }: { arg: SignupRequest }) => {
     return {
       ...response,
       user,
-      message: "Signup successful",
     };
   } catch (error) {
     throw error;
@@ -64,10 +62,7 @@ export const requestResetPassword = async (
     const response = await post(url, arg);
 
     if (response) {
-      return {
-        ...response,
-        message: "Request successful",
-      };
+      return response;
     }
   } catch (error) {
     throw error;
@@ -105,10 +100,7 @@ export const resetPassword = async (
     const response = await post(url, arg);
 
     if (response) {
-      return {
-        ...response,
-        message: "Reset successful",
-      };
+      return response;
     }
   } catch (error) {
     throw error;
@@ -134,10 +126,7 @@ export const refreshToken = async (url: string) => {
         throw error;
       });
 
-    return {
-      ...response,
-      message: "Refresh successful",
-    };
+    return response;
   } catch (error) {
     throw error;
   }

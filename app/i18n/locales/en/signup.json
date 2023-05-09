@@ -9,5 +9,6 @@
     "signUpGoogle": "Sign Up with Google",
     "haveAccount": "Already have an account?",
     "or": "Or",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "success": "Sign up success"
 }

@@ -9,5 +9,6 @@
     "signUpGoogle": "Registrarse con Google",
     "haveAccount": "¿Ya tienes una cuenta?",
     "or": "O",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "success": "Registro exitoso"
 }

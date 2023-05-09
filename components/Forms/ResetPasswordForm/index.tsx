@@ -45,7 +45,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token, userId }) => {
       .then((response) => {
         if (response) {
           addAlert({
-            message: response.message,
+            message: t("success"),
             status: response.status,
           });
           router.push("/");

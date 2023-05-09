@@ -8,6 +8,7 @@ import { ProfileItem } from "./ProfileItem";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { userStore } from "@/stores/useUser.store";
 import { SettingsItem } from "./SettingsItem";
+import { useTranslation } from "@/app/i18n/client";
 
 const ProfileMenu = () => {
   const ref = useRef(null);
@@ -19,6 +20,7 @@ const ProfileMenu = () => {
   const handleCloseMenu = () => setIsOpen(false);
 
   useOnClickOutside(ref, handleCloseMenu);
+  useTranslation("profile-menu");
 
   return (
     <nav ref={ref} className='relative z-10'>

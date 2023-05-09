@@ -9,5 +9,6 @@
     "signIn": "Sign In",
     "signinIn": "Signing In...",
     "signUp": "Sign Up",
-    "allRightsReserved": "@2023 Meets. All rights reserved."
+    "allRightsReserved": "@2023 Meets. All rights reserved.",
+    "success": "Logged in successfully"
 }

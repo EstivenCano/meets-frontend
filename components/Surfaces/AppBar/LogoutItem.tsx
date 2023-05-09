@@ -7,8 +7,10 @@ import { alertStore } from "@/stores/useAlert.store";
 import { Loading, Logout } from "@/public/icons";
 import { userStore } from "@/stores/useUser.store";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/app/i18n/client";
 
 export const LogoutItem = () => {
+  const { t } = useTranslation("profile-menu");
   const router = useRouter();
   const { trigger: triggerLogout, isMutating } = useSWRMutation(
     "/auth/logout",
@@ -23,7 +25,7 @@ export const LogoutItem = () => {
         setUser(null);
         router.push("/");
         addAlert({
-          message: "Logged out successfully!",
+          message: t("logoutSuccess"),
           status: 200,
         });
       })
@@ -46,13 +48,13 @@ export const LogoutItem = () => {
         .with(true, () => (
           <>
             <Loading className='w-5 h-5 stroke-text' />
-            Logging out...
+            {t("loggingOut")}
           </>
         ))
         .otherwise(() => (
           <>
             <Logout className='w-5 h-5' />
-            Logout
+            {t("logout")}
           </>
         ))}
     </li>
