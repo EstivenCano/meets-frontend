@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
+import { useTranslation } from "@/app/i18n/client";
 
 const RedirectScreen = dynamic(() => import("../Feedback/RedirectScreen"));
 
@@ -14,6 +15,7 @@ interface AuthGuardProps {
 }
 
 const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
+  const { t } = useTranslation("common");
   const user = userStore((state) => state.user);
   const isMounted = useIsMounted();
 
@@ -32,10 +34,10 @@ const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
         )
         .when(
           (user) => !!user && !isMounted,
-          () => <RedirectScreen text='Loading' />
+          () => <RedirectScreen text={t("loading")} />
         )
         .otherwise(() => (
-          <RedirectScreen />
+          <RedirectScreen text={t("redirecting")} />
         ))}
     </>
   );

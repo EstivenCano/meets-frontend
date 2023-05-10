@@ -22,6 +22,14 @@ export const SearchBar = () => {
   const debouncedSearch = useDebounce(searchString, 1000);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+
+    if (!e.target.value) {
+      setIsOpen(false);
+    }
+
     setSearchString(e.target.value);
   };
 
@@ -43,11 +51,20 @@ export const SearchBar = () => {
     }
   }, [debouncedSearch, handleSearch]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      handleBlur();
+    }
+  };
+
   return (
-    <div className='relative flex flex-col w-full px-4 text-sm'>
+    <div
+      onKeyDown={handleKeyDown}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      className='relative flex flex-col w-full px-4 text-sm'>
       <TextField
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        autoComplete='off'
         placeholder={t("search")}
         icon={match(isMutating)
           .with(true, () => <Loading className='w-5 h-5 stroke-current' />)

@@ -18,6 +18,7 @@ export const ProfileItem: FC<ProfileItemProps> = ({ id }) => {
 
   return (
     <li
+      tabIndex={0}
       className='flex gap-x-2 px-4 py-2 items-center text-sm hover:bg-violet-500 cursor-pointer hover:text-white'
       onClick={handleNavigate}>
       <Profile className='w-5 h-5' />

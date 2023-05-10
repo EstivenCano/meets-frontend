@@ -19,11 +19,22 @@ const ProfileMenu = () => {
 
   const handleCloseMenu = () => setIsOpen(false);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      handleCloseMenu();
+    }
+  };
+
   useOnClickOutside(ref, handleCloseMenu);
   useTranslation("app-bar");
 
   return (
-    <nav ref={ref} className='relative z-10'>
+    <nav
+      ref={ref}
+      className='relative z-10'
+      onKeyDown={handleKeyDown}
+      onFocus={handleOpenMenu}
+      onBlur={handleCloseMenu}>
       <button className='flex items-center space-x-4' onClick={handleOpenMenu}>
         <ProfileImage
           src={user?.picture || ""}

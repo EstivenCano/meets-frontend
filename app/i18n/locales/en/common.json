@@ -20,5 +20,7 @@
     "addComment": "Add a comment",
     "writeComment": "Write your coments here...",
     "deleteSuccess": "Delete success",
-    "deleteError": "Delete error"
+    "deleteError": "Delete error",
+    "redirecting": "Redirecting...",
+    "loading": "Loading..."
 }

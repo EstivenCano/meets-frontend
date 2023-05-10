@@ -20,5 +20,7 @@
     "addComment": "Añadir comentario",
     "writeComment": "Escribe tu comentario aqui...",
     "deleteSuccess": "Eliminado con éxito",
-    "deleteError": "Error al eliminar"
+    "deleteError": "Error al eliminar",
+    "redirecting": "Redirigiendo...",
+    "loading": "Cargando..."
 }

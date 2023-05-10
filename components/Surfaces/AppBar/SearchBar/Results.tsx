@@ -30,9 +30,15 @@ export const Results: FC<ResultsProps> = ({ isOpen, results }) => {
             className='absolute max-w-3xl overflow-y-auto max-h-60 z-40 left-0 w-full py-2 bg-background rounded-md shadow-sm shadow-gray-400 dark:shadow-gray-600 top-14 select-none'>
             {results?.map((user: UserInfo) => (
               <li
+                tabIndex={0}
                 key={user.id}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSelect(user.id);
+                  }
+                }}
                 onClick={() => handleSelect(user.id)}
-                className='flex items-center gap-x-2 px-4 py-2 text-sm hover:bg-violet-500 cursor-pointer hover:text-white'>
+                className='flex items-center gap-x-2 px-4 py-2 text-sm focus:bg-violet-500 hover:bg-violet-500 cursor-pointer hover:text-white'>
                 <ProfileImage
                   src={user.profile.picture}
                   alt={user.name}

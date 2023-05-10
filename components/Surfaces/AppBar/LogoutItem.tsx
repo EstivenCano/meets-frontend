@@ -40,6 +40,7 @@ export const LogoutItem = () => {
   };
   return (
     <li
+      tabIndex={0}
       className='flex gap-x-2 px-4 py-2 text-sm items-center hover:bg-violet-500 cursor-pointer hover:text-white'
       onClick={match(isMutating)
         .with(false, () => handleLogout)
