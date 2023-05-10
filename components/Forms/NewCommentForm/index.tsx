@@ -7,10 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { NewCommentType, newCommentSchema } from "./new-comment.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alertStore } from "@/stores/useAlert.store";
-import { userStore } from "@/stores/useUser.store";
 import { newCommentToPost } from "@/services/post.service";
 import { TextArea } from "@/components/Inputs/TextArea";
-import { FC, useRef } from "react";
+import { FC } from "react";
 import { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { useTranslation } from "@/app/i18n/client";
 
@@ -20,7 +19,6 @@ interface NewCommentFormProps {
 
 const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
   const { t } = useTranslation("common");
-  const { user } = userStore();
   const updateCommentCount = useFeedStore((state) => state.updateCommentCount);
   const { trigger, isMutating } = useSWRMutation(
     `/posts/${id}/comments`,
@@ -37,7 +35,7 @@ const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
   const addAlert = alertStore((state) => state.addAlert);
 
   const onSubmit: SubmitHandler<NewCommentType> = (data) => {
-    trigger({ ...data, authorEmail: user?.email || "" })
+    trigger({ ...data })
       .then((response) => {
         if (response) {
           updateCommentCount(id);

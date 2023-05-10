@@ -1,7 +1,6 @@
 export interface NewPostType {
   title: string;
   content: string;
-  authorEmail: string;
   published?: boolean;
 }
 

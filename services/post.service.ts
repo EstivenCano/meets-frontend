@@ -80,7 +80,7 @@ export const likeUnlikePost = async (url: string) => {
 
 export const deletePostById = async (url: string) => {
   try {
-    const response = await remove(url);
+    const response = await remove(url, {});
     return { ...response, message: "Post deleted" };
   } catch (error) {
     return Promise.reject(error);

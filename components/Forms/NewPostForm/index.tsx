@@ -8,7 +8,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { NewPostType, newPostSchema } from "./new-post.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alertStore } from "@/stores/useAlert.store";
-import { userStore } from "@/stores/useUser.store";
 import { TextArea } from "@/components/Inputs/TextArea";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -21,7 +20,6 @@ import { useTranslation } from "@/app/i18n/client";
 const NewPostForm = () => {
   const { t } = useTranslation("post");
   const router = useRouterLocale();
-  const user = userStore((state) => state.user);
   const [open, setOpen] = useState(false);
   const {
     register,
@@ -43,7 +41,6 @@ const NewPostForm = () => {
     saveDraft({
       ...data,
       published: data.publish,
-      authorEmail: user?.email || "",
     })
       .then((response) => {
         if (response) {
