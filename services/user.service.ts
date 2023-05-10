@@ -1,7 +1,8 @@
-import { get, post, put } from "./api/serviceClient";
+import { get, post, put, remove } from "./api/serviceClient";
 import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
 import { UserInfo } from "../model/UserInfo";
+import { removeTokens } from "@/utils/removeTokens";
 
 export const getUser = async (url: string) => {
   try {
@@ -85,6 +86,19 @@ export const searchUsers = async (url: string, { arg }: { arg: string }) => {
       `${url}/${arg}`
     );
     return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const deleteUser = async (
+  url: string,
+  { arg }: { arg: { password: string } }
+) => {
+  try {
+    const response = await remove(url, arg);
+    await removeTokens();
+    return response;
   } catch (error) {
     return Promise.reject(error);
   }

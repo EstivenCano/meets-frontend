@@ -34,7 +34,7 @@ const AlertsProvider = () => {
     <>
       {match(alerts.length > 0)
         .with(true, () => (
-          <div className='fixed bottom-0 right-0 w-full h-max flex-col items-center justify-center space-y-4'>
+          <div className='fixed z-50 bottom-0 right-0 w-full h-max flex-col items-center justify-center space-y-4'>
             {alerts.map((alert, index) => (
               <SnackBar
                 key={`${alert.message}-${index}`}

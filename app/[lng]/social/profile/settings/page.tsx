@@ -3,6 +3,7 @@ import { Link } from "@/components/Navigation/Link";
 import dynamic from "next/dynamic";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { useTranslation } from "@/app/i18n";
+import DeleteUserForm from "@/components/Forms/DeleteUser";
 
 const ChangeTheme = dynamic(() => import("@/components/Forms/ChangeTheme"), {
   loading: () => <Skeleton type='select' />,
@@ -42,7 +43,7 @@ export default async function Settings({
           <Link href='/auth/request-reset-password'>{t("changePassword")}</Link>
         </li>
         <li className='flex gap-x-2 px-4 py-2 items-center text-sm text-red-500 font-semibold'>
-          <button>{t("deleteAccount")}</button>
+          <DeleteUserForm />
         </li>
       </ul>
       <hr className='border-violet-400 w-full my-4' />

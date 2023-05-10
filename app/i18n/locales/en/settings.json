@@ -13,5 +13,13 @@
   "changeUsername": "Change Username",
   "deleteAccount": "Delete Account",
   "aboutMeets": "About Meets",
-  "contact": "Contact"
+  "contact": "Contact",
+  "delete": "Delete",
+  "deleting": "Deleting...",
+  "cancel": "Cancel",
+  "deleteSuccess": "Account deleted successfully",
+  "deleteError": "Error deleting account",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account?, you will lose all your data and this action cannot be undone.",
+  "securityMessage": "For security reasons, enter your password to continue",
+  "password": "Password"
 }

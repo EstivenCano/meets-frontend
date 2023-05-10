@@ -13,5 +13,13 @@
   "changeUsername": "Cambiar nombre de usuario",
   "deleteAccount": "Eliminar cuenta",
   "aboutMeets": "Acerca de Meets",
-  "contact": "Contacto"
+  "contact": "Contacto",
+  "delete": "Eliminar",
+  "deleting": "Eliminando...",
+  "cancel": "Cancelar",
+  "deleteSuccess": "Cuenta eliminada correctamente",
+  "deleteError": "Error al eliminar la cuenta",
+  "deleteAccountConfirmation": "¿Estás seguro de que quieres eliminar tu cuenta?, perderás todos tus datos y esta acción no se puede deshacer.",
+  "securityMessage": "Por razones de seguridad, ingresa tu contraseña para continuar",
+  "password": "Contraseña"
 }

@@ -119,12 +119,14 @@ export async function put(
 
 export async function remove(
   url: string,
+  body: any,
   headers?: Headers,
   options?: RequestOptions
 ) {
   try {
     const response = await fetch(baseUrl + url, {
       method: "DELETE",
+      body: JSON.stringify(body),
       headers: getHeaders(headers),
       ...options,
     });

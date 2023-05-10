@@ -3,7 +3,7 @@
 import { FC, useEffect, useMemo } from "react";
 import { userStore } from "@/stores/useUser.store";
 import useSWRMutation from "swr/mutation";
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 import { logout, refreshToken } from "@/services/auth.service";
 import { alertStore } from "@/stores/useAlert.store";
 import { User } from "@/model/User";
@@ -28,15 +28,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
     getUser
   );
 
-  const { trigger: triggerLogout } = useSWRMutation("/auth/logout", logout, {
-    onError(err) {
-      addAlert({
-        message: err.message,
-        errorList: err.errorList,
-        status: err.statusCode,
-      });
-    },
-  });
+  const { trigger: triggerLogout } = useSWRMutation("/auth/logout", logout);
 
   const { trigger: triggerRefresh } = useSWRMutation(
     "/auth/refresh",
@@ -51,7 +43,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
     }
   );
 
-  useSWRImmutable(user ? "/auth/refresh" : null, refreshToken, {
+  useSWR(user ? "/auth/refresh" : null, refreshToken, {
     onError(err) {
       handleRefreshError(err);
     },
@@ -63,14 +55,19 @@ const AuthProvider: FC<AuthProviderProps> = ({
 
   const handleRefreshError = (err: ServiceError) => {
     setUser(null);
-    triggerLogout().then((res) => {
-      if (!res) return;
-      addAlert({
-        message: err.message,
-        errorList: "You must log in again",
-        status: err.statusCode,
+
+    triggerLogout()
+      .then((res) => {
+        if (!res) return;
+        addAlert({
+          message: err.message,
+          errorList: "You must log in again",
+          status: err.statusCode,
+        });
+      })
+      .catch(() => {
+        return;
       });
-    });
   };
 
   const handleRefreshSuccess = async () => {

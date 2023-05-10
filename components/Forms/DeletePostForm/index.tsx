@@ -18,7 +18,7 @@ const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
   const { t } = useTranslation("common");
   const deletePost = useFeedStore((state) => state.deletePost);
 
-  const { trigger: triggerFollow, isMutating } = useSWRMutation(
+  const { trigger, isMutating } = useSWRMutation(
     `/posts/${id}`,
     deletePostById
   );
@@ -26,7 +26,7 @@ const DeleteForm: FC<DeleteFormProps> = ({ id }) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    triggerFollow()
+    trigger()
       .then((response) => {
         if (response) {
           deletePost(id);
