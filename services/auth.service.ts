@@ -132,7 +132,10 @@ export const refreshToken = async (url: string) => {
   }
 };
 
-export const logout = async (url: string) => {
+export const logout = async (
+  url: string,
+  { arg }: { arg?: { clean?: boolean } }
+) => {
   try {
     const tokens = await getTokens();
 
@@ -142,12 +145,11 @@ export const logout = async (url: string) => {
 
     const response = await post(url, {});
 
-    removeTokens();
+    if (arg?.clean) {
+      removeTokens();
+    }
 
-    return {
-      ...response,
-      message: "Logout successful",
-    };
+    return response;
   } catch (error) {
     throw error;
   }

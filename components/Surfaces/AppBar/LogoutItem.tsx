@@ -20,7 +20,7 @@ export const LogoutItem = () => {
   const setUser = userStore((state) => state.setUser);
 
   const handleLogout = () => {
-    triggerLogout()
+    triggerLogout({ clean: true })
       .then(() => {
         setUser(null);
         addAlert({

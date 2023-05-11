@@ -1,3 +1,4 @@
+import { logout } from "@/services/auth.service";
 import { deleteCookie } from "cookies-next";
 
 export const removeTokens = async () => {
@@ -8,4 +9,6 @@ export const removeTokens = async () => {
 
   deleteCookie("access_token");
   deleteCookie("refresh_token");
+
+  await logout("/auth/logout", { arg: { clean: false } });
 };
