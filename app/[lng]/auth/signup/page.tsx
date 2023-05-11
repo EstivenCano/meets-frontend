@@ -1,9 +1,8 @@
-import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
 import dynamic from "next/dynamic";
-import { Google } from "@/public/icons";
 import { useTranslation } from "@/app/i18n";
 import Skeleton from "@/components/Feedback/Skeleton";
+import { AuthGoogle } from "@/components/Forms/AuthGoogle";
 
 const SignupForm = dynamic(() => import("@/components/Forms/SignupForm"), {
   loading: () => <Skeleton type='form' numberOfFields={4} className='w-72' />,
@@ -27,10 +26,9 @@ export default async function Signup({
             <p className='text-lg font-semibold'>{t("or")}</p>
             <div className='w-20 h-0.5 bg-violet-600' />
           </div>
-          <Button size='md'>
-            <Google className='w-5 h-5' />
+          <AuthGoogle>
             <span>{t("signUpGoogle")}</span>
-          </Button>
+          </AuthGoogle>
           <p className='text-lg font-semibold'>
             {t("haveAccount")} <Link href='/'>{t("signIn")}</Link>
           </p>
