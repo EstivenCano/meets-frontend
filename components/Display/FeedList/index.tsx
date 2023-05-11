@@ -52,11 +52,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
   const loadMoreFeed = async () => {
     if (loadingFeed) return;
 
-    if (
-      !!lastFeed &&
-      (lastFeed.data.length === 0 || lastFeed.data.length < perPage)
-    )
-      return;
+    if (!!lastFeed && lastFeed.data.length < perPage) return;
 
     // Add 1 to the actual page to search the next one
     await trigger({

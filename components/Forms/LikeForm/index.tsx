@@ -2,7 +2,7 @@
 
 import useSWRMutation from "swr/mutation";
 import { alertStore } from "@/stores/useAlert.store";
-import { FC, FormEventHandler } from "react";
+import { FC, FormEventHandler, useEffect } from "react";
 
 import { likeUnlikePost } from "@/services/post.service";
 import { Like } from "@/public/icons";
@@ -13,7 +13,7 @@ interface LikeFormProps {
   liked: boolean;
 }
 
-const LikeForm: FC<LikeFormProps> = ({ id, liked = false }) => {
+const LikeForm: FC<LikeFormProps> = ({ id, liked }) => {
   const { trigger: triggerFollow, isMutating } = useSWRMutation(
     `/posts/${id}/${liked ? "unlike" : "like"}`,
     likeUnlikePost
@@ -25,14 +25,14 @@ const LikeForm: FC<LikeFormProps> = ({ id, liked = false }) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    updateLike(id, !liked);
+    updateLike(id);
     await triggerFollow().catch((error) => {
       addAlert({
         message: error.message,
         errorList: error.errorList,
         status: error.statusCode,
       });
-      updateLike(id, !liked);
+      updateLike(id);
     });
   };
 

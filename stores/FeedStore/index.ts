@@ -2,10 +2,8 @@ import { Feed } from "@/model/Feed";
 import { create } from "zustand";
 import { userStore } from "../useUser.store";
 import { dateSort } from "@/utils/dateSort";
-import { updateLike } from "@/utils/updateLike";
 import { produce } from "immer";
-
-const user = userStore.getState().user;
+import { match } from "ts-pattern";
 
 export interface FeedStoreType {
   feed: Feed[];
@@ -14,7 +12,7 @@ export interface FeedStoreType {
   setFeed: (post: Feed[]) => void;
   setPerPage: (perPage: number) => void;
   setSearchString: (searchString: string) => void;
-  updateLike: (id: number, like: boolean) => void;
+  updateLike: (id: number) => void;
   deletePost: (id: number) => void;
   updateCommentCount: (id: number) => void;
 }
@@ -33,15 +31,17 @@ export const feedStore = () =>
     },
     setPerPage: (perPage) => set(() => ({ perPage })),
     setSearchString: (searchString) => set(() => ({ searchString })),
-    updateLike: (id, like) => {
+    updateLike: (id) => {
       set(
         produce((state: FeedStoreType) => {
-          const toUpdate = state.feed.findIndex((post) => post.id === id);
-          state.feed[toUpdate] = updateLike(
-            state.feed[toUpdate],
-            like,
-            Number(user?.id)
-          );
+          let toUpdate = state.feed.find((post) => post.id === id) as Feed;
+          let liked = toUpdate.likedBy.length > 0;
+          toUpdate.likedBy = match(liked)
+            .with(false, () => [{ id: Number(userStore.getState().user?.id) }])
+            .otherwise(() => []);
+          toUpdate._count.likedBy = match(liked)
+            .with(false, () => toUpdate._count.likedBy + 1)
+            .otherwise(() => toUpdate._count.likedBy - 1);
         })
       );
     },
