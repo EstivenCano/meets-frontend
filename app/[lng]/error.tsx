@@ -22,7 +22,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
       <p className='text-lg font-semibold'>
         If the problem persists, contact us.
       </p>
-      <div className='w-70 border-2 border-red-600/30 p-2'>
+      <div className='flex flex-wrap overflow-auto w-70 border-2 border-red-600/30 p-2'>
         <p className='text-sm'>{"Here's the error message:"}</p>
         <p className='text-xl text-red-600'>{error.message}</p>
       </div>

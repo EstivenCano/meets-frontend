@@ -2,12 +2,11 @@ import { ProfileImage } from "@/components/Display/ProfileImage";
 import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import { LoadingBar } from "@/components/Feedback/LoadingBar";
 import dynamic from "next/dynamic";
-import { Button } from "@/components/Inputs/Button";
 import { Link } from "@/components/Navigation/Link";
 import NotUserGuard from "@/components/Guards/NotUserGuard";
-import { Google } from "@/public/icons";
 import { useTranslation } from "../i18n";
 import Skeleton from "@/components/Feedback/Skeleton";
+import { AuthGoogle } from "@/components/Forms/AuthGoogle";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
   loading: () => <Skeleton type='form' numberOfFields={2} className='w-72' />,
@@ -63,10 +62,9 @@ const LoginSection = async ({ lng }: { lng: string }) => {
         <p className='text-lg font-semibold'>{t("or")}</p>
         <div className='w-20 h-0.5 bg-violet-600' />
       </div>
-      <Button size='md' type='submit'>
-        <Google className='w-5 h-5' />
+      <AuthGoogle>
         <span>{t("signInGoogle")}</span>
-      </Button>
+      </AuthGoogle>
       <p className='text-lg font-semibold'>
         {t("noAccount")} <Link href='/auth/signup'>{t("signUp")}</Link>
       </p>

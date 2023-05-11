@@ -1,6 +1,9 @@
 import { ServerError } from "../dto/server-error.dto";
 import { ServiceError } from "../../model/ServiceError";
-import { isOnClient } from "@/utils/isOnClient";
+import { getTokens } from "@/utils/getTokens";
+import { setTokens } from "@/utils/setTokens";
+import { removeTokens } from "@/utils/removeTokens";
+import { parseJwt } from "@/utils/parseJwt";
 
 const defaultHeaders = {
   "Content-Type": "application/json",
@@ -21,15 +24,13 @@ const getHeaders = (headers?: Headers) => {
     ...(headers || []),
   };
 
-  if (isOnClient()) {
-    const accessToken = localStorage.getItem("access_token");
+  const tokens = getTokens();
 
-    if (accessToken) {
-      return {
-        Authorization: `Bearer ${accessToken}`,
-        ...headersObject,
-      };
-    }
+  if (tokens.accessToken) {
+    return {
+      Authorization: `Bearer ${tokens.accessToken}`,
+      ...headersObject,
+    };
   }
 
   return headersObject;
@@ -41,6 +42,8 @@ export async function get(
   options?: RequestOptions
 ) {
   try {
+    await verifyTokens();
+
     const response = await fetch(baseUrl + url, {
       method: "GET",
       headers: getHeaders(headers),
@@ -68,6 +71,8 @@ export async function post(
   options?: RequestOptions
 ) {
   try {
+    await verifyTokens();
+
     const response = await fetch(baseUrl + url, {
       method: "POST",
       headers: getHeaders(headers),
@@ -96,6 +101,8 @@ export async function put(
   options?: RequestOptions
 ) {
   try {
+    await verifyTokens();
+
     const response = await fetch(baseUrl + url, {
       method: "PUT",
       headers: getHeaders(headers),
@@ -124,6 +131,8 @@ export async function remove(
   options?: RequestOptions
 ) {
   try {
+    await verifyTokens();
+
     const response = await fetch(baseUrl + url, {
       method: "DELETE",
       body: JSON.stringify(body),
@@ -141,5 +150,47 @@ export async function remove(
     };
   } catch (error) {
     return Promise.reject(error);
+  }
+}
+
+export async function verifyTokens() {
+  const { accessToken, refreshToken } = getTokens();
+
+  if (accessToken && refreshToken) {
+    const token = parseJwt(accessToken as string);
+    const exp = token.exp;
+    const now = Date.now() / 1000;
+    if (exp < now) {
+      //Refresh token
+      try {
+        if (!refreshToken) {
+          throw new Error("No refresh token found");
+        }
+
+        const response = await fetch(baseUrl + "/auth/refresh", {
+          method: "GET",
+          headers: {
+            ...defaultHeaders,
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Refresh token is invalid");
+        }
+
+        const { access_token: newAccess, refresh_token: newRefresh } =
+          await response.json();
+
+        if (!newAccess || !newRefresh) {
+          throw new Error("No tokens found");
+        }
+
+        setTokens(newAccess, newRefresh);
+      } catch (error) {
+        await removeTokens();
+        throw error;
+      }
+    }
   }
 }

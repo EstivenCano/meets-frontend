@@ -1,9 +1,9 @@
 import { deleteCookie } from "cookies-next";
 
-export const removeTokens = () => {
+export const removeTokens = async () => {
   if (typeof window !== "undefined" && window.localStorage) {
-    window.localStorage.removeItem("access_token");
-    window.localStorage.removeItem("refresh_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
   }
 
   deleteCookie("access_token");

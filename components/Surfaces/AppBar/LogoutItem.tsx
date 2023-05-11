@@ -27,7 +27,6 @@ export const LogoutItem = () => {
           message: t("logoutSuccess"),
           status: 200,
         });
-        window.location.href = "/";
       })
       .catch((error) => {
         addAlert({

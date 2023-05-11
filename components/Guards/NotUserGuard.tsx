@@ -7,6 +7,7 @@ import { FC, useEffect } from "react";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
 import { useTranslation } from "@/app/i18n/client";
+import { useRouterLocale } from "@/hooks/useRouter";
 
 const RedirectScreen = dynamic(() => import("../Feedback/RedirectScreen"));
 
@@ -16,14 +17,15 @@ interface NotUserGuardProps {
 
 const NotUserGuard: FC<NotUserGuardProps> = ({ children }) => {
   const { t } = useTranslation("common");
+  const router = useRouterLocale();
   const user = userStore((state) => state.user);
   const isMounted = useIsMounted();
 
   useEffect(() => {
     if (user) {
-      return redirect("/social/feed");
+      router.push("/social/feed");
     }
-  }, [user]);
+  }, [user, router]);
 
   return (
     <>

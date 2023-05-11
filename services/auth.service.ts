@@ -152,3 +152,14 @@ export const logout = async (url: string) => {
     throw error;
   }
 };
+
+export const authWithGoogle = async () => {
+  try {
+    window.open(
+      process.env.NEXT_PUBLIC_API_URL + "/auth/google/redirect",
+      "_self"
+    );
+  } catch (error) {
+    throw error;
+  }
+};
