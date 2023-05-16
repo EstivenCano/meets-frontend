@@ -1,8 +1,7 @@
 import { TextArea } from "@/components/Inputs/TextArea";
-import { TextField } from "@/components/Inputs/TextField";
 import { chatStore } from "@/stores/useChat.store";
 import { userStore } from "@/stores/useUser.store";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC } from "react";
 import { socket } from "@/services/chat.service";
 
 interface NewMessageProps {}

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import { ProfileImage } from "../ProfileImage";
 import { getChats, socket } from "@/services/chat.service";
@@ -6,6 +6,7 @@ import { chatStore } from "@/stores/useChat.store";
 import { FollowingList } from "./FollowingList";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { match } from "ts-pattern";
+import { userStore } from "@/stores/useUser.store";
 
 interface ChatListProps {
   handleOpen: () => void;
@@ -18,9 +19,13 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
     mutate: refreshChats,
   } = useSWRImmutable("/chat/all", getChats);
 
+  const user = userStore((state) => state.user);
+
   const { chats, actualRoom, setChats, setActualRoom, setMessage } = chatStore(
     (state) => state
   );
+
+  const [newMessage, setNewMessage] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (data) {
@@ -46,10 +51,24 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
       authorId: number;
       createdAt: string;
     }) => {
+      if (
+        message.authorId !== Number(user?.id) &&
+        actualRoom !== message.chatName
+      ) {
+        setNewMessage((prevState) => prevState.add(message.chatName));
+      }
       setMessage(message);
     },
-    [setMessage]
+    [setMessage, user, actualRoom]
   );
+
+  const handleClick = async (roomName: string) => {
+    const tempSet = new Set(newMessage);
+    tempSet.delete(roomName);
+    setActualRoom(roomName);
+    handleOpen();
+    setNewMessage(tempSet);
+  };
 
   useEffect(() => {
     socket?.on("new_message", messageListener);
@@ -58,11 +77,6 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
       socket?.off("new_message", messageListener);
     };
   }, [messageListener]);
-
-  const handleClick = async (roomName: string) => {
-    setActualRoom(roomName);
-    handleOpen();
-  };
 
   useEffect(() => {
     handleConnection("event_join");
@@ -103,10 +117,16 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
                   <p className='font-semibold'>
                     {chat.participants.at(0)?.name || "Unknown"}
                   </p>
-                  <p className='text-xs text-gray-400 truncate'>
-                    {chat.messages.at(-1)?.content}
+                  <p
+                    className={`text-xs text-gray-400 truncate ${
+                      newMessage.has(chat.name) && "text-current"
+                    }`}>
+                    {chat.messages.at(0)?.content}
                   </p>
                 </div>
+                {newMessage.has(chat.name) && (
+                  <span className='w-2 h-2 rounded-full bg-current animate-[pulse_2s_ease-in-out_infinite]'></span>
+                )}
               </li>
             ))}
             {chats.length === 0 && (

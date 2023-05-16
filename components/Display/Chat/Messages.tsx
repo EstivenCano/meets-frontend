@@ -18,7 +18,7 @@ export const Messages = () => {
   useEffect(() => {
     if (messages) {
       document
-        .getElementById(messages.at(-1)?.createdAt || "")
+        .getElementById(messages.at(0)?.createdAt || "")
         ?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
@@ -34,7 +34,7 @@ export const Messages = () => {
       .otherwise(() => "-left-1.5 bottom-2 rounded-r-full bg-gray-500");
 
   return (
-    <section className='flex text-white flex-col w-full gap-y-2 h-full overflow-y-auto p-4'>
+    <section className='flex text-white flex-col-reverse w-full gap-y-2 h-full overflow-y-auto p-4'>
       {messages.map((message) => (
         <div
           id={message.createdAt}

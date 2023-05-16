@@ -6,20 +6,15 @@ import { create } from "zustand";
 interface ChatState {
   chats: Chat[];
   actualRoom: string;
-  tempMessages: Message[];
-  setChat: (chat: Chat) => void;
   setActualRoom: (room: string) => void;
-  setMessage: (message: Message & { chatName?: string }) => void;
-  setTempMessages: (message: Message) => void;
   setChats: (chats: Chat[]) => void;
+  setMessage: (message: Message & { chatName?: string }) => void;
 }
 
 export const chatStore = create<ChatState>()((set, get) => ({
   chats: [],
   actualRoom: "",
-  tempMessages: [],
   setChats: (chats) => set(() => ({ chats })),
-  setChat: (chat) => set(() => ({ chats: [...get().chats, chat] })),
   setActualRoom: (room) => set(() => ({ actualRoom: room })),
   setMessage: (message) => {
     const index = get().chats.findIndex(
@@ -27,10 +22,13 @@ export const chatStore = create<ChatState>()((set, get) => ({
     );
     set(
       produce((state: ChatState) => {
-        state.chats[index].messages = [...state.chats[index].messages, message];
+        state.chats[index].messages = [message, ...state.chats[index].messages];
+        state.chats.sort(
+          (a, b) =>
+            new Date(b.messages.at(0)?.createdAt || 0).getTime() -
+            new Date(a.messages.at(0)?.createdAt || 0).getTime()
+        );
       })
     );
   },
-  setTempMessages: (message) =>
-    set(() => ({ tempMessages: [...get().tempMessages, message] })),
 }));
