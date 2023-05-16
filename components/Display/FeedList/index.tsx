@@ -11,6 +11,7 @@ import { PostCard } from "./PostCard";
 import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
 import { LoadingFeed } from "./LoadingFeed";
+import { useTranslation } from "@/app/i18n/client";
 
 interface PostListProps {
   initialFeed: Feed[];
@@ -18,6 +19,7 @@ interface PostListProps {
 }
 
 const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
+  const { t } = useTranslation("feed");
   const { feed, perPage, setFeed, searchString } = useFeedStore(
     (state) => state
   );
@@ -33,7 +35,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
       setFeed(response.data);
       if (response.data.length < perPage) {
         addAlert({
-          message: "No more posts to load.",
+          message: t("noMorePost"),
           status: 100,
         });
         return;

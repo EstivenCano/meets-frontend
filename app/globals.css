@@ -86,12 +86,14 @@ body {
     -webkit-box-shadow: none;
     -webkit-text-fill-color: theme("colors.text");
     transition: background-color 5000s ease-in-out 0s;
+    caret-color: theme("colors.text");
   }
 
   input:-webkit-autofill:focus {
     box-shadow: none;
     -webkit-box-shadow: 0;
     -webkit-text-fill-color: theme("colors.text");
+    caret-color: theme("colors.text");
   }
 
   ::-moz-selection {

@@ -10,13 +10,20 @@ import { useTranslation } from "@/app/i18n/client";
 const modalEl = document.getElementById("modal-root") as HTMLElement;
 
 interface ModalProps {
+  className?: string;
   children: React.ReactNode;
   onClose: () => void;
   title: string;
   open: boolean;
 }
 
-export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
+export const Modal: FC<ModalProps> = ({
+  className,
+  children,
+  onClose,
+  title,
+  open,
+}) => {
   const { t } = useTranslation("common");
   const ref = useRef<HTMLDivElement>(null);
   const [_, setLocked] = useLockedBody(open, "modal-root");
@@ -37,7 +44,7 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title, open }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className='fixed top-0 left-0 w-screen h-screen bg-black/50 z-40 flex justify-center items-center'>
+              className={`fixed top-0 left-0 w-screen h-screen bg-black/50 z-40 flex justify-center items-center ${className}`}>
               <div
                 ref={ref}
                 className='relative bg-background h-screen w-screen min-h-[250px] max-h-screen max-w-4xl md:h-fit md:w-full gap-y-4 md:rounded-xl flex flex-col items-start'>

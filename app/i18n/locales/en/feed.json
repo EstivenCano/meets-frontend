@@ -1,4 +1,5 @@
 {
     "welcome": "Welcome to",
-    "noFeed": "We doesn't have post for you yet. Follow some people to see their posts here or create a new post, and let's get started!"
+    "noFeed": "We doesn't have post for you yet. Follow some people to see their posts here or create a new post, and let's get started!",
+    "noMorePost": "No more post to show"
 }

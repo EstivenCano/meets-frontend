@@ -103,3 +103,24 @@ export const deleteUser = async (
     return Promise.reject(error);
   }
 };
+
+export const getFollowers = async (url: string) => {
+  try {
+    const response: { data: { following: UserInfo[] }; status: number } =
+      await get(url);
+    return response.data.following;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getFollowing = async (url: string) => {
+  try {
+    const response: { data: { following: UserInfo[] }; status: number } =
+      await get(url);
+
+    return response.data.following;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

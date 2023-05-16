@@ -14,6 +14,7 @@ interface TextAreaProps {
   icon?: ReactNode;
   showLabel?: boolean;
   error?: string;
+  noCounter?: boolean;
   placeholder: string;
   className?: string;
   maxCharacters?: number;
@@ -30,6 +31,7 @@ export const TextArea = forwardRef<
       icon,
       showLabel = false,
       error,
+      noCounter,
       placeholder,
       className,
       maxCharacters = 320,
@@ -80,19 +82,21 @@ export const TextArea = forwardRef<
             {...props}
           />
         </div>
-        <span className='flex justify-end items-center w-full'>
-          <p className='text-red-600 text-sm mr-auto self-end'>
-            {ZodError(error)}
-          </p>
-          <p
-            className={`text-right text-sm ${
-              characterCount > maxCharacters ? "text-red-600" : "text-text"
-            }`}>
-            {characterCount}
-            {" / "}
-            <span className='text-text'>{maxCharacters}</span>
-          </p>
-        </span>
+        {!noCounter && (
+          <span className='flex justify-end items-center w-full'>
+            <p className='text-red-600 text-sm mr-auto self-end'>
+              {ZodError(error)}
+            </p>
+            <p
+              className={`text-right text-sm ${
+                characterCount > maxCharacters ? "text-red-600" : "text-text"
+              }`}>
+              {characterCount}
+              {" / "}
+              <span className='text-text'>{maxCharacters}</span>
+            </p>
+          </span>
+        )}
       </div>
     );
   }
