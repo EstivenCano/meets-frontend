@@ -17,6 +17,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
     isLoading,
     mutate: refreshChats,
   } = useSWRImmutable("/chat/all", getChats);
+
   const { chats, actualRoom, setChats, setActualRoom, setMessage } = chatStore(
     (state) => state
   );
