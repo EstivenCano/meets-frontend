@@ -30,19 +30,19 @@ export const Messages = () => {
 
   const user = userStore((state) => state.user);
 
-  const {
-    data: lastMessages,
-    trigger,
-    isMutating: loadingMessages,
-  } = useSWRMutation("/chat/load", loadMessages, {
-    onSuccess(response) {
-      loadMoreMessages(response.data);
-      if (response.data.length < perPage) {
-        return;
-      }
-      setChatPages(actualRoom, (currentPages?.page || 0) + 1);
-    },
-  });
+  const { trigger, isMutating: loadingMessages } = useSWRMutation(
+    "/chat/load",
+    loadMessages,
+    {
+      onSuccess(response) {
+        loadMoreMessages(response.data);
+        if (response.data.length < perPage) {
+          return;
+        }
+        setChatPages(actualRoom, (currentPages?.page || 0) + 1);
+      },
+    }
+  );
 
   useEffect(() => {
     if (messages && autoScroll) {
@@ -61,7 +61,7 @@ export const Messages = () => {
   const triggerLoadMessages = async () => {
     if (loadingMessages) return;
 
-    if (!!lastMessages && lastMessages.data?.length < perPage) return;
+    if (messages.length % perPage > 0) return;
 
     // Add 1 to the actual page to search the next one
     await trigger({

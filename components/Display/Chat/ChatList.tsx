@@ -83,10 +83,6 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
 
   useEffect(() => {
     handleConnection("event_join");
-
-    return () => {
-      handleConnection("event_leave");
-    };
   }, [handleConnection]);
 
   return (

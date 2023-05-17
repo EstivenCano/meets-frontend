@@ -155,13 +155,11 @@ export async function remove(
 }
 
 export async function verifyTokens() {
-  const { accessToken, refreshToken } = getTokens();
-
   if (verifying) {
-    setTimeout(async () => {
-      return await true;
-    }, 5000);
+    return await new Promise((resolve) => setTimeout(resolve, 2000));
   }
+
+  const { accessToken, refreshToken } = getTokens();
 
   if (accessToken && refreshToken) {
     const token = parseJwt(accessToken as string);
@@ -194,7 +192,7 @@ export async function verifyTokens() {
           throw new Error("No tokens found");
         }
 
-        setTokens(newAccess, newRefresh);
+        await setTokens(newAccess, newRefresh);
         verifying = false;
       } catch (error) {
         await removeTokens();

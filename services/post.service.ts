@@ -46,6 +46,14 @@ export const getFirstFeed = async (byAuthor?: number) => {
 
   const token = nextCookies.get("access_token");
 
+  if (!token?.value) {
+    return {
+      data: undefined,
+      status: 200,
+      message: "No feed",
+    };
+  }
+
   try {
     const response: { data: GetFeedResponse[]; status: number } = await post(
       "/posts/feed",

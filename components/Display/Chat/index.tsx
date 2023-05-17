@@ -13,8 +13,11 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { actualRoom, setActualRoom } = chatStore((state) => state);
+  const { actualRoom, setActualRoom, chats } = chatStore((state) => state);
   const matches = useMediaQuery("(min-width: 768px)");
+  const chatName = chats
+    .find((c) => c.name === actualRoom)
+    ?.participants.at(0)?.name;
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -51,7 +54,7 @@ const Chat = () => {
                 <Modal
                   onClose={handleClose}
                   open={isOpen}
-                  title='Chat'
+                  title={chatName || "Chat"}
                   className='flex md:hidden'>
                   <div className='flex flex-col w-full h-full justify-end'>
                     <Messages />

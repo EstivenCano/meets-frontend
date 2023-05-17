@@ -20,6 +20,7 @@ export const NewMessage: FC<NewMessageProps> = () => {
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors: formErrors },
   } = useForm<NewMessageType>({
     resolver: zodResolver(newMessageSchema),
@@ -38,6 +39,7 @@ export const NewMessage: FC<NewMessageProps> = () => {
   return (
     <form
       ref={formElement}
+      onBlur={() => clearErrors()}
       onSubmit={handleSubmit(onSubmit)}
       className='flex p-4 gap-x-2 overflow-hidden'>
       <TextArea

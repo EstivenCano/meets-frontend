@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import FeedProvider, { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { Feed } from "@/model/Feed";
@@ -12,9 +12,10 @@ import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
 import { LoadingFeed } from "./LoadingFeed";
 import { useTranslation } from "@/app/i18n/client";
+import useEffectOnce from "@/hooks/useEfffectOnce";
 
 interface PostListProps {
-  initialFeed: Feed[];
+  initialFeed?: Feed[];
   byAuthor?: number;
 }
 
@@ -23,7 +24,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
   const { feed, perPage, setFeed, searchString } = useFeedStore(
     (state) => state
   );
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialFeed ? 1 : 0);
   const user = userStore((state) => state.user);
   const addAlert = alertStore((state) => state.addAlert);
   const {
@@ -67,16 +68,20 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
 
   useScrolledToBottom(loadMoreFeed, "main-layout");
 
-  useEffect(() => {
-    setFeed(initialFeed);
-  }, [initialFeed, setFeed]);
+  useEffectOnce(() => {
+    if (initialFeed) {
+      setFeed(initialFeed);
+    } else {
+      loadMoreFeed();
+    }
+  });
 
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto overflow-x-hidden'>
       {feed.map((post) => (
         <PostCard key={post.id} post={post} userId={user?.id} />
       ))}
-      {feed.length === 0 && <NoFeed />}
+      {!loadingFeed && feed.length === 0 && <NoFeed />}
       <LoadingFeed loading={loadingFeed} />
     </div>
   );
