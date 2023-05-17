@@ -14,13 +14,21 @@ const EditProfile = dynamic(() => import("./EditProfile"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 
 interface ProfileCardProps {
-  profile: Profile;
+  profile?: Profile;
   id?: string;
 }
 
 const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
   const { t } = useTranslation("profile");
   const user = userStore((state) => state.user);
+
+  if (!profile) {
+    return (
+      <section className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
+        <p className='text-center text-lg'>{t("noProfile")}</p>
+      </section>
+    );
+  }
 
   return (
     <section className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>

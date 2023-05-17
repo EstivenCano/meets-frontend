@@ -13,5 +13,6 @@
     "selectAvatar": "Seleccionar una imagen de perfil",
     "selectCover": "Seleccionar una imagen de portada",
     "success": "Perfil actualizado correctamente",
-    "error": "Error al actualizar el perfil"
+    "error": "Error al actualizar el perfil",
+    "noProfile": "Perfil no encontrado"
 }

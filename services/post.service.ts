@@ -42,9 +42,9 @@ export const getFeed = async (
 };
 
 export const getFirstFeed = async (byAuthor?: number) => {
-  const nextCookies = (await import("next/headers")).cookies();
+  const cookies = (await import("next/headers"))?.cookies();
 
-  const token = nextCookies.get("access_token");
+  const token = cookies.get("access_token");
 
   if (!token?.value) {
     return {
@@ -64,7 +64,7 @@ export const getFirstFeed = async (byAuthor?: number) => {
         byAuthor,
       },
       {
-        Authorization: `Bearer ${token?.value}`,
+        Authorization: `Bearer ${token.value}`,
         cache: "no-store",
       }
     );

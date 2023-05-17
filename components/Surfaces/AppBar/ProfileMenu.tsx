@@ -9,6 +9,7 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { userStore } from "@/stores/useUser.store";
 import { SettingsItem } from "./SettingsItem";
 import { useTranslation } from "@/app/i18n/client";
+import { ChatItem } from "./ChatItem";
 
 const ProfileMenu = () => {
   const ref = useRef(null);
@@ -53,6 +54,7 @@ const ProfileMenu = () => {
             transition={{ duration: 0.3 }}
             className='absolute right-0 w-48 py-2 mt-2 bg-background rounded-md shadow-sm shadow-gray-400 dark:shadow-gray-600 top-16 select-none'>
             <ProfileItem id={user?.id} />
+            <ChatItem />
             <SettingsItem />
             <LogoutItem />
           </motion.ul>

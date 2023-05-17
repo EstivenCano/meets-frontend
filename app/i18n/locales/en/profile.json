@@ -13,5 +13,6 @@
     "selectAvatar": "Select a profile avatar",
     "selectCover": "Select a cover image",
     "success": "Profile updated successfully",
-    "error": "Error updating profile"
+    "error": "Error updating profile",
+    "noProfile": "Profile not found"
 }

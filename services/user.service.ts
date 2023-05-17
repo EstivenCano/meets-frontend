@@ -3,6 +3,7 @@ import { UpdateUserProfileRequest } from "./dto/update-user-profile.dto";
 import { UserProfileResponse } from "./dto/user-profile.dto";
 import { UserInfo } from "../model/UserInfo";
 import { removeTokens } from "@/utils/removeTokens";
+import { getCookie } from "cookies-next";
 
 export const getUser = async (url: string) => {
   try {
@@ -29,15 +30,19 @@ export const getUserFromServer = async () => {
 };
 
 export const getUserProfileFromServer = async (id: string) => {
-  const nextCookies = (await import("next/headers")).cookies();
+  const cookies = (await import("next/headers"))?.cookies();
 
-  const token = nextCookies.get("access_token");
+  const token = cookies.get("access_token");
+
+  if (!token?.value) {
+    return;
+  }
 
   try {
     const response: { data: UserProfileResponse; status: number } = await get(
       `/users/${id}/profile`,
       {
-        Authorization: `Bearer ${token?.value}`,
+        Authorization: `Bearer ${token.value}`,
       },
       {
         cache: "no-cache",
