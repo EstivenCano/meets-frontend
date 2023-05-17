@@ -1,5 +1,3 @@
-import { UserInfo } from "./UserInfo";
-
 export interface Message {
   id?: number;
   createdAt: string;
@@ -7,5 +5,4 @@ export interface Message {
   content: string;
   authorId: number;
   chatId?: number;
-  author?: UserInfo;
 }

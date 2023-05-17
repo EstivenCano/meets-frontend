@@ -37,3 +37,15 @@ export const getFollowingsToChat = async (url: string) => {
     return Promise.reject(error);
   }
 };
+
+export const loadMessages = async (
+  url: string,
+  { arg }: { arg: { chatName: string; page: number; perPage: number } }
+) => {
+  try {
+    const response = await post(url, arg);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

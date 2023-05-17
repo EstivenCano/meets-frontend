@@ -23,7 +23,7 @@ export const useScrolledToBottom = (
 
     if (!scrollHeight || !clientHeight) return;
 
-    if (scrollTop + 2 + clientHeight >= scrollHeight) {
+    if (Math.abs(scrollTop) + 2 + clientHeight >= scrollHeight) {
       setIsScrolledToBottom(true);
       callback();
     } else {

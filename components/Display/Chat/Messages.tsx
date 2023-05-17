@@ -1,27 +1,87 @@
-import { Message } from "@/model/Message";
+import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
+import { loadMessages } from "@/services/chat.service";
 import { chatStore } from "@/stores/useChat.store";
 import { userStore } from "@/stores/useUser.store";
 import { dateToShortTime } from "@/utils/dateToShortTime";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useSWRMutation from "swr/mutation";
 import { match } from "ts-pattern";
+import { LoadingMessages } from "./LoadingMessages";
 
 export const Messages = () => {
-  const { chats, actualRoom } = chatStore();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const {
+    chats,
+    actualRoom,
+    setChatPages,
+    chatPages,
+    perPage,
+    loadMoreMessages,
+  } = chatStore();
+  const [autoScroll, setAutoScroll] = useState(true);
+
+  const messages = useMemo(
+    () => chats.find((c) => c.name === actualRoom)?.messages || [],
+    [chats, actualRoom]
+  );
+
+  const currentPages = chatPages.find(
+    ({ chatName }) => chatName === actualRoom
+  );
 
   const user = userStore((state) => state.user);
 
-  useEffect(() => {
-    setMessages(chats.find((c) => c.name === actualRoom)?.messages || []);
-  }, [actualRoom, chats]);
+  const {
+    data: lastMessages,
+    trigger,
+    isMutating: loadingMessages,
+  } = useSWRMutation("/chat/load", loadMessages, {
+    onSuccess(response) {
+      loadMoreMessages(response.data);
+      if (response.data.length < perPage) {
+        return;
+      }
+      setChatPages(actualRoom, (currentPages?.page || 0) + 1);
+    },
+  });
 
   useEffect(() => {
-    if (messages) {
+    if (messages && autoScroll) {
       document
         .getElementById(messages.at(0)?.createdAt || "")
         ?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, autoScroll]);
+
+  useEffect(() => {
+    if (!currentPages) {
+      setChatPages(actualRoom, 1);
+    }
+  }, [currentPages, setChatPages, actualRoom]);
+
+  const triggerLoadMessages = async () => {
+    if (loadingMessages) return;
+
+    if (!!lastMessages && lastMessages.data?.length < perPage) return;
+
+    // Add 1 to the actual page to search the next one
+    await trigger({
+      chatName: actualRoom,
+      page: (currentPages?.page || 0) + 1,
+      perPage: perPage,
+    });
+  };
+
+  const handleAutoScroll = (scrollTop: number) => {
+    if (Math.abs(scrollTop) <= 10) {
+      setAutoScroll(true);
+    } else {
+      if (autoScroll) {
+        setAutoScroll(false);
+      }
+    }
+  };
+
+  useScrolledToBottom(triggerLoadMessages, "messages-container");
 
   const messageClass = (isAuthor: boolean) =>
     match(isAuthor)
@@ -34,7 +94,10 @@ export const Messages = () => {
       .otherwise(() => "-left-1.5 bottom-2 rounded-r-full bg-gray-500");
 
   return (
-    <section className='flex text-white flex-col-reverse w-full gap-y-2 h-full overflow-y-auto p-4'>
+    <section
+      id='messages-container'
+      onScroll={(e) => handleAutoScroll(e.currentTarget.scrollTop)}
+      className='flex relative text-white flex-col-reverse w-full gap-y-2 h-full overflow-y-auto p-4'>
       {messages.map((message) => (
         <div
           id={message.createdAt}
@@ -53,6 +116,7 @@ export const Messages = () => {
           </p>
         </div>
       ))}
+      <LoadingMessages loading={loadingMessages} />
     </section>
   );
 };

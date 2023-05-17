@@ -158,9 +158,9 @@ export async function verifyTokens() {
   const { accessToken, refreshToken } = getTokens();
 
   if (verifying) {
-    setTimeout(() => {
-      return;
-    }, 1000);
+    setTimeout(async () => {
+      return await true;
+    }, 5000);
   }
 
   if (accessToken && refreshToken) {
