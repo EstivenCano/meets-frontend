@@ -7,12 +7,14 @@ import { FollowingList } from "./FollowingList";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { match } from "ts-pattern";
 import { userStore } from "@/stores/useUser.store";
+import { useTranslation } from "@/app/i18n/client";
 
 interface ChatListProps {
   handleOpen: () => void;
 }
 
 export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
+  const { t } = useTranslation("chat");
   const {
     data,
     isLoading,
@@ -88,7 +90,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
   return (
     <aside className='w-full md:w-1/2 md:max-w-sm h-full border-r-2 border-gray-500/40'>
       <span className='flex p-4 bg-gray-500/10'>
-        <h2>Your chats</h2>
+        <h2>{t("yourChats")}</h2>
       </span>
       {match(isLoading)
         .with(true, () => (
@@ -114,7 +116,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
                 />
                 <div className='overflow-hidden w-3/4'>
                   <p className='font-semibold'>
-                    {chat.participants.at(0)?.name || "Unknown"}
+                    {chat.participants.at(0)?.name || t("unknown")}
                   </p>
                   <p
                     className={`text-xs text-gray-400 truncate ${
@@ -130,7 +132,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
             ))}
             {chats.length === 0 && (
               <li className='flex items-center px-4 py-2 text-sm'>
-                <p className='font-semibold'>No chats yet</p>
+                <p className='font-semibold'>{t("noChatsYet")}</p>
               </li>
             )}
           </ul>

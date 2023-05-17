@@ -1,0 +1,11 @@
+{
+    "chat": "Chat",
+    "unknown": "Unknown",
+    "noChatsYet": "No chats yet",
+    "yourChats": "Your chats",
+    "peopleYouFollow": "People you follow",
+    "send": "Send",
+    "writeYourMessage": "Write your message here...",
+    "noChatSelected": "No chat selected",
+    "noChatMessage": "Please, select one of your chats or start a new conversation with a user that you follow!"
+}

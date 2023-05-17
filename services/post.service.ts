@@ -41,12 +41,8 @@ export const getFeed = async (
   }
 };
 
-export const getFirstFeed = async (byAuthor?: number) => {
-  const cookies = (await import("next/headers"))?.cookies();
-
-  const token = cookies.get("access_token");
-
-  if (!token?.value) {
+export const getFirstFeed = async (accessToken?: string, byAuthor?: number) => {
+  if (!accessToken) {
     return {
       data: undefined,
       status: 200,
@@ -64,7 +60,7 @@ export const getFirstFeed = async (byAuthor?: number) => {
         byAuthor,
       },
       {
-        Authorization: `Bearer ${token.value}`,
+        Authorization: `Bearer ${accessToken}`,
         cache: "no-store",
       }
     );

@@ -10,8 +10,10 @@ import { chatStore } from "@/stores/useChat.store";
 import { match } from "ts-pattern";
 import { NoChat } from "./NoChat";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { useTranslation } from "@/app/i18n/client";
 
 const Chat = () => {
+  const { t } = useTranslation("chat");
   const [isOpen, setIsOpen] = useState(false);
   const { actualRoom, setActualRoom, chats } = chatStore((state) => state);
   const matches = useMediaQuery("(min-width: 768px)");
@@ -54,7 +56,7 @@ const Chat = () => {
                 <Modal
                   onClose={handleClose}
                   open={isOpen}
-                  title={chatName || "Chat"}
+                  title={chatName || t("chat")}
                   className='flex md:hidden'>
                   <div className='flex flex-col w-full h-full justify-end'>
                     <Messages />

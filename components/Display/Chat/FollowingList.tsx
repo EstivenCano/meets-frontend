@@ -15,12 +15,14 @@ import Skeleton from "@/components/Feedback/Skeleton";
 import { KeyedMutator } from "swr";
 import { ChatResponseDto } from "@/services/dto/get-chats.dto";
 import { Loading } from "@/public/icons";
+import { useTranslation } from "@/app/i18n/client";
 
 interface FollowingListProps {
   refresh: KeyedMutator<ChatResponseDto[]>;
 }
 
 export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
+  const { t } = useTranslation("chat");
   const user = userStore((state) => state.user);
   const { actualRoom, setActualRoom } = chatStore();
   const [updating, setUpdating] = useState(false);
@@ -57,7 +59,7 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
   return (
     <>
       <span className='flex p-4 bg-gray-500/10'>
-        <h2>People you follow</h2>
+        <h2>{t("peopleYouFollow")}</h2>
       </span>
       <ul className='relative max-h-full overflow-y-auto'>
         {match(isLoading)
