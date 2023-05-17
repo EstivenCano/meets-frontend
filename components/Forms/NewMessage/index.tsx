@@ -3,6 +3,11 @@ import { chatStore } from "@/stores/useChat.store";
 import { userStore } from "@/stores/useUser.store";
 import { FC } from "react";
 import { socket } from "@/services/chat.service";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { NewMessageType, newMessageSchema } from "./new-message.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { IconButton } from "@/components/Inputs/IconButton";
+import SendIcon from "@/public/icons/SendIcon";
 
 interface NewMessageProps {}
 
@@ -10,31 +15,42 @@ export const NewMessage: FC<NewMessageProps> = () => {
   const user = userStore((state) => state.user);
   const actualRoom = chatStore((state) => state.actualRoom);
 
-  const sendMessage = (content: string) => {
-    if (socket) {
-      socket.emit("event_message", {
-        chatName: actualRoom,
-        authorId: user?.id,
-        createdAt: new Date().toISOString(),
-        content,
-      });
-    }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors: formErrors },
+  } = useForm<NewMessageType>({
+    resolver: zodResolver(newMessageSchema),
+  });
+
+  const onSubmit: SubmitHandler<NewMessageType> = async (data) => {
+    await socket.emit("event_message", {
+      chatName: actualRoom,
+      authorId: user?.id,
+      createdAt: new Date().toISOString(),
+      content: data.content,
+    });
+    reset();
   };
 
   return (
-    <div className='p-4'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex p-4 gap-x-2 overflow-hidden'>
       <TextArea
-        name='message'
         noCounter
         placeholder='Write your message here...'
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            sendMessage(e.currentTarget.value);
-            e.currentTarget.value = "";
-          }
-        }}
+        error={formErrors.content?.message}
+        {...register("content")}
       />
-    </div>
+      <IconButton
+        icon={<SendIcon />}
+        type='submit'
+        name='send'
+        className='hover:text-violet-300'
+      />
+    </form>
   );
 };
 

@@ -17,6 +17,7 @@ const AuthProvider: FC<AuthProviderProps> = ({
   const setUser = userStore((state) => state.setUser);
 
   useEffect(() => {
+    userStore.persist.rehydrate();
     if (initialUser) {
       setUser(initialUser);
     }

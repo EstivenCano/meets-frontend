@@ -17,6 +17,7 @@ type Headers = Record<string, string>;
 type RequestOptions = Omit<RequestInit, "headers">;
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+let verifying = false;
 
 const getHeaders = (headers?: Headers) => {
   const headersObject = {
@@ -156,11 +157,18 @@ export async function remove(
 export async function verifyTokens() {
   const { accessToken, refreshToken } = getTokens();
 
+  if (verifying) {
+    setTimeout(() => {
+      return;
+    }, 1000);
+  }
+
   if (accessToken && refreshToken) {
     const token = parseJwt(accessToken as string);
     const exp = token.exp;
     const now = Date.now() / 1000;
-    if (exp < now) {
+    if (exp < now && !verifying) {
+      verifying = true;
       //Refresh token
       try {
         if (!refreshToken) {
@@ -187,8 +195,10 @@ export async function verifyTokens() {
         }
 
         setTokens(newAccess, newRefresh);
+        verifying = false;
       } catch (error) {
         await removeTokens();
+        verifying = false;
         throw error;
       }
     }

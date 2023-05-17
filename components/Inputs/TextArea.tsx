@@ -45,7 +45,9 @@ export const TextArea = forwardRef<
     const handleCharacterCount: ChangeEventHandler<HTMLTextAreaElement> = (
       e
     ) => {
-      setCharacterCount(e.target.value.length);
+      if (!noCounter) {
+        setCharacterCount(e.target.value.length);
+      }
     };
 
     const sizeClass = match(inputSize)
@@ -82,21 +84,23 @@ export const TextArea = forwardRef<
             {...props}
           />
         </div>
-        {!noCounter && (
+        {
           <span className='flex justify-end items-center w-full'>
             <p className='text-red-600 text-sm mr-auto self-end'>
               {ZodError(error)}
             </p>
-            <p
-              className={`text-right text-sm ${
-                characterCount > maxCharacters ? "text-red-600" : "text-text"
-              }`}>
-              {characterCount}
-              {" / "}
-              <span className='text-text'>{maxCharacters}</span>
-            </p>
+            {!noCounter && (
+              <p
+                className={`text-right text-sm ${
+                  characterCount > maxCharacters ? "text-red-600" : "text-text"
+                }`}>
+                {characterCount}
+                {" / "}
+                <span className='text-text'>{maxCharacters}</span>
+              </p>
+            )}
           </span>
-        )}
+        }
       </div>
     );
   }

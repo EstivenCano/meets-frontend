@@ -1,5 +1,5 @@
 import { userStore } from "@/stores/useUser.store";
-import { FC, useCallback, useEffect, useId, useMemo, useState } from "react";
+import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import { ProfileImage } from "../ProfileImage";
@@ -29,18 +29,12 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
     data: following,
     isLoading,
     mutate,
-  } = useSWRImmutable(`/chat/following-to-chat`, getFollowingsToChat);
+  } = useSWRImmutable(`/chat/following-to-chat`, getFollowingsToChat, {
+    errorRetryCount: 2,
+    errorRetryInterval: 1000,
+  });
 
   const { trigger } = useSWRMutation(`/chat`, createChat);
-
-  const handleConnection = useCallback(
-    (event: string) => {
-      if (actualRoom) {
-        socket?.emit(event, actualRoom);
-      }
-    },
-    [actualRoom]
-  );
 
   const handleClick = async (userId: number) => {
     const chatName = uuidv4();
@@ -52,20 +46,13 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
       .then(async () => {
         await refresh();
         await mutate();
+        socket?.emit("event_join", actualRoom);
         setActualRoom(chatName);
       })
       .finally(() => {
         setUpdating(false);
       });
   };
-
-  useEffect(() => {
-    handleConnection("event_join");
-
-    return () => {
-      handleConnection("event_leave");
-    };
-  }, [actualRoom, handleConnection]);
 
   return (
     <>

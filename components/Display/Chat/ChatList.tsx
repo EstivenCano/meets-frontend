@@ -17,7 +17,10 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
     data,
     isLoading,
     mutate: refreshChats,
-  } = useSWRImmutable("/chat/all", getChats);
+  } = useSWRImmutable("/chat/all", getChats, {
+    errorRetryCount: 2,
+    errorRetryInterval: 1000,
+  });
 
   const user = userStore((state) => state.user);
 
@@ -35,13 +38,13 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
 
   const handleConnection = useCallback(
     (event: string) => {
-      if (chats) {
-        chats.forEach((chat) => {
+      if (data) {
+        data.forEach((chat) => {
           socket?.emit(event, chat.name);
         });
       }
     },
-    [chats]
+    [data]
   );
 
   const messageListener = useCallback(
@@ -87,7 +90,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
   }, [handleConnection]);
 
   return (
-    <aside className='w-full md:w-1/2 md:max-w-xs h-full border-r-2 border-gray-500/40'>
+    <aside className='w-full md:w-1/2 md:max-w-sm h-full border-r-2 border-gray-500/40'>
       <span className='flex p-4 bg-gray-500/10'>
         <h2>Your chats</h2>
       </span>
@@ -119,13 +122,13 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
                   </p>
                   <p
                     className={`text-xs text-gray-400 truncate ${
-                      newMessage.has(chat.name) && "text-current"
+                      newMessage.has(chat.name) && "text-text"
                     }`}>
                     {chat.messages.at(0)?.content}
                   </p>
                 </div>
                 {newMessage.has(chat.name) && (
-                  <span className='w-2 h-2 rounded-full bg-current animate-[pulse_2s_ease-in-out_infinite]'></span>
+                  <span className='w-2 h-2 ml-auto rounded-full bg-current animate-[pulse_2s_ease-in-out_infinite]'></span>
                 )}
               </li>
             ))}
