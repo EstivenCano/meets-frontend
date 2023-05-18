@@ -159,7 +159,7 @@ export async function verifyTokens() {
     return await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
-  const { accessToken, refreshToken } = getTokens();
+  const { accessToken, refreshToken } = await getTokens();
 
   if (accessToken && refreshToken) {
     const token = parseJwt(accessToken as string);

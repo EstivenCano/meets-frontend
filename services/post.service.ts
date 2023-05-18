@@ -69,7 +69,7 @@ export const getFirstFeed = async (accessToken?: string, byAuthor?: number) => {
       message: "Feed retrieved",
     };
   } catch (error) {
-    return Promise.reject(error);
+    return;
   }
 };
 

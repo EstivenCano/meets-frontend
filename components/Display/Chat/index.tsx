@@ -26,8 +26,8 @@ const Chat = () => {
   };
 
   const handleClose = () => {
-    setActualRoom("");
     setIsOpen(false);
+    setActualRoom("");
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Chat = () => {
   }, []);
 
   return (
-    <main className='flex md:flex-row flex-col w-full h-full'>
+    <>
       <ChatList handleOpen={handleOpen} />
       {match(!!actualRoom)
         .with(true, () => (
@@ -69,7 +69,7 @@ const Chat = () => {
         .otherwise(() => (
           <NoChat />
         ))}
-    </main>
+    </>
   );
 };
 

@@ -19,18 +19,18 @@ const FeedList = dynamic(() => import("@/components/Display/FeedList"), {
 });
 
 export default async function Profile({ params }: { params: { id: string } }) {
-  const token = cookies().get("access_token");
+  const access = cookies().get("access_token")?.value;
 
   const { id } = params;
 
-  const profile = await getUserProfileFromServer(id, token?.value);
-  const post = await getFirstFeed(token?.value, Number(id));
+  const profile = await getUserProfileFromServer(id, access);
+  const post = await getFirstFeed(access, Number(id));
 
   return (
     <>
       <ProfileCard profile={profile} id={id} />
       <NewPostForm />
-      <FeedList initialFeed={post.data} byAuthor={Number(id)} />
+      <FeedList initialFeed={post?.data} byAuthor={Number(id)} />
     </>
   );
 }

@@ -14,14 +14,15 @@ const FeedList = dynamic(() => import("@/components/Display/FeedList"), {
 });
 
 export default async function Feed() {
-  const token = cookies().get("access_token");
-  const post = await getFirstFeed(token?.value);
+  const access = cookies().get("access_token")?.value;
+
+  const post = await getFirstFeed(access);
 
   return (
     <>
       <NewPostForm />
       <hr className='border-violet-400 w-full my-4' />
-      <FeedList initialFeed={post.data} />
+      <FeedList initialFeed={post?.data} />
     </>
   );
 }
