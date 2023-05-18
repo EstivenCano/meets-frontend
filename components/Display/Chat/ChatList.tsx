@@ -104,6 +104,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
           <ul className='flex flex-col'>
             {chats?.map((chat) => (
               <li
+                tabIndex={0}
                 key={chat.id}
                 onClick={() => handleClick(chat.name)}
                 className={`flex items-center gap-x-2 px-4 py-2 text-sm focus:bg-violet-500 hover:bg-violet-500 cursor-pointer hover:text-white ${

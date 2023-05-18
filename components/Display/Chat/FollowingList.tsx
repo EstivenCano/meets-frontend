@@ -80,6 +80,7 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
               {following?.map((user) => {
                 return (
                   <li
+                    tabIndex={0}
                     onClick={() => handleClick(user.id)}
                     key={user.id}
                     className='flex items-center gap-x-2 px-4 py-2 text-sm focus:bg-violet-500 hover:bg-violet-500 cursor-pointer hover:text-white'>

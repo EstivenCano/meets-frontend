@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useScrolledToBottom } from "@/hooks/useScrolledToBottom";
 import FeedProvider, { useFeedStore } from "@/stores/FeedStore/FeedContext";
 import { Feed } from "@/model/Feed";
@@ -68,10 +68,14 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
 
   useScrolledToBottom(loadMoreFeed, "main-layout");
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (initialFeed) {
       setFeed(initialFeed);
-    } else {
+    }
+  }, [initialFeed, setFeed]);
+
+  useEffectOnce(() => {
+    if (!initialFeed) {
       loadMoreFeed();
     }
   });
