@@ -128,6 +128,7 @@ const NewPostForm = () => {
               <input
                 type='checkbox'
                 className='checked:accent-violet-400'
+                defaultChecked
                 {...register("publish")}
               />
             </fieldset>

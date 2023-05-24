@@ -31,11 +31,11 @@ export default async function RootLayout({
   const user = await getUserFromServer();
 
   return (
-    <html lang={lng} dir={dir(lng)}>
-      <body className={`${monserrat.className} text-text`}>
+    <html lang={lng} dir={dir(lng)} className='h-full box-border'>
+      <body className={`${monserrat.className} text-text h-full`}>
         <AuthProvider user={user}>
           <ThemeProvider>
-            <div id='modal-root' />
+            <div id='modal-root' className='fixed z-40 h-full' />
             {children}
             <AlertsProvider />
           </ThemeProvider>

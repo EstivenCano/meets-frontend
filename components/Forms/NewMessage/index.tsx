@@ -8,10 +8,12 @@ import { NewMessageType, newMessageSchema } from "./new-message.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconButton } from "@/components/Inputs/IconButton";
 import SendIcon from "@/public/icons/SendIcon";
+import { useTranslation } from "@/app/i18n/client";
 
 interface NewMessageProps {}
 
 export const NewMessage: FC<NewMessageProps> = () => {
+  const { t } = useTranslation("chat");
   const formElement = useRef<HTMLFormElement>(null);
   const user = userStore((state) => state.user);
   const actualRoom = chatStore((state) => state.actualRoom);
@@ -41,10 +43,10 @@ export const NewMessage: FC<NewMessageProps> = () => {
       ref={formElement}
       onBlur={() => clearErrors()}
       onSubmit={handleSubmit(onSubmit)}
-      className='flex p-4 gap-x-2 overflow-hidden'>
+      className='flex py-4 px-2 gap-x-2 overflow-hidden'>
       <TextArea
         noCounter
-        placeholder='Write your message here...'
+        placeholder={t("writeYourMessage")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -57,7 +59,7 @@ export const NewMessage: FC<NewMessageProps> = () => {
       <IconButton
         icon={<SendIcon />}
         type='submit'
-        name='send'
+        name={t("send")}
         className='hover:text-violet-300'
       />
     </form>

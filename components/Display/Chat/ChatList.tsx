@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect } from "react";
 import useSWRImmutable from "swr/immutable";
 import { getChats, socket } from "@/services/chat.service";
 import { chatStore } from "@/stores/useChat.store";
@@ -21,6 +21,7 @@ export const ChatList: FC<ChatListProps> = ({ handleOpen }) => {
   } = useSWRImmutable("/chat/all", getChats, {
     errorRetryCount: 2,
     errorRetryInterval: 1000,
+    revalidateOnMount: true,
   });
 
   const { chats, setChats, setMessage } = chatStore();
