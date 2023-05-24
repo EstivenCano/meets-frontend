@@ -15,7 +15,7 @@ const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
 const TitleSection = async ({ lng }: { lng: string }) => {
   const { t } = await useTranslation(lng, "common");
   return (
-    <section className='hidden md:flex w-full md:w-2/3 min-h-screen flex-col items-center justify-center space-y-1 py-4 bg-gradient-to-b md:bg-gradient-to-tr from-background via-violet-600/20 to-background shadow-lg shadow-violet-500 lg:rounded-r-full'>
+    <section className='hidden md:flex w-full md:w-2/3 h-full flex-col items-center justify-center space-y-1 py-4 bg-gradient-to-b md:bg-gradient-to-tr from-background via-violet-600/20 to-background shadow-lg shadow-violet-500 lg:rounded-r-full'>
       <MeetsTitle size='lg' />
       <h2 className='text-lg font-semibold text-center'>{t("slogan")}</h2>
       <LoadingBar />
@@ -53,7 +53,7 @@ const LoginSection = async ({ lng }: { lng: string }) => {
   const { t } = await useTranslation(lng, "login");
 
   return (
-    <section className='flex w-full md:w-1/2 min-h-screen flex-col items-center justify-center space-y-6 py-10'>
+    <section className='flex w-full md:w-1/2 h-full flex-col items-center justify-center space-y-6 py-10'>
       <MeetsTitle size='lg' className='visible md:hidden' />
       <h2 className='text-lg font-semibold text-center'>{t("title")}</h2>
       <LoginForm />
@@ -83,7 +83,7 @@ export default async function Home({
 }) {
   return (
     <NotUserGuard>
-      <main className='relative flex overflow-x-hidden max-w-screen min-h-screen md:flex-row flex-col'>
+      <main className='relative flex overflow-x-hidden max-w-screen h-full max-h-full md:flex-row flex-col'>
         {/* @ts-expect-error Server Component */}
         <TitleSection lng={lng} />
         {/* @ts-expect-error Server Component */}

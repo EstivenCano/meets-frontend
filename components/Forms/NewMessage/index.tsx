@@ -46,7 +46,7 @@ export const NewMessage: FC<NewMessageProps> = () => {
       className='flex py-4 px-2 gap-x-2 overflow-hidden'>
       <TextArea
         noCounter
-        placeholder='Write your message here...'
+        placeholder={t("writeYourMessage")}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();

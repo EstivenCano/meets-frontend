@@ -31,8 +31,8 @@ export default async function RootLayout({
   const user = await getUserFromServer();
 
   return (
-    <html lang={lng} dir={dir(lng)}>
-      <body className={`${monserrat.className} text-text h-full box-border`}>
+    <html lang={lng} dir={dir(lng)} className='h-full box-border'>
+      <body className={`${monserrat.className} text-text h-full`}>
         <AuthProvider user={user}>
           <ThemeProvider>
             <div id='modal-root' />
