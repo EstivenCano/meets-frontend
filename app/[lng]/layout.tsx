@@ -35,7 +35,7 @@ export default async function RootLayout({
       <body className={`${monserrat.className} text-text h-full`}>
         <AuthProvider user={user}>
           <ThemeProvider>
-            <div id='modal-root' />
+            <div id='modal-root' className='fixed z-40' />
             {children}
             <AlertsProvider />
           </ThemeProvider>
