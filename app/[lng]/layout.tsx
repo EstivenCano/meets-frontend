@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className={`${monserrat.className} text-text`}>
+      <body className={`${monserrat.className} text-text h-full box-border`}>
         <AuthProvider user={user}>
           <ThemeProvider>
             <div id='modal-root' />
