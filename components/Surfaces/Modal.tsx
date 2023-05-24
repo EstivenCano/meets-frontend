@@ -44,10 +44,10 @@ export const Modal: FC<ModalProps> = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className={`w-screen h-full bg-black/50 z-40 flex justify-center items-center ${className}`}>
+              className={`w-screen h-screen bg-black/50 z-40 flex justify-center items-center ${className}`}>
               <div
                 ref={ref}
-                className='relative bg-background h-screen w-screen min-h-[250px] max-h-screen max-w-4xl md:h-fit md:w-full gap-y-4 md:rounded-xl flex flex-col items-start'>
+                className='relative bg-background h-full w-screen min-h-[250px] max-h-screen max-w-4xl md:h-fit md:w-full gap-y-4 md:rounded-xl flex flex-col items-start'>
                 <span className='flex w-full p-4 pb-0 justify-between'>
                   <h1 className='text-xl font-bold'>{title}</h1>
                   <IconButton
