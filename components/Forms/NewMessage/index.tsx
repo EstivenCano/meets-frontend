@@ -41,7 +41,7 @@ export const NewMessage: FC<NewMessageProps> = () => {
       ref={formElement}
       onBlur={() => clearErrors()}
       onSubmit={handleSubmit(onSubmit)}
-      className='flex p-4 gap-x-2 overflow-hidden'>
+      className='flex py-4 px-2 gap-x-2 overflow-hidden'>
       <TextArea
         noCounter
         placeholder='Write your message here...'

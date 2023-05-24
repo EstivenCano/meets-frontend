@@ -1,5 +1,5 @@
 import { userStore } from "@/stores/useUser.store";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import useSWRMutation from "swr/mutation";
 import { ProfileImage } from "../ProfileImage";
@@ -16,6 +16,7 @@ import { KeyedMutator } from "swr";
 import { ChatResponseDto } from "@/services/dto/get-chats.dto";
 import { Loading } from "@/public/icons";
 import { useTranslation } from "@/app/i18n/client";
+import { UserInfo } from "@/model/UserInfo";
 
 interface FollowingListProps {
   refresh: KeyedMutator<ChatResponseDto[]>;
@@ -34,27 +35,34 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
   } = useSWRImmutable(`/chat/following-to-chat`, getFollowingsToChat, {
     errorRetryCount: 2,
     errorRetryInterval: 1000,
+    revalidateOnMount: true,
   });
+
+  const [followingList, setFollowingList] = useState<UserInfo[]>();
 
   const { trigger } = useSWRMutation(`/chat`, createChat);
 
   const handleClick = async (userId: number) => {
     const chatName = uuidv4();
     setUpdating(true);
+
     await trigger({
       name: chatName,
       userIds: [userId, Number(user?.id)],
-    })
-      .then(async () => {
-        await refresh();
-        await mutate();
-        socket?.emit("event_join", actualRoom);
-        setActualRoom(chatName);
-      })
-      .finally(() => {
-        setUpdating(false);
-      });
+    }).then(async () => {
+      await refresh();
+      setFollowingList(followingList?.filter((user) => user.id !== userId));
+      socket?.emit("event_join", actualRoom);
+      setActualRoom(chatName);
+    });
+
+    await mutate();
+    setUpdating(false);
   };
+
+  useEffect(() => {
+    setFollowingList(following);
+  }, [following]);
 
   return (
     <>
@@ -77,7 +85,7 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
                   <Loading className='stroke-current w-10 h-10' />
                 </li>
               )}
-              {following?.map((user) => {
+              {followingList?.map((user) => {
                 return (
                   <li
                     tabIndex={0}

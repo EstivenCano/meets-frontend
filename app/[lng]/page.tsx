@@ -55,7 +55,7 @@ const LoginSection = async ({ lng }: { lng: string }) => {
   return (
     <section className='flex w-full md:w-1/2 min-h-screen flex-col items-center justify-center space-y-6 py-10'>
       <MeetsTitle size='lg' className='visible md:hidden' />
-      <h2 className='text-lg font-semibold'>{t("title")}</h2>
+      <h2 className='text-lg font-semibold text-center'>{t("title")}</h2>
       <LoginForm />
       <div className='flex items-center space-x-4'>
         <div className='w-20 h-0.5 bg-violet-600' />
@@ -65,13 +65,13 @@ const LoginSection = async ({ lng }: { lng: string }) => {
       <AuthGoogle>
         <span>{t("signInGoogle")}</span>
       </AuthGoogle>
-      <p className='text-lg font-semibold'>
+      <p className='text-lg font-semibold text-center'>
         {t("noAccount")} <Link href='/auth/signup'>{t("signUp")}</Link>
       </p>
-      <p className='text-lg font-semibold'>
+      <p className='text-lg font-semibold text-center'>
         <Link href='/auth/request-reset-password'>{t("forgotPassword")}</Link>
       </p>
-      <p className='text-xs'>{t("allRightsReserved")}</p>
+      <p className='text-xs text-center'>{t("allRightsReserved")}</p>
     </section>
   );
 };

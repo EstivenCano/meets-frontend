@@ -29,7 +29,7 @@ export default async function Signup({
           <AuthGoogle>
             <span>{t("signUpGoogle")}</span>
           </AuthGoogle>
-          <p className='text-lg font-semibold'>
+          <p className='text-lg font-semibold text-center'>
             {t("haveAccount")} <Link href='/'>{t("signIn")}</Link>
           </p>
         </div>
