@@ -11,7 +11,23 @@ export const config = {
 
 const cookieName = "i18next";
 
+async function setTokens(urlParams: string, response: NextResponse) {
+  const params = Object.fromEntries(new URLSearchParams(urlParams)) as {
+    access: string;
+    refresh: string;
+  };
+
+  if (params?.access && params?.refresh) {
+    await response.cookies.set("access_token", params.access);
+    await response.cookies.set("refresh_token", params.refresh);
+  }
+
+  return await params;
+}
+
 export async function middleware(req: NextRequest) {
+  const queryParams = req.url.split("?")[1];
+
   let lng;
   if (req.cookies.has(cookieName)) {
     lng = acceptLanguage.get(req.cookies.get(cookieName)?.value as string);
@@ -24,9 +40,13 @@ export async function middleware(req: NextRequest) {
     !languages.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !req.nextUrl.pathname.startsWith("/_next")
   ) {
-    return NextResponse.redirect(
+    const response = NextResponse.redirect(
       new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
     );
+
+    await setTokens(queryParams, response);
+
+    return response;
   }
   if (req.headers.has("referer")) {
     const refererUrl = new URL(req.headers.get("referer") as string);
@@ -34,11 +54,13 @@ export async function middleware(req: NextRequest) {
       refererUrl.pathname.startsWith(`/${l}`)
     );
     const response = NextResponse.next();
+    await setTokens(queryParams, response);
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
     return response;
   }
 
   const response = NextResponse.next();
+  await setTokens(queryParams, response);
 
   return response;
 }
