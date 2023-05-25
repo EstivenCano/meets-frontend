@@ -37,6 +37,10 @@ const AuthProvider: FC<AuthProviderProps> = ({
   );
 
   useEffect(() => {
+    populateCookieTokens();
+  }, []);
+
+  useEffect(() => {
     if (initialUser) {
       setUser(initialUser);
     } else {
@@ -49,7 +53,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
 
   const handleRefreshSuccess = async () => {
     if (!user) {
-      populateCookieTokens();
       await triggerGetUser().then((user) => {
         setUser(user);
       });
