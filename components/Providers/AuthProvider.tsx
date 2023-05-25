@@ -32,9 +32,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
     "/auth/refresh",
     refreshToken,
     {
-      onError() {
-        handleRefreshError();
-      },
       onSuccess() {
         handleRefreshSuccess();
       },
@@ -42,7 +39,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
   );
 
   useEffect(() => {
-    userStore.persist.rehydrate();
     if (initialUser) {
       setUser(initialUser);
     } else {
@@ -52,13 +48,6 @@ const AuthProvider: FC<AuthProviderProps> = ({
       triggerRefresh();
     }
   }, [initialUser, setUser, triggerRefresh]);
-
-  const handleRefreshError = () => {
-    triggerLogout({ clean: true }).then((res) => {
-      setUser(null);
-      if (!res) return;
-    });
-  };
 
   const handleRefreshSuccess = async () => {
     if (!user) {
