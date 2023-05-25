@@ -25,7 +25,9 @@ const FollowForm: FC<FollowFormProps> = ({ id, className }) => {
     mutate,
     isLoading,
     isValidating,
-  } = useSWRImmutable(`/users/${id}/is-following`, isFollowingUser);
+  } = useSWRImmutable(`/users/${id}/is-following`, isFollowingUser, {
+    revalidateOnMount: true,
+  });
 
   const { trigger: triggerFollow, isMutating } = useSWRMutation(
     `/users/${id}/${following ? "unfollow" : "follow"}`,
