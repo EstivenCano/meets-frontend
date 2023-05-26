@@ -41,8 +41,8 @@ export const getUserProfileFromServer = async (
       `/users/${id}/profile`,
       {
         Authorization: `Bearer ${accessToken}`,
-        cache: "no-cache",
-      }
+      },
+      { next: { revalidate: 0 }, cache: "no-cache" }
     );
 
     return response.data;

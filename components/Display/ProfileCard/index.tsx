@@ -9,6 +9,7 @@ import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
 import { shimmerToBase64 } from "@/utils/shimmer";
 import { useTranslation } from "@/app/i18n/client";
+import Skeleton from "@/components/Feedback/Skeleton";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
@@ -20,14 +21,11 @@ interface ProfileCardProps {
 
 const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
   const { t } = useTranslation("profile");
+
   const user = userStore((state) => state.user);
 
   if (!profile) {
-    return (
-      <section className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
-        <p className='text-center text-lg'>{t("noProfile")}</p>
-      </section>
-    );
+    return <Skeleton type='profile' />;
   }
 
   return (
