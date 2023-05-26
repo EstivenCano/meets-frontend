@@ -1,0 +1,14 @@
+{
+    "slogan": "Comparte lo que eres",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "repository": "Repositorio de Github:",
+    "clickHere": "Ingresa aquí",
+    "email": "Correo electrónico:",
+    "developedWith": "Desarrollado con 💜 por",
+    "aboutP1": "es una red social dinámica y atractiva construida con Next.js, un potente framework de JavaScript. Proporciona a los usuarios una plataforma integral para conectarse, compartir ideas e interactuar con otros en una comunidad vibrante.",
+    "aboutP2": "Incorpora una serie de funciones esenciales, como la creación de usuarios, la creación de publicaciones, los comentarios, los me gusta de las publicaciones, la autenticación personalizada, la autorización personalizada, la validación personalizada y la autenticación OAuth2 con Google.",
+    "contactP1": "Para cualquier consulta, comentario o asistencia relacionada con Meets, no dudes en ponerte en contacto con nosotros a través de la siguiente información de contacto:",
+    "contactP2": "Tanto si tienes preguntas sobre la app, como si quieres informar de un error o tienes sugerencias para nuevas funciones, valoramos tu opinión y estamos deseando ayudarte.",
+    "contactP3": "No dudes en ponerte en contacto con nosotros por correo electrónico o explora el repositorio de GitHub para obtener recursos e información adicionales. ¡Gracias por elegir Meets! Esperamos tener noticias tuyas."
+}
