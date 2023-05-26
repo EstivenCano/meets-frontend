@@ -35,7 +35,7 @@ export const ProfileImage: FC<ProfileImageProps & ImageProps> = ({
     .exhaustive();
 
   return (
-    <span className={`relative ${sizeClass}`}>
+    <span className={`relative shrink-0 ${sizeClass}`}>
       <Image
         {...props}
         src={src || defaultProfileImage}

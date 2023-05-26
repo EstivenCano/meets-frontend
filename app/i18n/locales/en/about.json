@@ -1,0 +1,14 @@
+{
+    "slogan": "Share what your are",
+    "about": "About",
+    "contact": "Contact",
+    "repository": "Github Repository:",
+    "email": "Email:",
+    "clickHere": "Click here",
+    "developedWith": "Developed with 💜 by",
+    "aboutP1": "is a dynamic and engaging social media app built with Next.js, a powerful JavaScript framework. It provides users with a seamless platform to connect, share ideas, and interact with others in a vibrant community.",
+    "aboutP2": "It incorporates a range of essential features, including user creation, post creation, commenting, post liking, custom authentication, custom authorization, custom validation, and OAuth2 authentication with Google.",
+    "contactP1": "For any inquiries, feedback, or support regarding Meets, please feel free to reach out to us using the following contact information:",
+    "contactP2": "Whether you have questions about the app, want to report a bug, or have suggestions for new features, we value your input and are eager to assist you.",
+    "contactP3": "Don't hesitate to get in touch with us via email or explore the GitHub repository for additional resources and information. Thank you for choosing Meets! We look forward to hearing from you."
+}
