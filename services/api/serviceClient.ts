@@ -1,9 +1,9 @@
 import { ServerError } from "../dto/server-error.dto";
 import { ServiceError } from "../../model/ServiceError";
 import { getTokens } from "@/utils/getTokens";
-import { setTokens } from "@/utils/setTokens";
-import { removeTokens } from "@/utils/removeTokens";
 import { parseJwt } from "@/utils/parseJwt";
+import { refreshToken } from "../auth.service";
+import { isOnClient } from "@/utils/isOnClient";
 
 const defaultHeaders = {
   "Content-Type": "application/json",
@@ -17,15 +17,14 @@ type Headers = Record<string, string>;
 type RequestOptions = Omit<RequestInit, "headers">;
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-let verifying = false;
 
-const getHeaders = (headers?: Headers) => {
+const getHeaders = async (headers?: Headers) => {
   const headersObject = {
     ...defaultHeaders,
     ...(headers || []),
   };
 
-  const tokens = getTokens();
+  const tokens = await getTokens();
 
   if (tokens.accessToken) {
     return {
@@ -43,13 +42,15 @@ export async function get(
   options?: RequestOptions
 ) {
   try {
-    await verifyTokens();
+    const request = async () => {
+      return await fetch(baseUrl + url, {
+        method: "GET",
+        headers: await getHeaders(headers),
+        ...options,
+      });
+    };
 
-    const response = await fetch(baseUrl + url, {
-      method: "GET",
-      headers: getHeaders(headers),
-      ...options,
-    });
+    const response = await handleRequest(request);
 
     if (!response.ok) {
       const error: ServerError = await response.json();
@@ -72,14 +73,16 @@ export async function post(
   options?: RequestOptions
 ) {
   try {
-    await verifyTokens();
+    const request = async () => {
+      return await fetch(baseUrl + url, {
+        method: "POST",
+        headers: await getHeaders(headers),
+        body: JSON.stringify(body),
+        ...options,
+      });
+    };
 
-    const response = await fetch(baseUrl + url, {
-      method: "POST",
-      headers: getHeaders(headers),
-      body: JSON.stringify(body),
-      ...options,
-    });
+    const response = await handleRequest(request);
 
     if (!response.ok) {
       const error: ServerError = await response.json();
@@ -102,11 +105,9 @@ export async function put(
   options?: RequestOptions
 ) {
   try {
-    await verifyTokens();
-
     const response = await fetch(baseUrl + url, {
       method: "PUT",
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
       body: JSON.stringify(body),
       ...options,
     });
@@ -132,12 +133,10 @@ export async function remove(
   options?: RequestOptions
 ) {
   try {
-    await verifyTokens();
-
     const response = await fetch(baseUrl + url, {
       method: "DELETE",
       body: JSON.stringify(body),
-      headers: getHeaders(headers),
+      headers: await getHeaders(headers),
       ...options,
     });
     if (!response.ok) {
@@ -154,51 +153,39 @@ export async function remove(
   }
 }
 
-export async function verifyTokens() {
-  if (verifying) {
-    return await new Promise((resolve) => setTimeout(resolve, 2000));
+let refreshing = false;
+const handleRequest = async (
+  request: () => Promise<Response>
+): Promise<Response> => {
+  async function stopRequest() {
+    if (refreshing) {
+      await setTimeout(stopRequest, 1000);
+    }
+    return Promise.resolve();
   }
 
-  const { accessToken, refreshToken } = await getTokens();
+  await stopRequest();
 
-  if (accessToken && refreshToken) {
-    const token = parseJwt(accessToken as string);
+  const tokens = await getTokens();
+
+  if (tokens.accessToken) {
+    const token = parseJwt(tokens.accessToken);
     const exp = token.exp;
     const now = Date.now() / 1000;
-    if (exp < now && !verifying) {
-      verifying = true;
-      //Refresh token
-      try {
-        if (!refreshToken) {
-          throw new Error("No refresh token found");
-        }
-
-        const response = await fetch(baseUrl + "/auth/refresh", {
-          method: "GET",
-          headers: {
-            ...defaultHeaders,
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Refresh token is invalid");
-        }
-
-        const { access_token: newAccess, refresh_token: newRefresh } =
-          await response.json();
-
-        if (!newAccess || !newRefresh) {
-          throw new Error("No tokens found");
-        }
-
-        await setTokens(newAccess, newRefresh);
-        verifying = false;
-      } catch (error) {
-        await removeTokens();
-        verifying = false;
-        throw error;
-      }
+    if (exp < now && isOnClient() && !refreshing) {
+      refreshing = true;
+      await refreshToken("/auth/refresh");
+      refreshing = false;
     }
   }
-}
+
+  try {
+    const response = await request();
+
+    return response;
+  } catch (error) {
+    const serverError = error as ServerError;
+
+    return Promise.reject(serverError);
+  }
+};

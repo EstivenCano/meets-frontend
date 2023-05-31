@@ -1,11 +1,11 @@
-import { getCookie } from "cookies-next";
+import { isOnClient } from "./isOnClient";
 
 /**
  * Get tokens from local storage
  * @returns {object} accessToken and refreshToken
  */
-export const getTokens = () => {
-  if (typeof window !== "undefined" && window.localStorage) {
+export const getTokens = async () => {
+  if (isOnClient() && window.localStorage) {
     const accessToken = window.localStorage.getItem("access_token");
     const refreshToken = window.localStorage.getItem("refresh_token");
     if (accessToken && refreshToken) {
@@ -13,8 +13,14 @@ export const getTokens = () => {
     }
   }
 
-  const accessToken = getCookie("access_token");
-  const refreshToken = getCookie("refresh_token");
+  let accessToken = "";
+  let refreshToken = "";
+
+  if (!isOnClient()) {
+    const { cookies } = await import("next/headers");
+    accessToken = cookies().get("access_token")?.value || "";
+    refreshToken = cookies().get("refresh_token")?.value || "";
+  }
 
   return {
     accessToken,

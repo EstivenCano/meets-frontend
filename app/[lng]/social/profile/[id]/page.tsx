@@ -23,14 +23,16 @@ export default async function Profile({ params }: { params: { id: string } }) {
 
   const { id } = params;
 
-  const profile = await getUserProfileFromServer(id, access);
-  const post = await getFirstFeed(access, Number(id));
+  const postData = await getFirstFeed(access, Number(id));
+  const profileData = await getUserProfileFromServer(id, access);
+
+  const [posts, profile] = await Promise.all([postData, profileData]);
 
   return (
     <>
-      <ProfileCard profile={profile} id={id} />
+      <ProfileCard initialProfile={profile} id={id} />
       <NewPostForm />
-      <FeedList initialFeed={post?.data} byAuthor={Number(id)} />
+      <FeedList initialFeed={posts?.data} byAuthor={Number(id)} />
     </>
   );
 }

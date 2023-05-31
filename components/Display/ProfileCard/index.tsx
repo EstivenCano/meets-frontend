@@ -3,33 +3,47 @@
 import { ProfileImage } from "../ProfileImage";
 import Image from "next/image";
 import { Profile } from "@/model/Profile";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { userStore } from "@/stores/useUser.store";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";
 import { shimmerToBase64 } from "@/utils/shimmer";
 import { useTranslation } from "@/app/i18n/client";
 import Skeleton from "@/components/Feedback/Skeleton";
+import useSWRMutation from "swr/mutation";
+import { getUser } from "@/services/user.service";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
 const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 
 interface ProfileCardProps {
-  profile?: Profile;
+  initialProfile?: Profile;
   id?: string;
 }
 
-const ProfileCard: FC<ProfileCardProps> = ({ profile, id }) => {
+const ProfileCard: FC<ProfileCardProps> = ({ initialProfile, id }) => {
   const { t } = useTranslation("profile");
+  const [profile, setProfile] = useState(initialProfile);
+  const { trigger } = useSWRMutation(`/users/${id}/profile`, getUser, {
+    onSuccess(res) {
+      setProfile(res);
+    },
+  });
 
   const user = userStore((state) => state.user);
+
+  useEffect(() => {
+    if (!initialProfile) {
+      trigger();
+    }
+  }, [initialProfile, trigger]);
 
   if (!profile) {
     return <Skeleton type='profile' />;
   }
 
   return (
-    <section className='relative flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
+    <section className='relative z-0 flex bg-violet-500/30 w-full h-96 md:h-64 max-w-6xl rounded-xl overflow-hidden'>
       <div className='absolute bg-gray-400/30 h-40 w-full rounded-xl'>
         <Image
           src={

@@ -42,7 +42,7 @@ export const getUserProfileFromServer = async (
       {
         Authorization: `Bearer ${accessToken}`,
       },
-      { next: { revalidate: 0 }, cache: "no-cache" }
+      { cache: "no-cache" }
     );
 
     return response.data;

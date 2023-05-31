@@ -119,15 +119,17 @@ export const refreshToken = async (url: string) => {
       Authorization: `Bearer ${tokens.refreshToken}`,
     })
       .then((res) => {
-        setTokens(res.data.access_token, res.data.refresh_token);
         return res;
       })
       .catch((error) => {
         throw error;
       });
 
+    await setTokens(response.data.access_token, response.data.refresh_token);
+
     return response;
   } catch (error) {
+    await removeTokens();
     throw error;
   }
 };
