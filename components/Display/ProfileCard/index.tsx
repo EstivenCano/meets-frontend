@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import { shimmerToBase64 } from "@/utils/shimmer";
 import { useTranslation } from "@/app/i18n/client";
 import Skeleton from "@/components/Feedback/Skeleton";
-import useSWRMutation from "swr/mutation";
+import useSWR from "swr";
 import { getUser } from "@/services/user.service";
 
 const EditProfile = dynamic(() => import("./EditProfile"));
@@ -23,20 +23,19 @@ interface ProfileCardProps {
 
 const ProfileCard: FC<ProfileCardProps> = ({ initialProfile, id }) => {
   const { t } = useTranslation("profile");
+  const user = userStore((state) => state.user);
   const [profile, setProfile] = useState(initialProfile);
-  const { trigger } = useSWRMutation(`/users/${id}/profile`, getUser, {
+  useSWR(!initialProfile ? `/users/${id}/profile` : null, getUser, {
     onSuccess(res) {
       setProfile(res);
     },
   });
 
-  const user = userStore((state) => state.user);
-
   useEffect(() => {
-    if (!initialProfile) {
-      trigger();
+    if (initialProfile) {
+      setProfile(initialProfile);
     }
-  }, [initialProfile, trigger]);
+  }, [initialProfile, setProfile]);
 
   if (!profile) {
     return <Skeleton type='profile' />;

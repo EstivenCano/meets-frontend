@@ -20,6 +20,7 @@ import { coverImages } from "@/utils/constants/coverImages";
 import { updateUserProfile } from "@/services/user.service";
 import { useRouterLocale } from "@/hooks/useRouter";
 import { useTranslation } from "@/app/i18n/client";
+import { useSWRConfig } from "swr";
 
 interface UpdateProfileFormProps {
   profile: Profile;
@@ -34,6 +35,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
   const router = useRouterLocale();
   const { user } = userStore();
   const addAlert = alertStore((state) => state.addAlert);
+  const { mutate } = useSWRConfig();
   const { trigger, isMutating } = useSWRMutation(
     user ? `/users/${user.id}/profile` : null,
     updateUserProfile
@@ -56,6 +58,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
             message: t("success"),
             status: response.status,
           });
+          mutate(`/users/${user?.id}/profile`);
           router.refresh();
         }
       })
