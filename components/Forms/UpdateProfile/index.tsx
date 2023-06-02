@@ -13,14 +13,15 @@ import { alertStore } from "@/stores/useAlert.store";
 import { match } from "ts-pattern";
 import { userStore } from "@/stores/useUser.store";
 import { Profile } from "@/model/Profile";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { RadioImage } from "../../Display/RadioImage";
-import { avatarImages } from "@/utils/constants/avatarImages";
+import { avatarImages, avatarSets } from "@/utils/constants/avatarImages";
 import { coverImages } from "@/utils/constants/coverImages";
 import { updateUserProfile } from "@/services/user.service";
 import { useRouterLocale } from "@/hooks/useRouter";
 import { useTranslation } from "@/app/i18n/client";
 import { useSWRConfig } from "swr";
+import { Select } from "@/components/Inputs/Select";
 
 interface UpdateProfileFormProps {
   profile: Profile;
@@ -32,6 +33,9 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
   closeForm,
 }) => {
   const { t } = useTranslation("profile");
+  const [avatarSet, setAvatarSet] = useState(
+    profile?.picture?.split("/")[4] || avatarSets[0].value
+  );
   const router = useRouterLocale();
   const { user } = userStore();
   const addAlert = alertStore((state) => state.addAlert);
@@ -71,6 +75,10 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
       });
   };
 
+  const handleChangeSet = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAvatarSet(e.target.value);
+  };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -91,7 +99,15 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
       />
       <fieldset className='flex flex-wrap gap-x-2 gap-y-2 py-2 max-w-lg'>
         <legend>{t("selectAvatar")}:</legend>
-        {avatarImages.map((avatar) => (
+        <span className='w-full pb-2'>
+          <Select
+            label='Avatar set'
+            options={avatarSets}
+            defaultValue={avatarSet}
+            onChange={handleChangeSet}
+          />
+        </span>
+        {avatarImages(avatarSet).map((avatar) => (
           <RadioImage
             key={avatar}
             src={avatar}
@@ -115,7 +131,16 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
         {formErrors.cover?.message}
       </fieldset>
       <div className='flex gap-x-4'>
-        <Button color='red' size='auto' type='reset' loading={isMutating}>
+        <Button
+          color='red'
+          size='auto'
+          type='reset'
+          onClick={() => {
+            setAvatarSet(
+              profile?.picture?.split("/")[4] || avatarSets[0].value
+            );
+          }}
+          loading={isMutating}>
           {t("reset")}
         </Button>
         <Button color='green' size='auto' type='submit' loading={isMutating}>

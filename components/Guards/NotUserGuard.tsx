@@ -2,7 +2,6 @@
 
 import useIsMounted from "@/hooks/useIsMounted";
 import { userStore } from "@/stores/useUser.store";
-import { redirect } from "next/navigation";
 import { FC, useEffect } from "react";
 import { match } from "ts-pattern";
 import dynamic from "next/dynamic";

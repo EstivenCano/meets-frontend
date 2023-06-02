@@ -7,5 +7,6 @@
     "send": "Enviar",
     "writeYourMessage": "Escribe tu mesaje aquí...",
     "noChatSelected": "No has seleccionado un chat",
-    "noChatMessage": "Por favor, selecciona un chat o empieza una nueva conversación con un usuario que sigas."
+    "noChatMessage": "Por favor, selecciona un chat o empieza una nueva conversación con un usuario que sigas.",
+    "noUsersToChat": "No hay usuarios a los que sigas, con los que puedas iniciar un chat."
 }

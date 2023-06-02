@@ -69,6 +69,9 @@ export const FollowingList: FC<FollowingListProps> = ({ refresh }) => {
       <span className='flex p-4 bg-gray-500/10'>
         <h2>{t("peopleYouFollow")}</h2>
       </span>
+      {followingList?.length === 0 && (
+        <p className='text-sm px-4 py-2 font-bold'>{t("noUsersToChat")}</p>
+      )}
       <ul className='relative max-h-full overflow-y-auto'>
         {match(isLoading)
           .with(true, () => (

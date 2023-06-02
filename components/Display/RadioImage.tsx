@@ -48,7 +48,7 @@ export const RadioImage = forwardRef<
     );
 
   return (
-    <div ref={ref} className={`relative flex ${shapeClass}`}>
+    <div ref={ref} className={`relative flex select-none ${shapeClass}`}>
       <input
         ref={inputRef}
         type='radio'
@@ -72,7 +72,7 @@ export const RadioImage = forwardRef<
         style={{
           objectFit: "cover",
         }}
-        blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(100, 100)}`}
+        blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(50, 50)}`}
         className={`p-1 cursor-pointer active:scale-95 ${sizeClass} ${shapeClass}`}
       />
     </div>
