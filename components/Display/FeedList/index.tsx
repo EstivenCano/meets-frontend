@@ -12,6 +12,7 @@ import { userStore } from "@/stores/useUser.store";
 import { NoFeed } from "./NoFeed";
 import { LoadingFeed } from "./LoadingFeed";
 import { useTranslation } from "@/app/i18n/client";
+import useEffectOnce from "@/hooks/useEfffectOnce";
 
 interface PostListProps {
   initialFeed?: Feed[];
@@ -66,7 +67,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
     }
   }, [initialFeed, setFeed]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     let timer = setTimeout(() => {
       if (!initialFeed) {
         loadMoreFeed();
@@ -76,7 +77,7 @@ const FeedList: FC<PostListProps> = ({ initialFeed, byAuthor }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [initialFeed, loadMoreFeed]);
+  });
 
   return (
     <div className='flex flex-col w-full gap-y-6 overflow-y-auto overflow-x-hidden'>

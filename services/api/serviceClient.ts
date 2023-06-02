@@ -41,16 +41,24 @@ export async function get(
   headers?: Headers,
   options?: RequestOptions
 ) {
+  const timeout = 8000;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
   try {
     const request = async () => {
       return await fetch(baseUrl + url, {
         method: "GET",
         headers: await getHeaders(headers),
+        signal: controller.signal,
         ...options,
       });
     };
 
     const response = await handleRequest(request);
+
+    clearTimeout(id);
 
     if (!response.ok) {
       const error: ServerError = await response.json();
@@ -72,17 +80,25 @@ export async function post(
   headers?: Headers,
   options?: RequestOptions
 ) {
+  const timeout = 8000;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
   try {
     const request = async () => {
       return await fetch(baseUrl + url, {
         method: "POST",
         headers: await getHeaders(headers),
         body: JSON.stringify(body),
+        signal: controller.signal,
         ...options,
       });
     };
 
     const response = await handleRequest(request);
+
+    clearTimeout(id);
 
     if (!response.ok) {
       const error: ServerError = await response.json();
@@ -104,13 +120,25 @@ export async function put(
   headers?: Headers,
   options?: RequestOptions
 ) {
+  const timeout = 8000;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
   try {
-    const response = await fetch(baseUrl + url, {
-      method: "PUT",
-      headers: await getHeaders(headers),
-      body: JSON.stringify(body),
-      ...options,
-    });
+    const request = async () => {
+      return await fetch(baseUrl + url, {
+        method: "PUT",
+        headers: await getHeaders(headers),
+        body: JSON.stringify(body),
+        signal: controller.signal,
+        ...options,
+      });
+    };
+
+    const response = await handleRequest(request);
+
+    clearTimeout(id);
 
     if (!response.ok) {
       const error = await response.json();
@@ -132,13 +160,26 @@ export async function remove(
   headers?: Headers,
   options?: RequestOptions
 ) {
+  const timeout = 8000;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
   try {
-    const response = await fetch(baseUrl + url, {
-      method: "DELETE",
-      body: JSON.stringify(body),
-      headers: await getHeaders(headers),
-      ...options,
-    });
+    const request = async () => {
+      return await fetch(baseUrl + url, {
+        method: "DELETE",
+        body: JSON.stringify(body),
+        headers: await getHeaders(headers),
+        signal: controller.signal,
+        ...options,
+      });
+    };
+
+    const response = await handleRequest(request);
+
+    clearTimeout(id);
+
     if (!response.ok) {
       const error = await response.json();
       throw new ServiceError(error.error, error.statusCode, error.message);

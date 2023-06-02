@@ -1,6 +1,6 @@
 export type UpdateUserProfileRequest = {
-  bio: string;
+  bio?: string;
   name: string;
-  cover: string;
-  picture: string;
+  cover?: string;
+  picture?: string;
 };
