@@ -132,7 +132,7 @@ const NewPostForm = () => {
                 {...register("publish")}
               />
             </fieldset>
-            <span className='flex w-full justify-end gap-x-2 overflow-visible'>
+            <span className='flex w-full justify-end gap-x-2 p-1'>
               <Button color='red' size='sm' type='reset' loading={savingDraft}>
                 {t("discard")}
               </Button>

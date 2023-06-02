@@ -1,13 +1,18 @@
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 
 export const populateCookieTokens = async () => {
   if (typeof window !== "undefined" && window.localStorage) {
-    const access = getCookie("access_token")?.toString();
-    const refresh = getCookie("refresh_token")?.toString();
+    const accessCookie = getCookie("access_token")?.toString();
+    const refreshCookie = getCookie("refresh_token")?.toString();
+    const accessLocal = window.localStorage.getItem("access_token");
+    const refreshLocal = window.localStorage.getItem("refresh_token");
 
-    if (access && refresh) {
-      window.localStorage.setItem("access_token", access);
-      window.localStorage.setItem("refresh_token", refresh);
+    if (accessCookie && refreshCookie) {
+      window.localStorage.setItem("access_token", accessCookie);
+      window.localStorage.setItem("refresh_token", refreshCookie);
+    } else if (accessLocal && refreshLocal) {
+      setCookie("access_token", accessLocal);
+      setCookie("refresh_token", refreshLocal);
     }
   }
 };

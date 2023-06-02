@@ -61,7 +61,6 @@ export const getFirstFeed = async (accessToken?: string, byAuthor?: number) => {
       },
       {
         Authorization: `Bearer ${accessToken}`,
-        cache: "no-store",
       }
     );
     return {
