@@ -19,6 +19,7 @@ export const avatarImages = (set: string = "adventurer-neutral") => [
   `https://api.dicebear.com/6.x/${set}/svg?seed=Pumpkin`,
   `https://api.dicebear.com/6.x/${set}/svg?seed=Snuggles`,
   `https://api.dicebear.com/6.x/${set}/svg?seed=Gracie`,
+  `https://api.dicebear.com/6.x/${set}/svg?seed=Callie`,
 ];
 
 export const avatarSets = [

@@ -17,13 +17,13 @@ export const Select: FC<
       <select
         name={name}
         id={name}
-        className='rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-text dark:bg-gray-300/10 dark:border-violet-500/40'
+        className='py-2 px-2 text-auto w-full rounded-md border-2 border-violet-600 hover:border-violet-400 focus:outline-none focus:border-violet-400 text-text dark:bg-gray-300/10 dark:border-violet-500/40'
         {...props}>
         {options.map((option) => (
           <option
             key={option.value}
             value={option.value}
-            className='text-text bg-background'>
+            className='text-text bg-background checked:bg-violet-600 hover:bg-violet-500'>
             {option.label}
           </option>
         ))}

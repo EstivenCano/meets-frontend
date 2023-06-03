@@ -21,19 +21,19 @@ const TitleSection = async ({ lng }: { lng: string }) => {
       <LoadingBar />
       <div className='flex-row gap-x-4 md:gap-x-8 gap-y-4 py-28 flex flex-wrap justify-center px-2'>
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=38'
-          alt='Profile picture of user 38'
+          src='https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Mia'
+          alt='Profile picture of user 1'
           size='lg'
         />
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=24'
-          alt='Profile picture of user 24'
+          src='https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Mimi'
+          alt='Profile picture of user 2'
           size='lg'
           state='online'
         />
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=11'
-          alt='Profile picture of user 11'
+          src='https://api.dicebear.com/6.x/shapes/svg?seed=Harley'
+          alt='Profile picture of user 3'
           size='lg'
         />
       </div>

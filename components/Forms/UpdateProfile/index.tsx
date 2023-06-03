@@ -97,7 +97,7 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
         error={formErrors.bio?.message}
         {...register("bio")}
       />
-      <fieldset className='flex flex-wrap gap-x-2 gap-y-2 py-2 max-w-lg'>
+      <fieldset className='flex flex-wrap justify-center gap-x-2 gap-y-2 py-2 max-w-lg'>
         <legend>{t("selectAvatar")}:</legend>
         <span className='w-full pb-2'>
           <Select
