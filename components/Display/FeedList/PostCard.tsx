@@ -59,7 +59,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
       </span>
       <p className='text-sm py-2'>{post.content}</p>
       <hr className='border-violet-500 w-full' />
-      <div className='flex items-center gap-x-4 justify-end md:justify-between w-full'>
+      <div className='flex items-center gap-x-4 justify-end w-full'>
         <span className='flex items-center gap-x-2'>
           <LikeForm
             id={post.id}

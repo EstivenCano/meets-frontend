@@ -4,6 +4,7 @@ import { FC, useEffect, useMemo } from "react";
 import { userStore } from "@/stores/useUser.store";
 import { User } from "@/model/User";
 import { populateCookieTokens } from "@/utils/populateCookieTokens";
+import useEffectOnce from "@/hooks/useEfffectOnce";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -17,9 +18,9 @@ const AuthProvider: FC<AuthProviderProps> = ({
   const initialUser = useMemo(() => serverUser, [serverUser]);
   const { setUser } = userStore();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     populateCookieTokens();
-  }, []);
+  });
 
   useEffect(() => {
     if (initialUser) {

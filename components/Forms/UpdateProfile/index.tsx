@@ -101,9 +101,10 @@ const UpdateProfileForm: FC<UpdateProfileFormProps> = ({
         <legend>{t("selectAvatar")}:</legend>
         <span className='w-full pb-2'>
           <Select
-            label='Avatar set'
+            name='Avatar collection'
+            label='avatar set'
             options={avatarSets}
-            defaultValue={avatarSet}
+            value={avatarSet}
             onChange={handleChangeSet}
           />
         </span>

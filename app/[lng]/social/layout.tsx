@@ -9,7 +9,7 @@ export const metadata = {
 const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"));
 const AppBar = dynamic(() => import("@/components/Surfaces/AppBar"));
 
-export default async function FeedLayout({
+export default async function SocialLayout({
   children,
 }: {
   children: React.ReactNode;

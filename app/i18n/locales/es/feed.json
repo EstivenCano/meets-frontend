@@ -1,5 +1,7 @@
 {
     "welcome": "Bienvenido a",
-    "noFeed": "No tenemos noticias para ti por ahora, Sigue algunas personas para ver sus publicaciones aqui o crea una publicación tu mismo, y ¡Empecemos!",
-    "noMorePost": "No hay más publicaciones para mostrar"
+    "noFeed": "No tenemos publicaciones para ti por ahora, Sigue algunas personas para ver sus publicaciones aqui o crea una publicación tu mismo, y ¡Empecemos!",
+    "noMorePost": "No hay más publicaciones para mostrar",
+    "feed": "Inicio",
+    "news": "Noticias"
 }
