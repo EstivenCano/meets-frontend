@@ -30,7 +30,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
   };
 
   return (
-    <div className='max-h-72 flex flex-col items-start justify-center w-full bg-background p-4 max-w-6xl rounded-xl shadow-sm shadow-gray-400 dark:shadow-gray-600 gap-y-2'>
+    <div className='flex flex-col items-start justify-center w-full bg-background p-4 max-w-6xl rounded-xl shadow-sm shadow-gray-400 dark:shadow-gray-600 gap-y-2'>
       <span className='relative flex items-center gap-x-2 w-full'>
         <ProfileImage
           size='xxs'
@@ -57,7 +57,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
       <span className='mt-4'>
         <h2 className='text-md font-bold'>{post.title}</h2>
       </span>
-      <p className='text-sm py-2'>{post.content}</p>
+      <p className='text-sm py-2 break-all'>{post.content}</p>
       <hr className='border-violet-500 w-full' />
       <div className='flex items-center gap-x-4 justify-end w-full'>
         <span className='flex items-center gap-x-2'>
