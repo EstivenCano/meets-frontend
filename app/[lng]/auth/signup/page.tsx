@@ -6,7 +6,7 @@ import { AuthGoogle } from "@/components/Forms/AuthGoogle";
 import { MeetsTitle } from "@/components/Display/MeetsTitle";
 
 const SignupForm = dynamic(() => import("@/components/Forms/SignupForm"), {
-  loading: () => <Skeleton type='form' numberOfFields={4} className='w-72' />,
+  loading: () => <Skeleton type='form' numberOfFields={5} className='w-72' />,
 });
 
 const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"), {

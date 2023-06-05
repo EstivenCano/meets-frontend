@@ -8,7 +8,7 @@ import Skeleton from "@/components/Feedback/Skeleton";
 import { AuthGoogle } from "@/components/Forms/AuthGoogle";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
-  loading: () => <Skeleton type='form' numberOfFields={2} className='w-72' />,
+  loading: () => <Skeleton type='form' numberOfFields={3} className='w-72' />,
 });
 
 const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"), {

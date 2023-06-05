@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 const RequestResetPasswordForm = dynamic(
   () => import("@/components/Forms/RequestResetPasswordForm"),
   {
-    loading: () => <Skeleton type='form' numberOfFields={1} />,
+    loading: () => <Skeleton type='form' numberOfFields={2} className='w-72' />,
   }
 );
 
@@ -22,7 +22,7 @@ export default async function RequestResetPassword({
     <div className='flex flex-col items-center justify-center space-y-4 px-20 py-10'>
       <h2 className='text-lg font-semibold'>{t("title")}</h2>
       <RequestResetPasswordForm />
-      <p className='text-lg font-semibold py-5'>
+      <p className='text-lg font-semibold py-5 text-center'>
         {t("noAccount")} <Link href='/auth/signup'>{t("signUp")}</Link>
       </p>
       <Link href='/'>
