@@ -33,6 +33,8 @@ const ProfileMenu = () => {
     <nav
       ref={ref}
       className='relative z-10'
+      onMouseEnter={handleOpenMenu}
+      onMouseLeave={handleCloseMenu}
       onKeyDown={handleKeyDown}
       onFocus={handleOpenMenu}
       onBlur={handleCloseMenu}>
