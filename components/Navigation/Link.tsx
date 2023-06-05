@@ -22,7 +22,7 @@ export const Link: FC<LinkProps & NextLinkProps> = ({
   return (
     <NextLink
       href={`/${lng}${href}`}
-      className={`text-violet-500 hover:underline hover:text-violet-400 ${className}}`}
+      className={`text-violet-600 dark:text-violet-400 hover:underline hover:text-violet-500 ${className}}`}
       {...props}>
       {children}
     </NextLink>

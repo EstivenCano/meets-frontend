@@ -6,8 +6,6 @@ import { Close } from "@/public/icons";
 import useLockedBody from "@/hooks/useLockedBody";
 import { useTranslation } from "@/app/i18n/client";
 
-const modalEl = document.getElementById("modal-root") as HTMLElement;
-
 interface ModalProps {
   className?: string;
   children: React.ReactNode;
@@ -23,6 +21,7 @@ export const Modal: FC<ModalProps> = ({
   title,
   open,
 }) => {
+  const modalEl = document.getElementById("modal-root") as HTMLElement;
   const { t } = useTranslation("common");
   const [_, setLocked] = useLockedBody(open, "modal-root");
 
