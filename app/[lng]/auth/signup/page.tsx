@@ -12,7 +12,7 @@ const SignupForm = dynamic(() => import("@/components/Forms/SignupForm"), {
 const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"), {
   loading: () => (
     <div className='h-full w-full flex flex-col items-center justify-center gap-1'>
-      <MeetsTitle size='md' />
+      <MeetsTitle size='md' className='animate-pulse' />
     </div>
   ),
   ssr: false,

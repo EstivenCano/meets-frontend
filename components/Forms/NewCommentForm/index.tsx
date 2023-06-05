@@ -54,7 +54,7 @@ const NewCommentForm: FC<NewCommentFormProps> = ({ id }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex border-t-2 border-gray-500/30 mt-auto flex-col items-center justify-center space-y-4 w-full p-4'>
+      className='flex border-t-2 border-gray-500/30 mt-auto flex-col items-center justify-center space-y-4 w-full px-4 pt-4 pb-1'>
       <TextArea
         inputSize='sm'
         rows={5}
