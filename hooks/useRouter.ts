@@ -19,12 +19,14 @@ export const useRouterLocale = () => {
 
     push(path: string) {
       const route = `/${lng}${path.replace(`/${lng}`, "")}`;
+      if (route === pathname) return;
       setLoadingRoute(true);
       router.push(route);
     }
 
     replace(path: string) {
       const route = `/${lng}${path.replace(`/${lng}`, "")}`;
+      if (route === pathname) return;
       setLoadingRoute(true);
       router.replace(route);
     }
