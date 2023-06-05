@@ -1,20 +1,32 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { routerStore } from "@/stores/useRouter.store";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const useRouterLocale = () => {
   const router = useRouter();
+  const { setLoadingRoute } = routerStore();
   const { lng } = useParams();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setLoadingRoute(false);
+  }, [pathname, setLoadingRoute]);
 
   class NewRouter {
     constructor() {}
 
     push(path: string) {
-      router.push(`/${lng}${path.replace(`/${lng}`, "")}`);
+      const route = `/${lng}${path.replace(`/${lng}`, "")}`;
+      setLoadingRoute(true);
+      router.push(route);
     }
 
     replace(path: string) {
-      router.replace(`/${lng}${path.replace(`/${lng}`, "")}`);
+      const route = `/${lng}${path.replace(`/${lng}`, "")}`;
+      setLoadingRoute(true);
+      router.replace(route);
     }
 
     refresh() {
