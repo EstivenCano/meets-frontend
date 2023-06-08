@@ -24,7 +24,7 @@ export default async function ResetPassword({
   if (!isValidLink) {
     return (
       <div className='flex flex-col space-y-4 justify-center items-center'>
-        <h2>{t("invalidLink")}</h2>
+        <h2 className='text-center'>{t("invalidLink")}</h2>
         <div className='flex items-center space-x-4'>
           <div className='w-20 h-0.5 bg-violet-600' />
           <p className='text-lg font-semibold'>{t("or")}</p>

@@ -6,7 +6,6 @@ const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     domains: [
-      "i.pravatar.cc",
       "api.dicebear.com",
       "res.cloudinary.com",
       "lh3.googleusercontent.com",

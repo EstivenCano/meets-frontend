@@ -41,7 +41,7 @@ export async function get(
   headers?: Headers,
   options?: RequestOptions
 ) {
-  const timeout = 8000;
+  const timeout = 9000;
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -80,7 +80,7 @@ export async function post(
   headers?: Headers,
   options?: RequestOptions
 ) {
-  const timeout = 8000;
+  const timeout = 9000;
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -120,7 +120,7 @@ export async function put(
   headers?: Headers,
   options?: RequestOptions
 ) {
-  const timeout = 8000;
+  const timeout = 9000;
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -160,7 +160,7 @@ export async function remove(
   headers?: Headers,
   options?: RequestOptions
 ) {
-  const timeout = 8000;
+  const timeout = 9000;
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);

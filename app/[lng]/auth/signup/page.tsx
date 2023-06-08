@@ -3,11 +3,20 @@ import dynamic from "next/dynamic";
 import { useTranslation } from "@/app/i18n";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { AuthGoogle } from "@/components/Forms/AuthGoogle";
+import { MeetsTitle } from "@/components/Display/MeetsTitle";
 
 const SignupForm = dynamic(() => import("@/components/Forms/SignupForm"), {
-  loading: () => <Skeleton type='form' numberOfFields={4} className='w-72' />,
+  loading: () => <Skeleton type='form' numberOfFields={5} className='w-72' />,
 });
-const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"));
+
+const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"), {
+  loading: () => (
+    <div className='h-full w-full flex flex-col items-center justify-center gap-1'>
+      <MeetsTitle size='md' className='animate-pulse' />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default async function Signup({
   params: { lng },

@@ -3,13 +3,21 @@ import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import { LoadingBar } from "@/components/Feedback/LoadingBar";
 import dynamic from "next/dynamic";
 import { Link } from "@/components/Navigation/Link";
-import NotUserGuard from "@/components/Guards/NotUserGuard";
 import { useTranslation } from "../i18n";
 import Skeleton from "@/components/Feedback/Skeleton";
 import { AuthGoogle } from "@/components/Forms/AuthGoogle";
 
 const LoginForm = dynamic(() => import("@/components/Forms/LoginForm"), {
-  loading: () => <Skeleton type='form' numberOfFields={2} className='w-72' />,
+  loading: () => <Skeleton type='form' numberOfFields={3} className='w-72' />,
+});
+
+const NotUserGuard = dynamic(() => import("@/components/Guards/NotUserGuard"), {
+  loading: () => (
+    <div className='h-full w-full flex flex-col items-center justify-center gap-1'>
+      <MeetsTitle size='md' className='animate-pulse' />
+    </div>
+  ),
+  ssr: false,
 });
 
 const TitleSection = async ({ lng }: { lng: string }) => {
@@ -21,20 +29,23 @@ const TitleSection = async ({ lng }: { lng: string }) => {
       <LoadingBar />
       <div className='flex-row gap-x-4 md:gap-x-8 gap-y-4 py-28 flex flex-wrap justify-center px-2'>
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=38'
-          alt='Profile picture of user 38'
+          src='https://api.dicebear.com/6.x/adventurer-neutral/svg?seed=Mia'
+          alt='Profile picture of user 1'
           size='lg'
+          className='animate-[bounce_4s_ease-in-out_infinite_0s] translate-y-[-25%]'
         />
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=24'
-          alt='Profile picture of user 24'
+          src='https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Mimi'
+          alt='Profile picture of user 2'
           size='lg'
           state='online'
+          className='animate-[bounce_4s_ease-in-out_infinite_0.5s] translate-y-[-25%]'
         />
         <ProfileImage
-          src='https://i.pravatar.cc/280?img=11'
-          alt='Profile picture of user 11'
+          src='https://api.dicebear.com/6.x/shapes/svg?seed=Harley'
+          alt='Profile picture of user 3'
           size='lg'
+          className='animate-[bounce_4s_ease-in-out_infinite_1s] translate-y-[-25%]'
         />
       </div>
       <p className={`text-lg font-semibold space-x-6`}>

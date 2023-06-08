@@ -77,6 +77,7 @@ const NewPostForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
+      onFocus={handleOpen}
       onReset={onReset}
       className='flex flex-col items-center justify-center w-full bg-background p-4 max-w-6xl rounded-xl shadow-sm shadow-gray-400 dark:shadow-gray-600'>
       <span className='flex w-full justify-between items-start gap-x-2'>
@@ -132,7 +133,7 @@ const NewPostForm = () => {
                 {...register("publish")}
               />
             </fieldset>
-            <span className='flex w-full justify-end gap-x-2 overflow-visible'>
+            <span className='flex w-full justify-end gap-x-2 p-1'>
               <Button color='red' size='sm' type='reset' loading={savingDraft}>
                 {t("discard")}
               </Button>

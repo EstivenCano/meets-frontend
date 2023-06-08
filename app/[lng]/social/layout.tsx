@@ -1,3 +1,4 @@
+import { MeetsTitle } from "@/components/Display/MeetsTitle";
 import dynamic from "next/dynamic";
 
 export const metadata = {
@@ -6,10 +7,17 @@ export const metadata = {
     "Social media platform to share your thoughts and ideas with the world.",
 };
 
-const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"));
+const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"), {
+  loading: () => (
+    <div className='h-full w-full flex flex-col items-center justify-center gap-1'>
+      <MeetsTitle size='md' className='animate-pulse' />
+    </div>
+  ),
+  ssr: false,
+});
 const AppBar = dynamic(() => import("@/components/Surfaces/AppBar"));
 
-export default async function FeedLayout({
+export default async function SocialLayout({
   children,
 }: {
   children: React.ReactNode;

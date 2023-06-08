@@ -97,12 +97,12 @@ export const Messages = () => {
     <section
       id='messages-container'
       onScroll={(e) => handleAutoScroll(e.currentTarget.scrollTop)}
-      className='flex relative text-white flex-col-reverse w-full gap-y-2 h-full overflow-y-auto p-4'>
+      className='flex relative text-white flex-col-reverse w-full gap-y-2 h-full overflow-y-auto overflow-x-hidden p-4'>
       {messages.map((message) => (
         <div
           id={message.createdAt}
           key={message.createdAt}
-          className={`relative max-w-md px-3 p-2 rounded-md ${messageClass(
+          className={`relative max-w-xs md:max-w-md break-words px-3 p-2 rounded-md ${messageClass(
             message.authorId === Number(user?.id)
           )}`}>
           <div

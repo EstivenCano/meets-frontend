@@ -48,7 +48,7 @@ export const RadioImage = forwardRef<
     );
 
   return (
-    <div ref={ref} className={`relative ${shapeClass}`}>
+    <div ref={ref} className={`relative flex select-none ${shapeClass}`}>
       <input
         ref={inputRef}
         type='radio'
@@ -64,12 +64,16 @@ export const RadioImage = forwardRef<
         src={src}
         onClick={() => inputRef.current?.click()}
         alt={name}
-        sizes='100vw'
-        width={40}
-        height={40}
+        fill
+        width={0}
+        height={0}
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         placeholder='blur'
-        blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(100, 100)}`}
-        className={`absolute inset-0 p-1 cursor-pointer active:scale-90 $ ${sizeClass} ${shapeClass}`}
+        style={{
+          objectFit: "cover",
+        }}
+        blurDataURL={`data:image/svg+xml;base64,${shimmerToBase64(50, 50)}`}
+        className={`p-1 cursor-pointer active:scale-95 ${sizeClass} ${shapeClass}`}
       />
     </div>
   );
