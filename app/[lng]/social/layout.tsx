@@ -9,7 +9,7 @@ export const metadata = {
 
 const AuthGuard = dynamic(() => import("@/components/Guards/AuthGuard"), {
   loading: () => (
-    <div className='h-full w-full flex flex-col items-center justify-center gap-1'>
+    <div className='h-full z-50 w-full flex flex-col items-center justify-center gap-1'>
       <MeetsTitle size='md' className='animate-pulse' />
     </div>
   ),

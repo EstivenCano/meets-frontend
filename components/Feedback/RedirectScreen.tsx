@@ -1,6 +1,5 @@
 import { useTranslation } from "@/app/i18n";
 import { Loading } from "@/public/icons";
-import { FC } from "react";
 
 interface RedirectScreenProps {
   lng: string;

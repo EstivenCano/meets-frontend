@@ -12,7 +12,6 @@ import { useParams } from "next/navigation";
 
 const LikeForm = dynamic(() => import("../../Forms/LikeForm"));
 const DeleteForm = dynamic(() => import("../../Forms/DeletePostForm"));
-const FollowForm = dynamic(() => import("../../Forms/FollowForm"));
 const Likes = dynamic(() => import("../Likes"));
 const Comments = dynamic(() => import("../Comments"));
 
@@ -47,12 +46,7 @@ export const PostCard: FC<PostCardProps> = ({ post, userId }) => {
         </span>
         {match(post.authorId === Number(userId))
           .with(true, () => <DeleteForm id={post.id} />)
-          .otherwise(() => (
-            <FollowForm
-              id={String(post.authorId)}
-              className='ml-auto self-center'
-            />
-          ))}
+          .otherwise(() => null)}
       </span>
       <span className='mt-4'>
         <h2 className='text-md font-bold'>{post.title}</h2>
